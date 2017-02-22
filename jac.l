@@ -8,6 +8,10 @@
 	*/
 	int output = 0;
 %}
+DECLIT	0|[1-9](_+[0-9]|[0-9])*
+/* STRLIT talvez precise de "\\b" | "\\'" | "\\"" */
+STRLIT	"\\t"|"\\n"|"\\r"|"\\f"|"\\\\"|"\\"
+
 %%
 "boolean"	{if(output) printf("BOOL\n");}
 "true"|"false"	{if(output) printf("BOOLLIT\n");}
@@ -49,7 +53,7 @@
 ";"		{if(output) printf("SEMI\n");}
 ","		{if(output) printf("COMMA\n");}
 "abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"		{if(output) printf("RESERVED\n");}
-
+.		{if(output) printf("Line linha, col col: illegal character ()\n");}
 
 %%
 int main(int argc, char* argv[])
