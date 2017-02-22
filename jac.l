@@ -1,11 +1,16 @@
-% COMMENTS
+%X COMMENT
+%X ERROR
 %{
 	//podem faltar includes
-	bool output = false;
+	/*
+		output=0 nao imprime
+		output=1 imprime	
+	*/
+	int output = 0;
 %}
 %%
 "boolean"	{if(output) printf("BOOL\n");}
-"true"|"false	{if(output) printf("BOOLLIT\n");}
+"true"|"false"	{if(output) printf("BOOLLIT\n");}
 "class"		{if(output) printf("CLASS\n");}
 "do"		{if(output) printf("DO\n");}
 ".length"	{if(output) printf("DOTLENGTH\n");}
@@ -43,7 +48,7 @@
 "="		{if(output) printf("ASSIGN\n");}
 ";"		{if(output) printf("SEMI\n");}
 ","		{if(output) printf("COMMA\n");}
-"abstract" | "assert" | "byte" | "case" | "catch" | "char" | "const" | "continue" | "default" | "double" | "enum" | "extends" | "final" | "finally" | "float" | "for" | "goto" | "implements" | "import" | "instanceof" | "interface" | "long" | "native" | "new" |  "package" | "private" | "protected" | "short" | "strictfp" | "super" | "switch" | "synchronized" | "this" | "throws" | "throw" | "transient" | "try" | "volatile" | "++" | "--" | "null"		{if(output) printf("RESERVED\n");}
+"abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"		{if(output) printf("RESERVED\n");}
 
 
 %%
@@ -51,10 +56,10 @@ int main(int argc, char* argv[])
 {
 	if(argc>1)
 	{
-
+		{/*caso a flag seja -l ou -1 nao deve imprimir os tokens*/}
 		if(strcmp(argv[1],"-l") == 0 || strcmp(argv[1],"-1") == 0)
 		{
-			output = true;
+			output = 1 ;
 		}
 
 	}
