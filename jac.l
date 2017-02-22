@@ -59,8 +59,8 @@ STRLIT "\\b"|"\\'"|"\\""
 "\t"		{;}
 "\r"		{;}
 "\f"		{;}
-" "		{;}
-
+" "		    {;}
+{ID} {printf("ID(%s)\n",yytext)}
 {STRLIT}	{printf("Line <num linha>, col <num coluna>: invalid escape sequence (<s>)\n");}
 
 .		{printf("Line <num linha>, col <num coluna>: illegal character (<s>)\n");}
