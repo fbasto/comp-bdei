@@ -48,7 +48,11 @@
 "="		{if(output) printf("ASSIGN\n");}
 ";"		{if(output) printf("SEMI\n");}
 ","		{if(output) printf("COMMA\n");}
-"abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"		{if(output) printf("RESERVED\n");}
+"abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{if(output) printf("RESERVED\n");}
+
+
+"/*" {BEGIN COMMENT}
+
 
 
 %%
