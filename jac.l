@@ -61,8 +61,8 @@ UNDEFESCAPES 	\"\\b\"|\"\\'\"|\"\\"\"
 "\t"		{;}
 "\r"		{;}
 "\f"		{;}
-" "		{;}
-
+" "		    {;}
+{ID} {printf("ID(%s)\n",yytext)}
 {UNDEFESCAPES}	{printf("Line <num linha>, col <num coluna>: invalid escape sequence (<s>)\n");}
 
 .		{printf("Line <num linha>, col <num coluna>: illegal character (<s>)\n");}
