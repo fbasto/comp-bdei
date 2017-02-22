@@ -8,9 +8,11 @@
 	*/
 	int output = 0;
 %}
-ID 	([a-z]|[A-Z]|_|"$")+([a-z]|[A-Z]|_|"$"|[0-9])*
-DECLIT	0|[1-9](_+[0-9]|[0-9])*
-STRLIT "\\b"|"\\'"|"\\""
+ID 		([a-z]|[A-Z]|\_|\$)+([a-z]|[A-Z]|\_|\$|[0-9])*
+DECLIT		0|[1-9](\_+[0-9]|[0-9])*
+STRLIT		\"([^\n\\]*)\"
+UNDEFESCAPES 	\"\\b\"|\"\\'\"|\"\\"\"
+
 {/* STRLIT	"\\t"|"\\n"|"\\r"|"\\f"|"\\\\"|"\\" */}
 
 %%
@@ -61,7 +63,7 @@ STRLIT "\\b"|"\\'"|"\\""
 "\f"		{;}
 " "		{;}
 
-{STRLIT}	{printf("Line <num linha>, col <num coluna>: invalid escape sequence (<s>)\n");}
+{UNDEFESCAPES}	{printf("Line <num linha>, col <num coluna>: invalid escape sequence (<s>)\n");}
 
 .		{printf("Line <num linha>, col <num coluna>: illegal character (<s>)\n");}
 
