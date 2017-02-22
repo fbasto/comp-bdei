@@ -8,9 +8,10 @@
 	*/
 	int output = 0;
 %}
+ID 	([a-z]|[A-Z]|_|"$")+([a-z]|[A-Z]|_|"$"|[0-9])*
 DECLIT	0|[1-9](_+[0-9]|[0-9])*
-{/* STRLIT talvez precise de "\\b" | "\\'" | "\\""*/}
-STRLIT	"\\t"|"\\n"|"\\r"|"\\f"|"\\\\"|"\\"
+STRLIT "\\b"|"\\'"|"\\""
+{/* STRLIT	"\\t"|"\\n"|"\\r"|"\\f"|"\\\\"|"\\" */}
 
 %%
 "boolean"	{if(output) printf("BOOL\n");}
@@ -54,7 +55,15 @@ STRLIT	"\\t"|"\\n"|"\\r"|"\\f"|"\\\\"|"\\"
 ","		{if(output) printf("COMMA\n");}
 "abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{if(output) printf("RESERVED\n");}
 
-.		{if(output) printf("Line linha, col col: illegal character ()\n");}
+"\n"		{;}
+"\t"		{;}
+"\r"		{;}
+"\f"		{;}
+" "		{;}
+
+{STRLIT}	{printf("Line <num linha>, col <num coluna>: invalid escape sequence (<s>)\n");}
+
+.		{printf("Line <num linha>, col <num coluna>: illegal character (<s>)\n");}
 
 %%
 int main(int argc, char* argv[])
