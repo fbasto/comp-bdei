@@ -5,3 +5,5 @@ class Echo {
 		System.out.println(x);
 	}
 }
+System
+Integer

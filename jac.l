@@ -11,9 +11,8 @@
 ID 		([a-z]|[A-Z]|\_|\$)+([a-z]|[A-Z]|\_|\$|[0-9])*
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
 STRLIT		\"([^\n\\]*)\"
+REALLIT		((([0-9]_+[0-9]|[0-9])+((\.)?([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))([e|E]([-+]?([0-9]_+[0-9]|[0-9])*))?
 UNDEFESCAPES 	\"\\b\"|\"\\'\"|\"\\"\"
-
-{/* STRLIT	"\\t"|"\\n"|"\\r"|"\\f"|"\\\\"|"\\" */}
 
 %%
 "boolean"	{if(output) printf("BOOL\n");}
@@ -62,11 +61,15 @@ UNDEFESCAPES 	\"\\b\"|\"\\'\"|\"\\"\"
 "\r"		{;}
 "\f"		{;}
 " "		    {;}
-{ID} {printf("ID(%s)\n",yytext)}
-{UNDEFESCAPES}	{printf("Line <num linha>, col <num coluna>: invalid escape sequence (<s>)\n");}
 
+{ID} 	{if(output)printf("ID(%s)\n",yytext);}
+
+{DECLIT}	{if(output)printf("DECLIT(%s)\n",yytext);}
 .		{printf("Line <num linha>, col <num coluna>: illegal character (<s>)\n");}
 
+
+
+"/*"	{BEGIN COMMENT;}
 %%
 int main(int argc, char* argv[])
 {
