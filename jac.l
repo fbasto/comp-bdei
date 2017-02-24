@@ -7,6 +7,8 @@
 		output=1 imprime	
 	*/
 	int output = 0;
+	int num_line = 0;
+	int num_col = 0;
 %}
 ID 		([a-z]|[A-Z]|\_|\$)+([a-z]|[A-Z]|\_|\$|[0-9])*
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
@@ -56,7 +58,7 @@ UNDEFESCAPES 	\"\\b\"|\"\\'\"|\"\\"\"
 ","		{if(output) printf("COMMA\n");}
 "abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{if(output) printf("RESERVED\n");}
 
-"\n"		{;}
+"\n"		{num_col=0;}
 "\t"		{;}
 "\r"		{;}
 "\f"		{;}
@@ -65,11 +67,15 @@ UNDEFESCAPES 	\"\\b\"|\"\\'\"|\"\\"\"
 {ID} 	{if(output)printf("ID(%s)\n",yytext);}
 
 {DECLIT}	{if(output)printf("DECLIT(%s)\n",yytext);}
-.		{printf("Line <num linha>, col <num coluna>: illegal character (<s>)\n");}
 
 
 
 "/*"	{BEGIN COMMENT;}
+"\n"	{num_col = 0;}
+"*/"	{BEGIN 0;printf("\n");}
+.		{;}
+
+.		{printf("Line <num linha>, col "%d": illegal character (<s>)\n",num_col-yyleng+1);}
 %%
 int main(int argc, char* argv[])
 {
