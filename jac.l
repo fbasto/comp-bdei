@@ -12,10 +12,10 @@
 %}
 ID 		([a-z]|[A-Z]|\_|\$)+([a-z]|[A-Z]|\_|\$|[0-9])*
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
-STRLIT		\"(([^\n\\]|{ESCAPE})*)\"
+ESCAPES		\"(\\n|\\t|\\r|\\f)\"
+UNDEFESCAPES 	"\\b"|"\\'"
+STRLIT		\"(([^\n\\]|{ESCAPES})*)\"
 REALLIT		((([0-9]_+[0-9]|[0-9])+((\.)?([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))([e|E]([-+]?([0-9]_+[0-9]|[0-9])*))?
-ESCAPES		\\n|\\t|\\r|\\f
-UNDEFESCAPES 	\\b|\\'
 
 
 %option yylineno
@@ -80,7 +80,7 @@ UNDEFESCAPES 	\\b|\\'
 <COMMENT>"\n"			{num_col = 0;}
 <COMMENT>"*/"			{BEGIN 0;printf("\n");}
 <COMMENT>.				{;}
-<COMMENT><<EOF>>		{printf("Line <num_linha>, col <num_col>:unterminated commen");}
+<COMMENT><<EOF>>		{printf("Line <num_linha>, col <num_col>: unterminated comment");}
 
 .		{printf("Line <num linha>, col: illegal character (%s)\n",yytext);}
 %%
