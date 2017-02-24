@@ -1,0 +1,17 @@
+Sample text for testing:
+11_ \\ False
+_11_0 \\ False
+1_00_ \\False
+10__ \\ False
+1_0_0_10_1_ \\ False
+
+10__1 \\ True
+0 \\ True
+100 \\ True
+11_10 \\ True
+11_00 \\ True
+10_00_0 \\ True
+1_00 \\ True
+1_00_1 \\ True
+10_00 \\ True
+10_01_0 \\ True
