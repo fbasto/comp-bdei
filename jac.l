@@ -58,14 +58,15 @@ UNDEFESCAPES 	\"\\b\"|\"\\'\"|\"\\"\"
 ","		{if(output) printf("COMMA\n");}
 "abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{if(output) printf("RESERVED\n");}
 
-"\n"		{num_col=0;}
-"\t"		{;}
-"\r"		{;}
-"\f"		{;}
-" "		    {;}
 
-{ID} 	{if(output)printf("ID(%s)\n",yytext);}
+"\\n"		{num_col=0;}
+"\\t"		{;}
+"\\r"		{;}
+"\\f"		{;}
+" "	    	{;}
 
+{ID}	 	{if(output)printf("ID(%s)\n",yytext);}
+{STRLIT}	{if(output)printf("STRLIT(%s)\n",yytext);}
 {DECLIT}	{if(output)printf("DECLIT(%s)\n",yytext);}
 
 
