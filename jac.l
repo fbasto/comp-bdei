@@ -16,6 +16,8 @@ STRLIT		\"([^\n\\]*)\"
 REALLIT		((([0-9]_+[0-9]|[0-9])+((\.)?([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))([e|E]([-+]?([0-9]_+[0-9]|[0-9])*))?
 UNDEFESCAPES 	\\b|\\'
 
+
+%option yylineno
 %%
 "boolean"	{if(output) printf("BOOL\n");}
 "true"|"false"	{if(output) printf("BOOLLIT\n");}
