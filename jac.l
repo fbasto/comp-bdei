@@ -75,9 +75,10 @@ UNDEFESCAPES 	\\b|\\'
 
 
 "/*"	{BEGIN COMMENT;}
-<COMMENT>"\n"	{num_col = 0;}
-<COMMENT>"*/"	{BEGIN 0;printf("\n");}
-<COMMENT>.		{;}
+<COMMENT>"\n"			{num_col = 0;}
+<COMMENT>"*/"			{BEGIN 0;printf("\n");}
+<COMMENT>.				{;}
+<COMMENT><<EOF>>		{printf("Line <num_linha>, col <num_col>:unterminated commen");}
 
 .		{printf("Line <num linha>, col: illegal character (%s)\n",yytext);}
 %%
