@@ -72,11 +72,11 @@ UNDEFESCAPES 	\"\\b\"|\"\\'\"|\"\\"\"
 
 
 "/*"	{BEGIN COMMENT;}
-"\n"	{num_col = 0;}
-"*/"	{BEGIN 0;printf("\n");}
-.		{;}
+<COMMENT>"\n"	{num_col = 0;}
+<COMMENT>"*/"	{BEGIN 0;printf("\n");}
+<COMMENT>.		{;}
 
-.		{printf("Line <num linha>, col "%d": illegal character (<s>)\n",num_col-yyleng+1);}
+.		{printf("Line <num linha>, col: illegal character (<s>)\n");}
 %%
 int main(int argc, char* argv[])
 {
