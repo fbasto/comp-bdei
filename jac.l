@@ -12,8 +12,9 @@
 %}
 ID 		([a-z]|[A-Z]|\_|\$)+([a-z]|[A-Z]|\_|\$|[0-9])*
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
-STRLIT		\"([^\n\\]*)\"
+STRLIT		\"(([^\n\\]|{ESCAPE})*)\"
 REALLIT		((([0-9]_+[0-9]|[0-9])+((\.)?([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))([e|E]([-+]?([0-9]_+[0-9]|[0-9])*))?
+ESCAPES		\\n|\\t|\\r|\\f
 UNDEFESCAPES 	\\b|\\'
 
 
@@ -70,6 +71,7 @@ UNDEFESCAPES 	\\b|\\'
 {ID}	 	{if(output)printf("ID(%s)\n",yytext);}
 {STRLIT}	{if(output)printf("STRLIT(%s)\n",yytext);}
 {DECLIT}		{if(output)printf("DECLIT(%s)\n",yytext);}
+{ESCAPES}	{;}
 {UNDEFESCAPES}	{printf("Line <num linha>, col <num coluna>: invalid escape sequence (%s)\n",yytext);}
 
 
