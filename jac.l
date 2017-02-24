@@ -56,14 +56,14 @@ UNDEFESCAPES 	\"\\b\"|\"\\'\"|\"\\"\"
 ","		{if(output) printf("COMMA\n");}
 "abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{if(output) printf("RESERVED\n");}
 
-"\n"		{;}
-"\t"		{;}
-"\r"		{;}
-"\f"		{;}
-" "		    {;}
+"\\n"		{;}
+"\\t"		{;}
+"\\r"		{;}
+"\\f"		{;}
+" "		{;}
 
-{ID} 	{if(output)printf("ID(%s)\n",yytext);}
-
+{ID}	 	{if(output)printf("ID(%s)\n",yytext);}
+{STRLIT}	{if(output)printf("STRLIT(%s)\n",yytext);}
 {DECLIT}	{if(output)printf("DECLIT(%s)\n",yytext);}
 .		{printf("Line <num linha>, col <num coluna>: illegal character (<s>)\n");}
 
