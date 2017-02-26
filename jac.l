@@ -74,12 +74,16 @@ REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 
 "//"	{BEGIN COMMENT2;}
 <COMMENT2>"\n"	{BEGIN 0;num_col=0;}
+<COMMENT2>"\r"	{BEGIN 0;num_col=0;}
+<COMMENT2>"\r\n" {BEGIN 0;num_col=0;}
 <COMMENT2>.		{;}
 
 "/*"	{BEGIN COMMENT1;}
 <COMMENT1>"*/"			{BEGIN 0;printf("\n");}
 <COMMENT1>"\n"			{num_col = 0;}
-<COMMENT1><<EOF>>		{printf("Line <num_linha>, col <num_col>: unterminated comment");}
+<COMMENT1>"\r"			{num_col=0;}
+<COMMENT1>"\r\n"		{num_col=0;}
+<COMMENT1><<EOF>>		{printf("Line <num_linha>, col <num_col>: unterminated comment");yyterminate();}
 <COMMENT1>.				{;}
 
 "\n"		{num_col=0;}
