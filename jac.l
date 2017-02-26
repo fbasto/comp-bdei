@@ -10,13 +10,14 @@
 	int num_line = 0;
 	int num_col = 0;
 %}
-ID 		([a-z]|[A-Z]|\_|\$)+([a-z]|[A-Z]|\_|\$|[0-9])*
+ID 		([a-z]|[A-Z]|"_"|"$")+([a-z]|[A-Z]|"_"|"$"|[0-9])*
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
-ESCAPES		\"(\\n|\\t|\\r|\\f)\"
+ESCAPES		\\n|\\t|\\r|\\f|\\\"|\\\\
 UNDEFESCAPES 	"\\b"|"\\'"
-STRLIT		"(([^\n\\]|{ESCAPES})*)"
-REALLIT		((([0-9]_+[0-9]|[0-9])+((\.)?([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))([e|E]([-+]?([0-9]_+[0-9]|[0-9])*))?
 
+STRLIT		"\""(([^"\\\n]|({ESCAPES}))*)"\""
+UNTSTRLIT	\"([^\"\n]|{ESCAPES})*
+REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))(["e"|"E"]([-+]?([0-9]_+[0-9]|[0-9])*))?)|(([0-9]_+[0-9]|[0-9])(["e"|"E"]([-+]?([0-9]_+[0-9]|[0-9])*)))
 
 %option yylineno
 %%
@@ -59,20 +60,22 @@ REALLIT		((([0-9]_+[0-9]|[0-9])+((\.)?([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 "="		{if(output) printf("ASSIGN\n");}
 ";"		{if(output) printf("SEMI\n");}
 ","		{if(output) printf("COMMA\n");}
-"abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{if(output) printf("RESERVED\n");}
+"abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{if(output) printf("RESERVED(%s)\n",yytext);}
 
 
-"\\n"		{num_col=0;}
-"\\t"		{;}
-"\\r"		{;}
-"\\f"		{;}
+"\n"		{num_col=0;}
+"\t"		{;}
+"\r"		{;}
+"\f"		{;}
 " "	    	{;}
 
 {ID}	 	{if(output)printf("ID(%s)\n",yytext);}
 {STRLIT}	{if(output)printf("STRLIT(%s)\n",yytext);}
-{DECLIT}		{if(output)printf("DECLIT(%s)\n",yytext);}
-{ESCAPES}	{;}
 {UNDEFESCAPES}	{printf("Line <num linha>, col <num coluna>: invalid escape sequence (%s)\n",yytext);}
+{UNTSTRLIT}	{if(output)printf("Line <num linha>, col <num coluna>: unterminated string literal (%s) \n",yytext);}
+{DECLIT}		{if(output)printf("DECLIT(%s)\n",yytext);}
+{REALLIT}		{if(output)printf("REALLIT(%s)\n",yytext);}
+{ESCAPES}	{;}
 
 "//"	{BEGIN COMMENT2;}
 <COMMENT2>"\n"	{BEGIN 0;num_col=0;}
