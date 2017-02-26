@@ -1,0 +1,15 @@
+// ++
+++
+RESERVED(++)
+// \n
+// \n ola   
+// \\n
+/*int void main*/
+/*
+void int ++ -- ;,lid
+//ola
+//++
+*/
+ola
+ID(ola)
+
