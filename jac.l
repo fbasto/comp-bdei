@@ -1,5 +1,5 @@
-%X COMMENT
-%X ERROR
+%X COMMENT1
+%X COMMENT2
 %{
 	//podem faltar includes
 	/*
@@ -14,7 +14,7 @@ ID 		([a-z]|[A-Z]|\_|\$)+([a-z]|[A-Z]|\_|\$|[0-9])*
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
 ESCAPES		\"(\\n|\\t|\\r|\\f)\"
 UNDEFESCAPES 	"\\b"|"\\'"
-STRLIT		\"(([^\n\\]|{ESCAPES})*)\"
+STRLIT		"(([^\n\\]|{ESCAPES})*)"
 REALLIT		((([0-9]_+[0-9]|[0-9])+((\.)?([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))([e|E]([-+]?([0-9]_+[0-9]|[0-9])*))?
 
 
@@ -74,13 +74,15 @@ REALLIT		((([0-9]_+[0-9]|[0-9])+((\.)?([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 {ESCAPES}	{;}
 {UNDEFESCAPES}	{printf("Line <num linha>, col <num coluna>: invalid escape sequence (%s)\n",yytext);}
 
+"//"	{BEGIN COMMENT2;}
+<COMMENT2>"\n"	{BEGIN 0;num_col=0;}
+<COMMENT2>.		{;}
 
-
-"/*"	{BEGIN COMMENT;}
-<COMMENT>"\n"			{num_col = 0;}
-<COMMENT>"*/"			{BEGIN 0;printf("\n");}
-<COMMENT>.				{;}
-<COMMENT><<EOF>>		{printf("Line <num_linha>, col <num_col>: unterminated comment");}
+"/*"	{BEGIN COMMENT1;}
+<COMMENT1>"\n"			{num_col = 0;}
+<COMMENT1>"*/"			{BEGIN 0;printf("\n");}
+<COMMENT1>.				{;}
+<COMMENT1><<EOF>>		{printf("Line <num_linha>, col <num_col>: unterminated comment");}
 
 .		{printf("Line <num linha>, col: illegal character (%s)\n",yytext);}
 %%
