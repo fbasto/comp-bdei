@@ -2,3 +2,4 @@
 *.swo
 *~
 lex.yy.c
+*.zip
