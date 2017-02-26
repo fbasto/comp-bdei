@@ -63,11 +63,6 @@ REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 "abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{if(output) printf("RESERVED(%s)\n",yytext);}
 
 
-"\n"		{num_col=0;}
-"\t"		{;}
-"\r"		{;}
-"\f"		{;}
-" "	    	{;}
 
 {ID}	 	{if(output)printf("ID(%s)\n",yytext);}
 {STRLIT}	{if(output)printf("STRLIT(%s)\n",yytext);}
@@ -82,12 +77,19 @@ REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 <COMMENT2>.		{;}
 
 "/*"	{BEGIN COMMENT1;}
-<COMMENT1>"\n"			{num_col = 0;}
 <COMMENT1>"*/"			{BEGIN 0;printf("\n");}
-<COMMENT1>.				{;}
+<COMMENT1>"\n"			{num_col = 0;}
 <COMMENT1><<EOF>>		{printf("Line <num_linha>, col <num_col>: unterminated comment");}
+<COMMENT1>.				{;}
 
+"\n"		{num_col=0;}
+"\t"		{;}
+"\r"		{;}
+"\f"		{;}
+" "	    	{;}
 .		{printf("Line <num linha>, col: illegal character (%s)\n",yytext);}
+
+
 %%
 int main(int argc, char* argv[])
 {
