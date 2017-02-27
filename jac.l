@@ -6,9 +6,10 @@
 		output=0 nao imprime
 		output=1 imprime	
 	*/
+	#define YY_USER_ACTION num_col += yyleng;
 	int output = 0;
 	int num_line = 0;
-	int num_col = 0;
+	int num_col = 1;
 %}
 ID 		([a-z]|[A-Z]|"_"|"$")+([a-z]|[A-Z]|"_"|"$"|[0-9])*
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
@@ -65,34 +66,34 @@ REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 
 
 
-{ID}	 	{if(output)printf("ID(%s)\n",yytext);}
+{ID}	 	{if(output)printf("ID(%s)%d %d\n",yytext,yylineno,num_col);}
 {STRLIT}	{if(output)printf("STRLIT(%s)\n",yytext);}
-{UNDEFESCAPES}	{printf("Line <num linha>, col <num coluna>: invalid escape sequence (%s)\n",yytext);}
-{UNTSTRLIT}	{if(output)printf("Line <num linha>, col <num coluna>: unterminated string literal (%s) \n",yytext);}
+{UNDEFESCAPES}	{printf("Line %d, col %d: invalid escape sequence (%s)\n",yylineno,num_col-yyleng,yytext);}
+{UNTSTRLIT}	{if(output)printf("Line %d, col %d: unterminated string literal\n",yylineno,num_col-yyleng);}
 {DECLIT}		{if(output)printf("DECLIT(%s)\n",yytext);}
 {REALLIT}		{if(output)printf("REALLIT(%s)\n",yytext);}
 {ESCAPES}	{;}
 
 "//"	{BEGIN COMMENT2;}
-<COMMENT2>"\n"	{BEGIN 0;num_col=0;}
-<COMMENT2>"\r"	{BEGIN 0;num_col=0;}
-<COMMENT2>"\r\n" {BEGIN 0;num_col=0;}
+<COMMENT2>"\n"	{BEGIN 0;num_col=1;}
+<COMMENT2>"\r"	{BEGIN 0;num_col=1;}
+<COMMENT2>"\r\n" {BEGIN 0;num_col=1;}
 <COMMENT2>.		{;}
 
 "/*"	{BEGIN COMMENT1;}
 <COMMENT1>"*/"			{BEGIN 0;printf("\n");}
-<COMMENT1>"\n"			{num_col = 0;}
-<COMMENT1>"\r"			{num_col=0;}
-<COMMENT1>"\r\n"		{num_col=0;}
-<COMMENT1><<EOF>>		{printf("Line <num_linha>, col <num_col>: unterminated comment");yyterminate();}
+<COMMENT1>"\n"			{num_col=1;}
+<COMMENT1>"\r"			{num_col=1;}
+<COMMENT1>"\r\n"		{num_col=1;}
+<COMMENT1><<EOF>>		{printf("Line %d, col %d: unterminated comment\n",yylineno,num_col-yyleng);yyterminate();}
 <COMMENT1>.				{;}
 
-"\n"		{num_col=0;}
+"\n"		{num_col=1;}
 "\t"		{;}
 "\r"		{;}
 "\f"		{;}
 " "	    	{;}
-.		{printf("Line <num linha>, col: illegal character (%s)\n",yytext);}
+.		{printf("Line %d, col %d: illegal character (%s)\n",yylineno,num_col-yyleng,yytext);}
 
 
 %%
