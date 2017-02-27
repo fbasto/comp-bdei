@@ -92,7 +92,8 @@ REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 
 "\n"		{num_col=1;}
 "\t"		{;}
-"\r"		{;}
+"\r"		{num_col=1;}
+"\r\n"		{num_col=1;}
 "\f"		{;}
 " "	    	{;}
 .		{printf("Line %d, col %d: illegal character (%s)\n",yylineno,(int)(num_col-yyleng),yytext);}
