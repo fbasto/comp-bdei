@@ -12,6 +12,7 @@
 	int comm_line;
 	int comm_col;
 %}
+numbers ([0-9]_+[0-9]|[0-9])
 ID 		([a-z]|[A-Z]|"_"|"$")+([a-z]|[A-Z]|"_"|"$"|[0-9])*
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
 ESCAPES		\\n|\\t|\\r|\\f|\\\"|\\\\
@@ -81,7 +82,7 @@ REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 <COMMENT2>.		{num_col=num_col+yyleng;}
 
 "/*"	{BEGIN COMMENT1;num_col=num_col+yyleng;comm_line = num_line; comm_col = (int)(num_col-yyleng);}
-<COMMENT1>"*/"			{BEGIN 0;}
+<COMMENT1>"*/"			{num_col=num_col+yyleng;BEGIN 0;}
 <COMMENT1>"\n"			{num_col=1;num_line++;}
 <COMMENT1>"\r"			{num_col=1;num_line++;}
 <COMMENT1>"\r\n"		{num_col=1;num_line++;}
@@ -93,7 +94,7 @@ REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 "\r"		{num_col=1;num_line++;}
 "\r\n"		{num_col=1;num_line++;}
 "\f"		{num_col=num_col+yyleng;}
-" "	    	{num_col=num_col+yyleng;}
+" "	    	{num_col=num_col+1;}
 .		{num_col=num_col+yyleng;printf("Line %d, col %d: illegal character (%s)\n",num_line,(int)(num_col-yyleng),yytext);}
 
 
