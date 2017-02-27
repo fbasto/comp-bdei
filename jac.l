@@ -22,9 +22,10 @@ REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 %option yylineno
 %%
 "boolean"	{if(output) printf("BOOL\n");}
-"true"|"false"	{if(output) printf("BOOLLIT\n");}
+"true"|"false"	{if(output) printf("BOOLLIT(%s)\n",yytext);}
 "class"		{if(output) printf("CLASS\n");}
 "do"		{if(output) printf("DO\n");}
+"double"	{if(output) printf("DOUBLE\n");}
 ".length"	{if(output) printf("DOTLENGTH\n");}
 "else"		{if(output) printf("ELSE\n");}
 "if"		{if(output) printf("IF\n");}
@@ -60,7 +61,7 @@ REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 "="		{if(output) printf("ASSIGN\n");}
 ";"		{if(output) printf("SEMI\n");}
 ","		{if(output) printf("COMMA\n");}
-"abstract"|"assert"|"byte"|"case"|"catch"|"char"|"const"|"continue"|"default"|"double"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{if(output) printf("RESERVED(%s)\n",yytext);}
+"abstract"|"assert"|"byte"|"break"|"case"|"catch"|"char"|"const"|"continue"|"default"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{if(output) printf("RESERVED(%s)\n",yytext);}
 
 
 
