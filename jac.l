@@ -12,7 +12,9 @@
 	int comm_line;
 	int comm_col;
 %}
-numbers ([0-9]_+[0-9]|[0-9])
+NUMBERS 	[0-9]_+[0-9]|[0-9]
+EXPONENTIAL	["e"|"E"][-+]?
+
 ID 		([a-z]|[A-Z]|"_"|"$")+([a-z]|[A-Z]|"_"|"$"|[0-9])*
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
 ESCAPES		\\n|\\t|\\r|\\f|\\\"|\\\\
@@ -20,7 +22,8 @@ UNDEFESCAPES 	"\\b"|"\\'"
 
 STRLIT		"\""(([^"\\\n]|({ESCAPES}))*)"\""
 UNTSTRLIT	\"([^\"\n]|{ESCAPES})*
-REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))(["e"|"E"]([-+]?([0-9]_+[0-9]|[0-9])*))?)|(([0-9]_+[0-9]|[0-9])*(["e"|"E"]([-+]?([0-9]_+[0-9]|[0-9])*)))
+REALLIT		(((NUMBERS)
+REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))((EXPONENTIAL)(NUMBERS*))?)|((NUMBERS)*((EXPONENTIAL)(NUMBERS*)))
 
 %%
 "boolean"	{num_col=num_col+yyleng;if(output) printf("BOOL\n");}
