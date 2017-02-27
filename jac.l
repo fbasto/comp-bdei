@@ -20,7 +20,7 @@ UNDEFESCAPES 	"\\b"|"\\'"
 
 STRLIT		"\""(([^"\\\n]|({ESCAPES}))*)"\""
 UNTSTRLIT	\"([^\"\n]|{ESCAPES})*
-REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))(["e"|"E"]([-+]?([0-9]_+[0-9]|[0-9])*))?)|(([0-9]_+[0-9]|[0-9])(["e"|"E"]([-+]?([0-9]_+[0-9]|[0-9])*)))
+REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]|[0-9])+))(["e"|"E"]([-+]?([0-9]_+[0-9]|[0-9])*))?)|(([0-9]_+[0-9]|[0-9])*(["e"|"E"]([-+]?([0-9]_+[0-9]|[0-9])*)))
 
 %option yylineno
 %%
@@ -72,31 +72,31 @@ REALLIT		(((([0-9]_+[0-9]|[0-9])+((\.)([0-9]_+[0-9]|[0-9])*))|((\.)([0-9]_+[0-9]
 {STRLIT}	{if(output)printf("STRLIT(%s)\n",yytext);}
 {UNDEFESCAPES}	{printf("Line %d, col %d: invalid escape sequence (%s)\n",yylineno,(int)(num_col-yyleng),yytext);}
 {UNTSTRLIT}	{if(output)printf("Line %d, col %d: unterminated string literal\n",yylineno,(int)(num_col-yyleng));}
-{DECLIT}		{if(output)printf("DECLIT(%s)\n",yytext);}
 {REALLIT}		{if(output)printf("REALLIT(%s)\n",yytext);}
+{DECLIT}		{if(output)printf("DECLIT(%s)\n",yytext);}
 {ESCAPES}	{;}
 
 "//"	{BEGIN COMMENT2;}
-<COMMENT2>"\n"	{BEGIN 0;num_col=1;}
-<COMMENT2>"\r"	{BEGIN 0;num_col=1;}
-<COMMENT2>"\r\n" {BEGIN 0;num_col=1;}
-<COMMENT2>.		{;}
+<COMMENT2>"\n"	{BEGIN 0;num_col=1;num_line++;}
+<COMMENT2>"\r"	{BEGIN 0;num_col=1;num_line++;}
+<COMMENT2>"\r\n" {BEGIN 0;num_col=1;num_line++;}
+<COMMENT2>.		{num_col=num_col+yyleng;}
 
 "/*"	{BEGIN COMMENT1; comm_line = yylineno; comm_col = (int)(num_col-yyleng);}
 <COMMENT1>"*/"			{BEGIN 0;}
-<COMMENT1>"\n"			{num_col=1;}
-<COMMENT1>"\r"			{num_col=1;}
-<COMMENT1>"\r\n"		{num_col=1;}
+<COMMENT1>"\n"			{num_col=1;num_line++;}
+<COMMENT1>"\r"			{num_col=1;num_line++;}
+<COMMENT1>"\r\n"		{num_col=1;num_line++;}
 <COMMENT1><<EOF>>		{printf("Line %d, col %d: unterminated comment\n",comm_line,comm_col);yyterminate();}
-<COMMENT1>.				{;}
+<COMMENT1>.				{num_col=num_col+yyleng;}
 
-"\n"		{num_col=1;}
-"\t"		{;}
-"\r"		{num_col=1;}
-"\r\n"		{num_col=1;}
-"\f"		{;}
-" "	    	{;}
-.		{printf("Line %d, col %d: illegal character (%s)\n",yylineno,(int)(num_col-yyleng),yytext);}
+"\n"		{num_col=1;num_line++;}
+"\t"		{num_col=num_col+yyleng;}
+"\r"		{num_col=1;num_line++;}
+"\r\n"		{num_col=1;num_line++;}
+"\f"		{num_col=num_col+yyleng;}
+" "	    	{num_col=num_col+yyleng;}
+.		{num_col=num_col+yyleng;printf("Line %d, col %d: illegal character (%s)\n",yylineno,(int)(num_col-yyleng),yytext);}
 
 
 %%
