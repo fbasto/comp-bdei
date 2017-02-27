@@ -19,11 +19,9 @@
 
 _1.0   //false
 1._    //false 
-1.e3   //false
 1_.11  //false
 1._1e3 //false
 1.1e_1 //false
 .e3    //false
 1e 	 //false 
-1e10   //false
 e+10   //false
