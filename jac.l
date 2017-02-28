@@ -16,7 +16,7 @@
 ID 		([a-z]|[A-Z]|"_"|"$")+([a-z]|[A-Z]|"_"|"$"|[0-9])*
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
 ESCAPES		\\n|\\t|\\r|\\f|\\\"|\\\\
-UNDEFESCAPES 	"\\b"|"\\'"|"\\0"
+UNDEFESCAPES 	"\\b"|"\\'"|"\\"([0-7])
 
 STRLIT		"\""(([^"\\\n]|({ESCAPES}))*)"\""
 UNTSTRLIT	\"([^\"\n]|{ESCAPES})*
