@@ -23,7 +23,7 @@ UNDEFESCAPES 	\\b|\\'|\\|\\([0-7])
 
 RLINEBREAKERS	(\\r)+\\n
 
-STRLIT		"\""(([^"\\\n]|({ESCAPES}))*)"\""
+STRLIT		(([^"\\\n]|({ESCAPES}))*)
 
 UNTSTRLIT	\"([^\"\n]|{UNDEFESCAPES})*
 
