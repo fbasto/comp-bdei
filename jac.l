@@ -71,7 +71,7 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 
 {ID}	 	{num_col=num_col+yyleng;if(output)printf("ID(%s)\n",yytext);}
 {STRLIT}	{num_col=num_col+yyleng;if(output)printf("STRLIT(%s)\n",yytext);}
-{UNTSTRLIT}	{num_col=num_col+yyleng;if(output)printf("Line %d, col %d: unterminated string literal\n",num_line,(int)(num_col-yyleng));}
+{UNTSTRLIT}	{num_col=num_col+yyleng;printf("Line %d, col %d: unterminated string literal\n",num_line,(int)(num_col-yyleng));}
 {UNDEFESCAPES}	{num_col=num_col+yyleng;printf("Line %d, col %d: invalid escape sequence (%s)\n",num_line,(int)(num_col-yyleng),yytext);}
 {REALLIT}		{num_col=num_col+yyleng;if(output)printf("REALLIT(%s)\n",yytext);}
 {DECLIT}		{num_col=num_col+yyleng;if(output)printf("DECLIT(%s)\n",yytext);}
@@ -81,7 +81,7 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 <COMMENT2>"\n"	{BEGIN 0;num_col=1;num_line++;}
 <COMMENT2>"\r"	{BEGIN 0;num_col=1;num_line++;}
 <COMMENT2>"\r\n" {BEGIN 0;num_col=1;num_line++;}
-<COMMENT2>RLINEBREAKERS		{num_col=1;num_line++;}
+<COMMENT2>{RLINEBREAKERS}		{BEGIN 0;num_col=1;num_line++;}
 <COMMENT2><<EOF>>		{printf("Line %d, col %d: unterminated comment\n",comm_line,comm_col);yyterminate();}
 <COMMENT2>.		{num_col=num_col+yyleng;}
 
@@ -90,7 +90,7 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 <COMMENT1>"\n"			{num_col=1;num_line++;}
 <COMMENT1>"\r"			{num_col=1;num_line++;}
 <COMMENT1>"\r\n"		{num_col=1;num_line++;}
-<COMMENT1>RLINEBREAKERS		{num_col=1;num_line++;}
+<COMMENT1>{RLINEBREAKERS}		{num_col=1;num_line++;}
 <COMMENT1><<EOF>>		{printf("Line %d, col %d: unterminated comment\n",comm_line,comm_col);yyterminate();}
 <COMMENT1>.				{num_col=num_col+yyleng;}
 
