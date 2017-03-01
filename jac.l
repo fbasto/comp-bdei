@@ -75,8 +75,8 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 
 "\""	{BEGIN STR;num_col=num_col+yyleng;aux_line = num_line; aux_col = (int)(num_col-yyleng);}
 <STR>"\""	{BEGIN 0;num_col=num_col+yyleng;}
-<STR><<EOF>>	{num_col=num_col+yyleng;printf("Line %d, col %d: unterminated string literal\n",aux_line,aux_col);}
 <STR>"\n"|"\r"|"\r\n"	{BEGIN 0;num_col=num_col+yyleng;num_line++;printf("Line %d, col %d: unterminated string literal\n",aux_line,aux_col);num_col=1;}
+<STR><<EOF>>	{num_col=num_col+yyleng;printf("Line %d, col %d: unterminated string literal\n",aux_line,aux_col);}
 <STR>{UNDEFESCAPES}		{num_col=num_col+yyleng;printf("Line %d, col %d: invalid escape sequence (%s)\n",num_line,(int)(num_col-yyleng),yytext);}
 <STR>.		{num_col=num_col+yyleng;}
 
@@ -100,6 +100,7 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 "\t"		{num_col=num_col+yyleng;}
 "\r"		{num_col=1;num_line++;}
 "\f"		{num_col=num_col+yyleng;}
+"\\"		{num_col=num_col+yyleng;num_line++;}
 " "	    	{num_col=num_col+1;}
 .		{num_col=num_col+yyleng;printf("Line %d, col %d: illegal character (%s)\n",num_line,(int)(num_col-yyleng),yytext);}
 
