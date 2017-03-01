@@ -19,7 +19,7 @@ DECLIT		0|[1-9](\_+[0-9]|[0-9])*
 ESCAPES		\\n|\\t|\\r|\\f|\\\"|\\\\
 UNDEFESCAPES 	\\[^ntrf\"\\]
 
-STRLIT		"\""(([^"\\\n]|({ESCAPES}))*)"\""
+STRLIT		"\""(([^"\\\n\r]|({ESCAPES}))*)"\""
 REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))|([0-9]+(([0-9]|_)*[0-9])*)|(["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))?)|((\.)([0-9]+(([0-9]|_)*[0-9])*)((["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))?)|(([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?([0-9]+(([0-9]|_)*[0-9])*)))
 
 %%
@@ -75,7 +75,7 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 
 "\""	{BEGIN STR;num_col=num_col+yyleng;aux_line = num_line; aux_col = (int)(num_col-yyleng);}
 <STR>"\""	{BEGIN 0;num_col=num_col+yyleng;}
-<STR>\\\n|\\\r|\\\r\\\n	{BEGIN 0;num_col=num_col+yyleng;num_line++;printf("Line %d, col %d: invalid escape sequence (\\)\n",num_line,(int)(num_col-yyleng));printf("Line %d, col %d: unterminated string literal\n",aux_line,aux_col);num_col=1;}
+<STR>\\\n|\\\r|\\\r\\\n|	{BEGIN 0;num_col=num_col+yyleng;num_line++;printf("Line %d, col %d: invalid escape sequence (\\)\n",num_line,(int)(num_col-yyleng));printf("Line %d, col %d: unterminated string literal\n",aux_line,aux_col);num_col=1;}
 <STR><<EOF>>	{num_col=num_col+yyleng;printf("Line %d, col %d: unterminated string literal\n",aux_line,aux_col);yyterminate();}
 <STR>{UNDEFESCAPES}		{num_col=num_col+yyleng;printf("Line %d, col %d: invalid escape sequence (%s)\n",num_line,(int)(num_col-yyleng),yytext);}
 <STR>.		{num_col=num_col+yyleng;}
@@ -88,9 +88,9 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 
 "/*"	{BEGIN COMMENT1;num_col=num_col+yyleng;aux_line = num_line; aux_col = (int)(num_col-yyleng);}
 <COMMENT1>"*/"			{num_col=num_col+yyleng;BEGIN 0;}
-<COMMENT1>"\n"			{num_col=1;num_line++;}
-<COMMENT1>"\r"			{num_col=1;num_line++;}
-<COMMENT1>"\r\n"		{num_col=1;num_line++;}
+<COMMENT1>\n			{num_col=1;num_line++;}
+<COMMENT1>\r			{num_col=1;num_line++;}
+<COMMENT1>\r\n		{num_col=1;num_line++;}
 <COMMENT1><<EOF>>		{printf("Line %d, col %d: unterminated comment\n",aux_line,aux_col);yyterminate();}
 <COMMENT1>.				{num_col=num_col+yyleng;}
 
