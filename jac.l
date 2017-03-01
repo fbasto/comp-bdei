@@ -10,27 +10,17 @@
 	int output = 0;
 	int num_line = 1;
 	int num_col = 1;
-	int comm_line;
-	int comm_col;
+	int aux_line;
+	int aux_col;
 %}
 
 ID 		([a-z]|[A-Z]|"_"|"$")+([a-z]|[A-Z]|"_"|"$"|[0-9])*
-
 DECLIT		0|[1-9](\_+[0-9]|[0-9])*
-
 ESCAPES		\\n|\\t|\\r|\\f|\\\"|\\\\
+UNDEFESCAPES 	\\[^ntrf\"\\]
 
-UNDEFESCAPES 	"\\b"|"\\'"|"\\"([0-7])
-
-
-STRLIT		(([^"\\\n\\]|({ESCAPES}))*)
-
-UNTSTRLIT	([^(\\n|\\t|\\r|\\f|\\\"|\\\\)])*
-
+STRLIT		"\""(([^"\\\n]|({ESCAPES}))*)"\""
 REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))|([0-9]+(([0-9]|_)*[0-9])*)|(["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))?)|((\.)([0-9]+(([0-9]|_)*[0-9])*)((["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))?)|(([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?([0-9]+(([0-9]|_)*[0-9])*)))
-
-
-
 
 %%
 "boolean"	{num_col=num_col+yyleng;if(output) printf("BOOL\n");}
@@ -76,42 +66,39 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 "abstract"|"assert"|"byte"|"break"|"case"|"catch"|"char"|"const"|"continue"|"default"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{num_col=num_col+yyleng;if(output) printf("RESERVED(%s)\n",yytext);}
 
 
+
 {ID}	 	{num_col=num_col+yyleng;if(output)printf("ID(%s)\n",yytext);}
-{UNDEFESCAPES}	{num_col=num_col+yyleng;printf("Line %d, col %d: invalid escape sequence (%s)\n",num_line,(int)(num_col-yyleng),yytext);}
-{UNTSTRLIT}	{num_col=num_col+yyleng;printf("Line %d, col %d: unterminated string literal\n",num_line,(int)(num_col-yyleng));}
+{STRLIT}	{num_col=num_col+yyleng;if(output)printf("STRLIT(%s)\n",yytext);}
 {REALLIT}		{num_col=num_col+yyleng;if(output)printf("REALLIT(%s)\n",yytext);}
 {DECLIT}		{num_col=num_col+yyleng;if(output)printf("DECLIT(%s)\n",yytext);}
-{ESCAPES}	{num_col=num_col+yyleng;;}
+{ESCAPES}	{num_col=num_col+yyleng;}
 
-
-
-"\""	{BEGIN STR;num_col=num_col+yyleng;}
-<STR>"\""	{BEGIN 0;num_col=num_col+yyleng;if(output)printf("STRLIT(%s)\n",yytext);}
-<STR><<EOF>>	{BEGIN 0;num_col=num_col+yyleng;printf("Line %d, col %d: unterminated string literal\n",num_line,(int)(num_col-yyleng));}
+"\""	{BEGIN STR;num_col=num_col+yyleng;aux_line = num_line; aux_col = (int)(num_col-yyleng);}
+<STR>"\""	{BEGIN 0;num_col=num_col+yyleng;}
+<STR><<EOF>>	{num_col=num_col+yyleng;printf("Line %d, col %d: unterminated string literal\n",aux_line,aux_col);}
+<STR>"\n"|"\r"|"\r\n"	{BEGIN 0;num_col=num_col+yyleng;num_line++;printf("Line %d, col %d: unterminated string literal\n",aux_line,aux_col);num_col=1;}
 <STR>{UNDEFESCAPES}		{num_col=num_col+yyleng;printf("Line %d, col %d: invalid escape sequence (%s)\n",num_line,(int)(num_col-yyleng),yytext);}
 <STR>.		{num_col=num_col+yyleng;}
-
 
 "//"	{BEGIN COMMENT2;num_col=num_col+yyleng;}
 <COMMENT2>"\n"	{BEGIN 0;num_col=1;num_line++;}
 <COMMENT2>"\r"	{BEGIN 0;num_col=1;num_line++;}
 <COMMENT2>"\r\n" {BEGIN 0;num_col=1;num_line++;}
 <COMMENT2>.		{num_col=num_col+yyleng;}
-<COMMENT2><<EOF>>		{printf("Line %d, col %d: unterminated comment\n",comm_line,comm_col);yyterminate();}
 
-"/*"	{BEGIN COMMENT1;num_col=num_col+yyleng;comm_line = num_line; comm_col = (int)(num_col-yyleng);}
+"/*"	{BEGIN COMMENT1;num_col=num_col+yyleng;aux_line = num_line; aux_col = (int)(num_col-yyleng);}
 <COMMENT1>"*/"			{num_col=num_col+yyleng;BEGIN 0;}
 <COMMENT1>"\n"			{num_col=1;num_line++;}
 <COMMENT1>"\r"			{num_col=1;num_line++;}
 <COMMENT1>"\r\n"		{num_col=1;num_line++;}
+<COMMENT1><<EOF>>		{printf("Line %d, col %d: unterminated comment\n",aux_line,aux_col);yyterminate();}
 <COMMENT1>.				{num_col=num_col+yyleng;}
-<COMMENT1><<EOF>>		{printf("Line %d, col %d: unterminated comment\n",comm_line,comm_col);yyterminate();}
 
 
+"\r\n"		{num_col=1;num_line++;}
 "\n"		{num_col=1;num_line++;}
 "\t"		{num_col=num_col+yyleng;}
 "\r"		{num_col=1;num_line++;}
-"\r\n"		{num_col=1;num_line++;}
 "\f"		{num_col=num_col+yyleng;}
 " "	    	{num_col=num_col+1;}
 .		{num_col=num_col+yyleng;printf("Line %d, col %d: illegal character (%s)\n",num_line,(int)(num_col-yyleng),yytext);}
@@ -137,3 +124,4 @@ int yywrap()
 {
 	return 1;
 }
+
