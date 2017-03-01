@@ -3,7 +3,10 @@
 "a\z
 "a\n"
 "a\n
+aaa
 "a\zz
 "a
+a
 "a\
+b
 "a\n
