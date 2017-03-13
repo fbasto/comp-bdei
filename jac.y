@@ -64,20 +64,20 @@
 %%
 
 Program: CLASS ID OBRACE SubProgram CBRACE
-SubProgram: (FieldDecl | MethodDecl | SEMI) SubProgram | %empty
+SubProgram: SubProgram FieldDecl | SubProgram MethodDecl | SubProgram SEMI | %empty
 
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI
-SubFieldDecl: COMMA ID SubFieldDecl | %empty
+SubFieldDecl: SubFieldDecl COMMA ID | %empty
 
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody
 
 MethodBody: OBRACE SubMethodBody CBRACE
-SubMethodBody: ( VarDecl | Statement ) SubMethodBody | %empty
+SubMethodBody: SubMethodBody VarDecl | SubMethodBody Statement | %empty
 
 
 FormalParams: Type ID SubFormalParams
     | STRING OSQUARE CSQUARE ID
-SubFormalParams: COMMA Type ID SubFormalParams | %empty
+SubFormalParams: SubFormalParams COMMA Type ID | %empty
 
 VarDecl: Type ID SubVarDecl SEMI
 SubVarDecl: COMMA ID SubVarDecl | %empty
@@ -88,19 +88,20 @@ Statement: OBRACE MultipleStatements CBRACE
     | IF OCURV Expr CCURV Statement OptElseStatement
     | WHILE OCURV Expr CCURV Statement
     | DO Statement WHILE OCURV Expr CCURV SEMI
-    | PRINT OCURV ( Expr | STRLIT ) CCURV SEMI
+    | PRINT OCURV ExprStrlit CCURV SEMI
     | OptAMIPA SEMI
     | RETURN OptExpr SEMI
 MultipleStatements: Statement MultipleStatements | %empty
 OptElseStatement: ELSE Statement | %empty
-OptAMIPA: ( Assignment | MethodInvocation | ParseArgs ) | %empty
+ExprStrlit: Expr | STRLIT
+OptAMIPA: Assignment | MethodInvocation | ParseArgs | %empty
 OptExpr: Expr | %empty
 
 Assignment: ID ASSIGN Expr
 
 MethodInvocation: ID OCURV OptExprCommaExprs CCURV
-MultipleCommaExpr: (COMMA Expr)MultipleCommaExpr | %empty
-OptExprCommaExprs: Expr MultipleCommaExpr | %empty
+MultipleCommaExpr: MultipleCommaExpr COMMA Expr | %empty
+OptExprCommaExprs: MultipleCommaExpr Expr | %empty
 
 ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
 
