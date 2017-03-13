@@ -1,5 +1,6 @@
 %{
     #include <stdio.h>
+    #include "y.tab.h"
     int yylex(void);
     void yyerror (const char *s);
 	int flag=1;
@@ -115,6 +116,8 @@ Expr: Assignment | MethodInvocation | ParseArgs
 calc: calc expression NEWLINE                        {printf("%d\n", $2);}
 	| {;}
 	;
+
+Expr: '+' 
 
 expression: expression '+' expression   {$$=$1+$3;}
     |   expression '-' expression       {$$=$1-$3;}

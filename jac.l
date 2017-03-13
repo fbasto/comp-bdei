@@ -24,54 +24,54 @@ STRLIT		"\""(([^"\\\n\r]|({ESCAPES}))*)"\""
 REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))|([0-9]+(([0-9]|_)*[0-9])*)|(["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))?)|((\.)([0-9]+(([0-9]|_)*[0-9])*)((["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))?)|(([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?([0-9]+(([0-9]|_)*[0-9])*)))
 
 %%
-"boolean"	{num_col=num_col+yyleng;if(output) printf("BOOL\n");}
-"true"|"false"	{num_col=num_col+yyleng;if(output) printf("BOOLLIT(%s)\n",yytext);}
-"class"		{num_col=num_col+yyleng;if(output) printf("CLASS\n");}
-"do"		{num_col=num_col+yyleng;if(output) printf("DO\n");}
-"double"	{num_col=num_col+yyleng;if(output) printf("DOUBLE\n");}
-".length"	{num_col=num_col+yyleng;if(output) printf("DOTLENGTH\n");}
-"else"		{num_col=num_col+yyleng;if(output) printf("ELSE\n");}
-"if"		{num_col=num_col+yyleng;if(output) printf("IF\n");}
-"int"		{num_col=num_col+yyleng;if(output) printf("INT\n");}
-"Integer.parseInt"	{num_col=num_col+yyleng;if(output) printf("PARSEINT\n");}
-"System.out.println"	{num_col=num_col+yyleng;if(output) printf("PRINT\n");}
-"public"	{num_col=num_col+yyleng;if(output) printf("PUBLIC\n");}
-"return"	{num_col=num_col+yyleng;if(output) printf("RETURN\n");}
-"static"	{num_col=num_col+yyleng;if(output) printf("STATIC\n");}
-"String"	{num_col=num_col+yyleng;if(output) printf("STRING\n");}
-"void"		{num_col=num_col+yyleng;if(output) printf("VOID\n");}
-"while"		{num_col=num_col+yyleng;if(output) printf("WHILE\n");}
-"("		{num_col=num_col+yyleng;if(output) printf("OCURV\n");}
-")"		{num_col=num_col+yyleng;if(output) printf("CCURV\n");}
-"{"		{num_col=num_col+yyleng;if(output) printf("OBRACE\n");}
-"}"		{num_col=num_col+yyleng;if(output) printf("CBRACE\n");}
-"["		{num_col=num_col+yyleng;if(output) printf("OSQUARE\n");}
-"]"		{num_col=num_col+yyleng;if(output) printf("CSQUARE\n");}
-"&&"		{num_col=num_col+yyleng;if(output) printf("AND\n");}
-"||"		{num_col=num_col+yyleng;if(output) printf("OR\n");}
-"<"		{num_col=num_col+yyleng;if(output) printf("LT\n");}
-">"		{num_col=num_col+yyleng;if(output) printf("GT\n");}	
-"=="		{num_col=num_col+yyleng;if(output) printf("EQ\n");}
-"!="		{num_col=num_col+yyleng;if(output) printf("NEQ\n");}
-"<="		{num_col=num_col+yyleng;if(output) printf("LEQ\n");}
-">="		{num_col=num_col+yyleng;if(output) printf("GEQ\n");}
-"+"		{num_col=num_col+yyleng;if(output) printf("PLUS\n");}
-"-"		{num_col=num_col+yyleng;if(output) printf("MINUS\n");}
-"*"		{num_col=num_col+yyleng;if(output) printf("STAR\n");}
-"/"		{num_col=num_col+yyleng;if(output) printf("DIV\n");}
-"%"		{num_col=num_col+yyleng;if(output) printf("MOD\n");}
-"!"		{num_col=num_col+yyleng;if(output) printf("NOT\n");}
-"="		{num_col=num_col+yyleng;if(output) printf("ASSIGN\n");}
-";"		{num_col=num_col+yyleng;if(output) printf("SEMI\n");}
-","		{num_col=num_col+yyleng;if(output) printf("COMMA\n");}
-"abstract"|"assert"|"byte"|"break"|"case"|"catch"|"char"|"const"|"continue"|"default"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{num_col=num_col+yyleng;if(output) printf("RESERVED(%s)\n",yytext);}
+"boolean"	{num_col=num_col+yyleng;if(output) printf("BOOL\n"); return BOOL;}
+"true"|"false"	{num_col=num_col+yyleng;if(output) printf("BOOLLIT(%s)\n",yytext); return BOOLLIT;}
+"class"		{num_col=num_col+yyleng;if(output) printf("CLASS\n"); return CLASS;}
+"do"		{num_col=num_col+yyleng;if(output) printf("DO\n"); return DO;}
+"double"	{num_col=num_col+yyleng;if(output) printf("DOUBLE\n"); return DOUBLE;}
+".length"	{num_col=num_col+yyleng;if(output) printf("DOTLENGTH\n"); return DOTLENGTH;}
+"else"		{num_col=num_col+yyleng;if(output) printf("ELSE\n"); return ELSE;}
+"if"		{num_col=num_col+yyleng;if(output) printf("IF\n"); return IF;}
+"int"		{num_col=num_col+yyleng;if(output) printf("INT\n"); return INT;}
+"Integer.parseInt"	{num_col=num_col+yyleng;if(output) printf("PARSEINT\n"); return PARSEINT;}
+"System.out.println"	{num_col=num_col+yyleng;if(output) printf("PRINT\n"); return PRINT;}
+"public"	{num_col=num_col+yyleng;if(output) printf("PUBLIC\n"); return PUBLIC;}
+"return"	{num_col=num_col+yyleng;if(output) printf("RETURN\n"); return RETURN;}
+"static"	{num_col=num_col+yyleng;if(output) printf("STATIC\n"); return STATIC;}
+"String"	{num_col=num_col+yyleng;if(output) printf("STRING\n"); return STRING;}
+"void"		{num_col=num_col+yyleng;if(output) printf("VOID\n"); return VOID;}
+"while"		{num_col=num_col+yyleng;if(output) printf("WHILE\n"); return WHILE;}
+"("		{num_col=num_col+yyleng;if(output) printf("OCURV\n"); return OCURV;}
+")"		{num_col=num_col+yyleng;if(output) printf("CCURV\n"); return CCURV;}
+"{"		{num_col=num_col+yyleng;if(output) printf("OBRACE\n"); return OBRACE;}
+"}"		{num_col=num_col+yyleng;if(output) printf("CBRACE\n"); return CBRACE;}
+"["		{num_col=num_col+yyleng;if(output) printf("OSQUARE\n"); return OSQUARE;}
+"]"		{num_col=num_col+yyleng;if(output) printf("CSQUARE\n"); return CSQUARE;}
+"&&"		{num_col=num_col+yyleng;if(output) printf("AND\n"); return AND;}
+"||"		{num_col=num_col+yyleng;if(output) printf("OR\n"); return OR;}
+"<"		{num_col=num_col+yyleng;if(output) printf("LT\n"); return LT;}
+">"		{num_col=num_col+yyleng;if(output) printf("GT\n"); return GT;}	
+"=="		{num_col=num_col+yyleng;if(output) printf("EQ\n"); return EQ;}
+"!="		{num_col=num_col+yyleng;if(output) printf("NEQ\n"); return NEQ;}
+"<="		{num_col=num_col+yyleng;if(output) printf("LEQ\n"); return LEQ;}
+">="		{num_col=num_col+yyleng;if(output) printf("GEQ\n"); return GEQ:}
+"+"		{num_col=num_col+yyleng;if(output) printf("PLUS\n"); return PLUS;}
+"-"		{num_col=num_col+yyleng;if(output) printf("MINUS\n"); return MINUS;}
+"*"		{num_col=num_col+yyleng;if(output) printf("STAR\n"); return STAR;}
+"/"		{num_col=num_col+yyleng;if(output) printf("DIV\n"); return DIV;}
+"%"		{num_col=num_col+yyleng;if(output) printf("MOD\n"); return MOD;}
+"!"		{num_col=num_col+yyleng;if(output) printf("NOT\n"); return NOT;}
+"="		{num_col=num_col+yyleng;if(output) printf("ASSIGN\n"); return ASSIGN;}
+";"		{num_col=num_col+yyleng;if(output) printf("SEMI\n"); return SEMI;}
+","		{num_col=num_col+yyleng;if(output) printf("COMMA\n"); return COMMA;}
+"abstract"|"assert"|"byte"|"break"|"case"|"catch"|"char"|"const"|"continue"|"default"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{num_col=num_col+yyleng;if(output) printf("RESERVED(%s)\n",yytext); return RESERVED;}
 
 
 
-{ID}	 	{num_col=num_col+yyleng;if(output)printf("ID(%s)\n",yytext);}
-{STRLIT}	{num_col=num_col+yyleng;if(output)printf("STRLIT(%s)\n",yytext);}
-{REALLIT}		{num_col=num_col+yyleng;if(output)printf("REALLIT(%s)\n",yytext);}
-{DECLIT}		{num_col=num_col+yyleng;if(output)printf("DECLIT(%s)\n",yytext);}
+{ID}	 	{num_col=num_col+yyleng;if(output)printf("ID(%s)\n",yytext); return ID;}
+{STRLIT}	{num_col=num_col+yyleng;if(output)printf("STRLIT(%s)\n",yytext); return STRLIT;}
+{REALLIT}		{num_col=num_col+yyleng;if(output)printf("REALLIT(%s)\n",yytext); return REALLIT;}
+{DECLIT}		{num_col=num_col+yyleng;if(output)printf("DECLIT(%s)\n",yytext); return DECLIT;}
 
 
 "\""	{BEGIN STR;num_col=num_col+yyleng;aux_line = num_line; aux_col = (int)(num_col-yyleng);}
@@ -124,4 +124,3 @@ int yywrap()
 {
 	return 1;
 }
-
