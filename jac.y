@@ -70,6 +70,8 @@ FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI
 SubFieldDecl: SubFieldDecl COMMA ID | %empty
 
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody
+MethodHeader: Type ID OCURV OptFormalParams CCURV
+OptFormalParams: FormalParams | %empty
 
 MethodBody: OBRACE SubMethodBody CBRACE
 SubMethodBody: SubMethodBody VarDecl | SubMethodBody Statement | %empty
@@ -105,30 +107,25 @@ OptExprCommaExprs: MultipleCommaExpr Expr | %empty
 
 ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
 
+OptDotLength: DOTLENGTH | %empty
+
 Expr: Assignment | MethodInvocation | ParseArgs
-    | Expr ( AND | OR ) Expr
-    | Expr ( EQ | GEQ | GT | LEQ | LT | NEQ ) Expr
-    | ( PLUS | MINUS | NOT ) Expr
-    | ID [ DOTLENGTH ]
+    | Expr AND Expr
+    | Expr OR Expr
+    | Expr EQ Expr
+    | Expr GEQ Expr
+    | Expr GT Expr
+    | Expr LEQ Expr
+    | Expr LT Expr
+    | Expr NEQ Expr
+    | PLUS Expr
+    | MINUS Expr
+    | NOT Expr
+    | ID OptDotLength
     | OCURV Expr CCURV
     | BOOLLIT | DECLIT | REALLIT
 
 
-calc: calc expression NEWLINE                        {printf("%d\n", $2);}
-	| {;}
-	;
-
-Expr: '+' 
-
-expression: expression '+' expression   {$$=$1+$3;}
-    |   expression '-' expression       {$$=$1-$3;}
-    |   expression '-''-' expression      {$$=$1+$4;}
-    |   '-' expression			{$$=-$2;}
-    |   expression '*' expression       {$$=$1*$3;}
-    |   expression '/' expression       {if($3==0){yyerror("Divide by zero");return 1;}$$=$1/$3;}
-    |   '(' expression ')'		{$$=$2;}
-    |   NUMBER                          {$$=$1;}
-    ;
 
 %%
 
