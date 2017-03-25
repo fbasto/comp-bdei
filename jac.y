@@ -57,12 +57,18 @@
 %token REALLIT
 %token ID
 
-%right ASSIGN
-%left PLUS MINUS
-%left STAR 
 
-%right '(''{''['
-%left ')''}'']'
+%left COMMA
+%right ASSIGN
+%left OR
+%left AND
+%left EQ NEQ
+%left GEQ LEQ GT LT
+%left PLUS MINUS
+%left STAR DIV MOD 
+
+%right NOT
+%left OCURV CCURV OBRACE CBRACE OSQUARE CSQUARE 
 
 
 
