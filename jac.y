@@ -70,7 +70,7 @@
 %right NOT
 %left OCURV CCURV OBRACE CBRACE OSQUARE CSQUARE 
 
-
+%right ELSE
 
 %%
 
@@ -97,9 +97,9 @@ SubVarDecl: COMMA ID SubVarDecl | Empty
 
 Type: BOOL | INT | DOUBLE
 
-OptElseStatement: ELSE Statement | Empty
 Statement: OBRACE MultipleStatements CBRACE
-    | IF OCURV Expr CCURV Statement OptElseStatement
+    | IF OCURV Expr CCURV Statement ELSE Statement
+    | IF OCURV Expr CCURV Statement %prec ELSE
     | WHILE OCURV Expr CCURV Statement
     | DO Statement WHILE OCURV Expr CCURV SEMI
     | PRINT OCURV ExprStrlit CCURV SEMI
@@ -143,4 +143,5 @@ Empty: ;
 void yyerror (const char *s){
 	printf ("Line %d, col %d: %s: %s\n",num_line, (int)(num_col- strlen(yytext)+1), s, yytext);
 }
+
 
