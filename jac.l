@@ -7,6 +7,7 @@
 		output=0 nao imprime
 		output=1 imprime	
 	*/
+	#include "y.tab.h"
 	int output = 0;
 	int num_line = 1;
 	int num_col = 1;
@@ -54,7 +55,7 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 "=="		{num_col=num_col+yyleng;if(output) printf("EQ\n"); return EQ;}
 "!="		{num_col=num_col+yyleng;if(output) printf("NEQ\n"); return NEQ;}
 "<="		{num_col=num_col+yyleng;if(output) printf("LEQ\n"); return LEQ;}
-">="		{num_col=num_col+yyleng;if(output) printf("GEQ\n"); return GEQ:}
+">="		{num_col=num_col+yyleng;if(output) printf("GEQ\n"); return GEQ;}
 "+"		{num_col=num_col+yyleng;if(output) printf("PLUS\n"); return PLUS;}
 "-"		{num_col=num_col+yyleng;if(output) printf("MINUS\n"); return MINUS;}
 "*"		{num_col=num_col+yyleng;if(output) printf("STAR\n"); return STAR;}

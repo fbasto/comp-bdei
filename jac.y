@@ -2,6 +2,8 @@
     #include <stdio.h>
     #include "y.tab.h"
     int yylex(void);
+	extern int num_line;
+	extern int num_col;
     void yyerror (const char *s);
 	int flag=1;
 %}
@@ -53,11 +55,12 @@
 %token REALLIT
 %token ID
 
-%left '+' '-'
-%left '*' '/'
+%right ASSIGN
+%left PLUS MINUS
+%left STAR 
 
-%right '('
-%left ')'
+%right '(''{''['
+%left ')''}'']'
 
 
 
@@ -129,6 +132,13 @@ Expr: Assignment | MethodInvocation | ParseArgs
 
 %%
 
+void yyerror (const char *s){
+	printf ("Line %d, col %d: %s: %s\n",num_line, (int)(num_col- strlen(yytext)+1), s, yytext);
+}
+
+
+
+}
 int main() {
 	yyparse();
 	return 0;

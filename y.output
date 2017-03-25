@@ -1,4 +1,4 @@
-Terminais não utilizados na gramática
+Terminals unused in grammar
 
    VOID
    STAR
@@ -14,23 +14,23 @@ Terminais não utilizados na gramática
    ')'
 
 
-Estado 57 conflictos: 1 shift/reduce
-Estado 81 conflictos: 8 shift/reduce
-Estado 82 conflictos: 8 shift/reduce
-Estado 83 conflictos: 8 shift/reduce
-Estado 100 conflictos: 8 shift/reduce
-Estado 110 conflictos: 8 shift/reduce
-Estado 111 conflictos: 8 shift/reduce
-Estado 112 conflictos: 8 shift/reduce
-Estado 113 conflictos: 8 shift/reduce
-Estado 114 conflictos: 8 shift/reduce
-Estado 115 conflictos: 8 shift/reduce
-Estado 116 conflictos: 8 shift/reduce
-Estado 117 conflictos: 8 shift/reduce
-Estado 127 conflictos: 1 shift/reduce
+State 57 conflicts: 1 shift/reduce
+State 81 conflicts: 8 shift/reduce
+State 82 conflicts: 8 shift/reduce
+State 83 conflicts: 8 shift/reduce
+State 100 conflicts: 8 shift/reduce
+State 110 conflicts: 8 shift/reduce
+State 111 conflicts: 8 shift/reduce
+State 112 conflicts: 8 shift/reduce
+State 113 conflicts: 8 shift/reduce
+State 114 conflicts: 8 shift/reduce
+State 115 conflicts: 8 shift/reduce
+State 116 conflicts: 8 shift/reduce
+State 117 conflicts: 8 shift/reduce
+State 127 conflicts: 1 shift/reduce
 
 
-Gramática
+Grammar
 
     0 $accept: Program $end
 
@@ -135,7 +135,7 @@ Gramática
    73     | REALLIT
 
 
-Terminais, com as regras aonde aparecem
+Terminals, with rules where they appear
 
 $end (0) 0
 '(' (40)
@@ -193,112 +193,112 @@ REALLIT (302) 73
 ID (303) 1 6 7 10 17 18 19 21 22 46 47 52 69
 
 
-Não-terminais, com as regras aonde aparecem
+Nonterminals, with rules where they appear
 
 $accept (55)
-    à esquerda: 0
+    on left: 0
 Program (56)
-    à esquerda: 1, à direita: 0
+    on left: 1, on right: 0
 SubProgram (57)
-    à esquerda: 2 3 4 5, à direita: 1 2 3 4
+    on left: 2 3 4 5, on right: 1 2 3 4
 FieldDecl (58)
-    à esquerda: 6, à direita: 2
+    on left: 6, on right: 2
 SubFieldDecl (59)
-    à esquerda: 7 8, à direita: 6 7
+    on left: 7 8, on right: 6 7
 MethodDecl (60)
-    à esquerda: 9, à direita: 3
+    on left: 9, on right: 3
 MethodHeader (61)
-    à esquerda: 10, à direita: 9
+    on left: 10, on right: 9
 OptFormalParams (62)
-    à esquerda: 11 12, à direita: 10
+    on left: 11 12, on right: 10
 MethodBody (63)
-    à esquerda: 13, à direita: 9
+    on left: 13, on right: 9
 SubMethodBody (64)
-    à esquerda: 14 15 16, à direita: 13 14 15
+    on left: 14 15 16, on right: 13 14 15
 FormalParams (65)
-    à esquerda: 17 18, à direita: 11
+    on left: 17 18, on right: 11
 SubFormalParams (66)
-    à esquerda: 19 20, à direita: 17 19
+    on left: 19 20, on right: 17 19
 VarDecl (67)
-    à esquerda: 21, à direita: 14
+    on left: 21, on right: 14
 SubVarDecl (68)
-    à esquerda: 22 23, à direita: 21 22
+    on left: 22 23, on right: 21 22
 Type (69)
-    à esquerda: 24 25 26, à direita: 6 10 17 19 21
+    on left: 24 25 26, on right: 6 10 17 19 21
 Statement (70)
-    à esquerda: 27 28 29 30 31 32 33, à direita: 15 28 29 30 34 36
+    on left: 27 28 29 30 31 32 33, on right: 15 28 29 30 34 36
 MultipleStatements (71)
-    à esquerda: 34 35, à direita: 27 34
+    on left: 34 35, on right: 27 34
 OptElseStatement (72)
-    à esquerda: 36 37, à direita: 28
+    on left: 36 37, on right: 28
 ExprStrlit (73)
-    à esquerda: 38 39, à direita: 31
+    on left: 38 39, on right: 31
 OptAMIPA (74)
-    à esquerda: 40 41 42 43, à direita: 32
+    on left: 40 41 42 43, on right: 32
 OptExpr (75)
-    à esquerda: 44 45, à direita: 33
+    on left: 44 45, on right: 33
 Assignment (76)
-    à esquerda: 46, à direita: 40 55
+    on left: 46, on right: 40 55
 MethodInvocation (77)
-    à esquerda: 47, à direita: 41 56
+    on left: 47, on right: 41 56
 MultipleCommaExpr (78)
-    à esquerda: 48 49, à direita: 48 50
+    on left: 48 49, on right: 48 50
 OptExprCommaExprs (79)
-    à esquerda: 50 51, à direita: 47
+    on left: 50 51, on right: 47
 ParseArgs (80)
-    à esquerda: 52, à direita: 42 57
+    on left: 52, on right: 42 57
 OptDotLength (81)
-    à esquerda: 53 54, à direita: 69
+    on left: 53 54, on right: 69
 Expr (82)
-    à esquerda: 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71
-    72 73, à direita: 28 29 30 38 44 46 48 50 52 58 59 60 61 62 63
-    64 65 66 67 68 70
+    on left: 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72
+    73, on right: 28 29 30 38 44 46 48 50 52 58 59 60 61 62 63 64 65
+    66 67 68 70
 
 
 State 0
 
     0 $accept: . Program $end
 
-    CLASS  fazer shift, e ir para o estado 1
+    CLASS  shift, and go to state 1
 
-    Program  ir para o estado 2
+    Program  go to state 2
 
 
 State 1
 
     1 Program: CLASS . ID OBRACE SubProgram CBRACE
 
-    ID  fazer shift, e ir para o estado 3
+    ID  shift, and go to state 3
 
 
 State 2
 
     0 $accept: Program . $end
 
-    $end  fazer shift, e ir para o estado 4
+    $end  shift, and go to state 4
 
 
 State 3
 
     1 Program: CLASS ID . OBRACE SubProgram CBRACE
 
-    OBRACE  fazer shift, e ir para o estado 5
+    OBRACE  shift, and go to state 5
 
 
 State 4
 
     0 $accept: Program $end .
 
-    $default  aceite
+    $default  accept
 
 
 State 5
 
     1 Program: CLASS ID OBRACE . SubProgram CBRACE
 
-    $default  reduzir usando a regra 5 (SubProgram)
+    $default  reduce using rule 5 (SubProgram)
 
-    SubProgram  ir para o estado 6
+    SubProgram  go to state 6
 
 
 State 6
@@ -308,12 +308,12 @@ State 6
     3           | SubProgram . MethodDecl
     4           | SubProgram . SEMI
 
-    PUBLIC  fazer shift, e ir para o estado 7
-    CBRACE  fazer shift, e ir para o estado 8
-    SEMI    fazer shift, e ir para o estado 9
+    PUBLIC  shift, and go to state 7
+    CBRACE  shift, and go to state 8
+    SEMI    shift, and go to state 9
 
-    FieldDecl   ir para o estado 10
-    MethodDecl  ir para o estado 11
+    FieldDecl   go to state 10
+    MethodDecl  go to state 11
 
 
 State 7
@@ -321,35 +321,35 @@ State 7
     6 FieldDecl: PUBLIC . STATIC Type ID SubFieldDecl SEMI
     9 MethodDecl: PUBLIC . STATIC MethodHeader MethodBody
 
-    STATIC  fazer shift, e ir para o estado 12
+    STATIC  shift, and go to state 12
 
 
 State 8
 
     1 Program: CLASS ID OBRACE SubProgram CBRACE .
 
-    $default  reduzir usando a regra 1 (Program)
+    $default  reduce using rule 1 (Program)
 
 
 State 9
 
     4 SubProgram: SubProgram SEMI .
 
-    $default  reduzir usando a regra 4 (SubProgram)
+    $default  reduce using rule 4 (SubProgram)
 
 
 State 10
 
     2 SubProgram: SubProgram FieldDecl .
 
-    $default  reduzir usando a regra 2 (SubProgram)
+    $default  reduce using rule 2 (SubProgram)
 
 
 State 11
 
     3 SubProgram: SubProgram MethodDecl .
 
-    $default  reduzir usando a regra 3 (SubProgram)
+    $default  reduce using rule 3 (SubProgram)
 
 
 State 12
@@ -357,42 +357,42 @@ State 12
     6 FieldDecl: PUBLIC STATIC . Type ID SubFieldDecl SEMI
     9 MethodDecl: PUBLIC STATIC . MethodHeader MethodBody
 
-    BOOL    fazer shift, e ir para o estado 13
-    DOUBLE  fazer shift, e ir para o estado 14
-    INT     fazer shift, e ir para o estado 15
+    BOOL    shift, and go to state 13
+    DOUBLE  shift, and go to state 14
+    INT     shift, and go to state 15
 
-    MethodHeader  ir para o estado 16
-    Type          ir para o estado 17
+    MethodHeader  go to state 16
+    Type          go to state 17
 
 
 State 13
 
    24 Type: BOOL .
 
-    $default  reduzir usando a regra 24 (Type)
+    $default  reduce using rule 24 (Type)
 
 
 State 14
 
    26 Type: DOUBLE .
 
-    $default  reduzir usando a regra 26 (Type)
+    $default  reduce using rule 26 (Type)
 
 
 State 15
 
    25 Type: INT .
 
-    $default  reduzir usando a regra 25 (Type)
+    $default  reduce using rule 25 (Type)
 
 
 State 16
 
     9 MethodDecl: PUBLIC STATIC MethodHeader . MethodBody
 
-    OBRACE  fazer shift, e ir para o estado 18
+    OBRACE  shift, and go to state 18
 
-    MethodBody  ir para o estado 19
+    MethodBody  go to state 19
 
 
 State 17
@@ -400,23 +400,23 @@ State 17
     6 FieldDecl: PUBLIC STATIC Type . ID SubFieldDecl SEMI
    10 MethodHeader: Type . ID OCURV OptFormalParams CCURV
 
-    ID  fazer shift, e ir para o estado 20
+    ID  shift, and go to state 20
 
 
 State 18
 
    13 MethodBody: OBRACE . SubMethodBody CBRACE
 
-    $default  reduzir usando a regra 16 (SubMethodBody)
+    $default  reduce using rule 16 (SubMethodBody)
 
-    SubMethodBody  ir para o estado 21
+    SubMethodBody  go to state 21
 
 
 State 19
 
     9 MethodDecl: PUBLIC STATIC MethodHeader MethodBody .
 
-    $default  reduzir usando a regra 9 (MethodDecl)
+    $default  reduce using rule 9 (MethodDecl)
 
 
 State 20
@@ -424,11 +424,11 @@ State 20
     6 FieldDecl: PUBLIC STATIC Type ID . SubFieldDecl SEMI
    10 MethodHeader: Type ID . OCURV OptFormalParams CCURV
 
-    OCURV  fazer shift, e ir para o estado 22
+    OCURV  shift, and go to state 22
 
-    $default  reduzir usando a regra 8 (SubFieldDecl)
+    $default  reduce using rule 8 (SubFieldDecl)
 
-    SubFieldDecl  ir para o estado 23
+    SubFieldDecl  go to state 23
 
 
 State 21
@@ -437,44 +437,44 @@ State 21
    14 SubMethodBody: SubMethodBody . VarDecl
    15              | SubMethodBody . Statement
 
-    BOOL      fazer shift, e ir para o estado 13
-    DO        fazer shift, e ir para o estado 24
-    DOUBLE    fazer shift, e ir para o estado 14
-    IF        fazer shift, e ir para o estado 25
-    INT       fazer shift, e ir para o estado 15
-    PARSEINT  fazer shift, e ir para o estado 26
-    PRINT     fazer shift, e ir para o estado 27
-    RETURN    fazer shift, e ir para o estado 28
-    WHILE     fazer shift, e ir para o estado 29
-    OBRACE    fazer shift, e ir para o estado 30
-    CBRACE    fazer shift, e ir para o estado 31
-    ID        fazer shift, e ir para o estado 32
+    BOOL      shift, and go to state 13
+    DO        shift, and go to state 24
+    DOUBLE    shift, and go to state 14
+    IF        shift, and go to state 25
+    INT       shift, and go to state 15
+    PARSEINT  shift, and go to state 26
+    PRINT     shift, and go to state 27
+    RETURN    shift, and go to state 28
+    WHILE     shift, and go to state 29
+    OBRACE    shift, and go to state 30
+    CBRACE    shift, and go to state 31
+    ID        shift, and go to state 32
 
-    $default  reduzir usando a regra 43 (OptAMIPA)
+    $default  reduce using rule 43 (OptAMIPA)
 
-    VarDecl           ir para o estado 33
-    Type              ir para o estado 34
-    Statement         ir para o estado 35
-    OptAMIPA          ir para o estado 36
-    Assignment        ir para o estado 37
-    MethodInvocation  ir para o estado 38
-    ParseArgs         ir para o estado 39
+    VarDecl           go to state 33
+    Type              go to state 34
+    Statement         go to state 35
+    OptAMIPA          go to state 36
+    Assignment        go to state 37
+    MethodInvocation  go to state 38
+    ParseArgs         go to state 39
 
 
 State 22
 
    10 MethodHeader: Type ID OCURV . OptFormalParams CCURV
 
-    BOOL    fazer shift, e ir para o estado 13
-    DOUBLE  fazer shift, e ir para o estado 14
-    INT     fazer shift, e ir para o estado 15
-    STRING  fazer shift, e ir para o estado 40
+    BOOL    shift, and go to state 13
+    DOUBLE  shift, and go to state 14
+    INT     shift, and go to state 15
+    STRING  shift, and go to state 40
 
-    $default  reduzir usando a regra 12 (OptFormalParams)
+    $default  reduce using rule 12 (OptFormalParams)
 
-    OptFormalParams  ir para o estado 41
-    FormalParams     ir para o estado 42
-    Type             ir para o estado 43
+    OptFormalParams  go to state 41
+    FormalParams     go to state 42
+    Type             go to state 43
 
 
 State 23
@@ -482,112 +482,112 @@ State 23
     6 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl . SEMI
     7 SubFieldDecl: SubFieldDecl . COMMA ID
 
-    SEMI   fazer shift, e ir para o estado 44
-    COMMA  fazer shift, e ir para o estado 45
+    SEMI   shift, and go to state 44
+    COMMA  shift, and go to state 45
 
 
 State 24
 
    30 Statement: DO . Statement WHILE OCURV Expr CCURV SEMI
 
-    DO        fazer shift, e ir para o estado 24
-    IF        fazer shift, e ir para o estado 25
-    PARSEINT  fazer shift, e ir para o estado 26
-    PRINT     fazer shift, e ir para o estado 27
-    RETURN    fazer shift, e ir para o estado 28
-    WHILE     fazer shift, e ir para o estado 29
-    OBRACE    fazer shift, e ir para o estado 30
-    ID        fazer shift, e ir para o estado 32
+    DO        shift, and go to state 24
+    IF        shift, and go to state 25
+    PARSEINT  shift, and go to state 26
+    PRINT     shift, and go to state 27
+    RETURN    shift, and go to state 28
+    WHILE     shift, and go to state 29
+    OBRACE    shift, and go to state 30
+    ID        shift, and go to state 32
 
-    $default  reduzir usando a regra 43 (OptAMIPA)
+    $default  reduce using rule 43 (OptAMIPA)
 
-    Statement         ir para o estado 46
-    OptAMIPA          ir para o estado 36
-    Assignment        ir para o estado 37
-    MethodInvocation  ir para o estado 38
-    ParseArgs         ir para o estado 39
+    Statement         go to state 46
+    OptAMIPA          go to state 36
+    Assignment        go to state 37
+    MethodInvocation  go to state 38
+    ParseArgs         go to state 39
 
 
 State 25
 
    28 Statement: IF . OCURV Expr CCURV Statement OptElseStatement
 
-    OCURV  fazer shift, e ir para o estado 47
+    OCURV  shift, and go to state 47
 
 
 State 26
 
    52 ParseArgs: PARSEINT . OCURV ID OSQUARE Expr CSQUARE CCURV
 
-    OCURV  fazer shift, e ir para o estado 48
+    OCURV  shift, and go to state 48
 
 
 State 27
 
    31 Statement: PRINT . OCURV ExprStrlit CCURV SEMI
 
-    OCURV  fazer shift, e ir para o estado 49
+    OCURV  shift, and go to state 49
 
 
 State 28
 
    33 Statement: RETURN . OptExpr SEMI
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    $default  reduzir usando a regra 45 (OptExpr)
+    $default  reduce using rule 45 (OptExpr)
 
-    OptExpr           ir para o estado 58
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 62
+    OptExpr           go to state 58
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 62
 
 
 State 29
 
    29 Statement: WHILE . OCURV Expr CCURV Statement
 
-    OCURV  fazer shift, e ir para o estado 63
+    OCURV  shift, and go to state 63
 
 
 State 30
 
    27 Statement: OBRACE . MultipleStatements CBRACE
 
-    DO        fazer shift, e ir para o estado 24
-    IF        fazer shift, e ir para o estado 25
-    PARSEINT  fazer shift, e ir para o estado 26
-    PRINT     fazer shift, e ir para o estado 27
-    RETURN    fazer shift, e ir para o estado 28
-    WHILE     fazer shift, e ir para o estado 29
-    OBRACE    fazer shift, e ir para o estado 30
-    ID        fazer shift, e ir para o estado 32
+    DO        shift, and go to state 24
+    IF        shift, and go to state 25
+    PARSEINT  shift, and go to state 26
+    PRINT     shift, and go to state 27
+    RETURN    shift, and go to state 28
+    WHILE     shift, and go to state 29
+    OBRACE    shift, and go to state 30
+    ID        shift, and go to state 32
 
-    SEMI      reduzir usando a regra 43 (OptAMIPA)
-    $default  reduzir usando a regra 35 (MultipleStatements)
+    SEMI      reduce using rule 43 (OptAMIPA)
+    $default  reduce using rule 35 (MultipleStatements)
 
-    Statement           ir para o estado 64
-    MultipleStatements  ir para o estado 65
-    OptAMIPA            ir para o estado 36
-    Assignment          ir para o estado 37
-    MethodInvocation    ir para o estado 38
-    ParseArgs           ir para o estado 39
+    Statement           go to state 64
+    MultipleStatements  go to state 65
+    OptAMIPA            go to state 36
+    Assignment          go to state 37
+    MethodInvocation    go to state 38
+    ParseArgs           go to state 39
 
 
 State 31
 
    13 MethodBody: OBRACE SubMethodBody CBRACE .
 
-    $default  reduzir usando a regra 13 (MethodBody)
+    $default  reduce using rule 13 (MethodBody)
 
 
 State 32
@@ -595,256 +595,256 @@ State 32
    46 Assignment: ID . ASSIGN Expr
    47 MethodInvocation: ID . OCURV OptExprCommaExprs CCURV
 
-    OCURV   fazer shift, e ir para o estado 66
-    ASSIGN  fazer shift, e ir para o estado 67
+    OCURV   shift, and go to state 66
+    ASSIGN  shift, and go to state 67
 
 
 State 33
 
    14 SubMethodBody: SubMethodBody VarDecl .
 
-    $default  reduzir usando a regra 14 (SubMethodBody)
+    $default  reduce using rule 14 (SubMethodBody)
 
 
 State 34
 
    21 VarDecl: Type . ID SubVarDecl SEMI
 
-    ID  fazer shift, e ir para o estado 68
+    ID  shift, and go to state 68
 
 
 State 35
 
    15 SubMethodBody: SubMethodBody Statement .
 
-    $default  reduzir usando a regra 15 (SubMethodBody)
+    $default  reduce using rule 15 (SubMethodBody)
 
 
 State 36
 
    32 Statement: OptAMIPA . SEMI
 
-    SEMI  fazer shift, e ir para o estado 69
+    SEMI  shift, and go to state 69
 
 
 State 37
 
    40 OptAMIPA: Assignment .
 
-    $default  reduzir usando a regra 40 (OptAMIPA)
+    $default  reduce using rule 40 (OptAMIPA)
 
 
 State 38
 
    41 OptAMIPA: MethodInvocation .
 
-    $default  reduzir usando a regra 41 (OptAMIPA)
+    $default  reduce using rule 41 (OptAMIPA)
 
 
 State 39
 
    42 OptAMIPA: ParseArgs .
 
-    $default  reduzir usando a regra 42 (OptAMIPA)
+    $default  reduce using rule 42 (OptAMIPA)
 
 
 State 40
 
    18 FormalParams: STRING . OSQUARE CSQUARE ID
 
-    OSQUARE  fazer shift, e ir para o estado 70
+    OSQUARE  shift, and go to state 70
 
 
 State 41
 
    10 MethodHeader: Type ID OCURV OptFormalParams . CCURV
 
-    CCURV  fazer shift, e ir para o estado 71
+    CCURV  shift, and go to state 71
 
 
 State 42
 
    11 OptFormalParams: FormalParams .
 
-    $default  reduzir usando a regra 11 (OptFormalParams)
+    $default  reduce using rule 11 (OptFormalParams)
 
 
 State 43
 
    17 FormalParams: Type . ID SubFormalParams
 
-    ID  fazer shift, e ir para o estado 72
+    ID  shift, and go to state 72
 
 
 State 44
 
     6 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI .
 
-    $default  reduzir usando a regra 6 (FieldDecl)
+    $default  reduce using rule 6 (FieldDecl)
 
 
 State 45
 
     7 SubFieldDecl: SubFieldDecl COMMA . ID
 
-    ID  fazer shift, e ir para o estado 73
+    ID  shift, and go to state 73
 
 
 State 46
 
    30 Statement: DO Statement . WHILE OCURV Expr CCURV SEMI
 
-    WHILE  fazer shift, e ir para o estado 74
+    WHILE  shift, and go to state 74
 
 
 State 47
 
    28 Statement: IF OCURV . Expr CCURV Statement OptElseStatement
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 75
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 75
 
 
 State 48
 
    52 ParseArgs: PARSEINT OCURV . ID OSQUARE Expr CSQUARE CCURV
 
-    ID  fazer shift, e ir para o estado 76
+    ID  shift, and go to state 76
 
 
 State 49
 
    31 Statement: PRINT OCURV . ExprStrlit CCURV SEMI
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    STRLIT    fazer shift, e ir para o estado 77
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    STRLIT    shift, and go to state 77
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    ExprStrlit        ir para o estado 78
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 79
+    ExprStrlit        go to state 78
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 79
 
 
 State 50
 
    71 Expr: BOOLLIT .
 
-    $default  reduzir usando a regra 71 (Expr)
+    $default  reduce using rule 71 (Expr)
 
 
 State 51
 
    70 Expr: OCURV . Expr CCURV
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 80
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 80
 
 
 State 52
 
    66 Expr: PLUS . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 81
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 81
 
 
 State 53
 
    67 Expr: MINUS . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 82
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 82
 
 
 State 54
 
    68 Expr: NOT . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 83
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 83
 
 
 State 55
 
    72 Expr: DECLIT .
 
-    $default  reduzir usando a regra 72 (Expr)
+    $default  reduce using rule 72 (Expr)
 
 
 State 56
 
    73 Expr: REALLIT .
 
-    $default  reduzir usando a regra 73 (Expr)
+    $default  reduce using rule 73 (Expr)
 
 
 State 57
@@ -853,42 +853,42 @@ State 57
    47 MethodInvocation: ID . OCURV OptExprCommaExprs CCURV
    69 Expr: ID . OptDotLength
 
-    DOTLENGTH  fazer shift, e ir para o estado 84
-    OCURV      fazer shift, e ir para o estado 66
-    ASSIGN     fazer shift, e ir para o estado 67
+    DOTLENGTH  shift, and go to state 84
+    OCURV      shift, and go to state 66
+    ASSIGN     shift, and go to state 67
 
-    OCURV     [reduzir usando a regra 54 (OptDotLength)]
-    $default  reduzir usando a regra 54 (OptDotLength)
+    OCURV     [reduce using rule 54 (OptDotLength)]
+    $default  reduce using rule 54 (OptDotLength)
 
-    OptDotLength  ir para o estado 85
+    OptDotLength  go to state 85
 
 
 State 58
 
    33 Statement: RETURN OptExpr . SEMI
 
-    SEMI  fazer shift, e ir para o estado 86
+    SEMI  shift, and go to state 86
 
 
 State 59
 
    55 Expr: Assignment .
 
-    $default  reduzir usando a regra 55 (Expr)
+    $default  reduce using rule 55 (Expr)
 
 
 State 60
 
    56 Expr: MethodInvocation .
 
-    $default  reduzir usando a regra 56 (Expr)
+    $default  reduce using rule 56 (Expr)
 
 
 State 61
 
    57 Expr: ParseArgs .
 
-    $default  reduzir usando a regra 57 (Expr)
+    $default  reduce using rule 57 (Expr)
 
 
 State 62
@@ -903,153 +903,153 @@ State 62
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    $default  reduzir usando a regra 44 (OptExpr)
+    $default  reduce using rule 44 (OptExpr)
 
 
 State 63
 
    29 Statement: WHILE OCURV . Expr CCURV Statement
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 95
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 95
 
 
 State 64
 
    34 MultipleStatements: Statement . MultipleStatements
 
-    DO        fazer shift, e ir para o estado 24
-    IF        fazer shift, e ir para o estado 25
-    PARSEINT  fazer shift, e ir para o estado 26
-    PRINT     fazer shift, e ir para o estado 27
-    RETURN    fazer shift, e ir para o estado 28
-    WHILE     fazer shift, e ir para o estado 29
-    OBRACE    fazer shift, e ir para o estado 30
-    ID        fazer shift, e ir para o estado 32
+    DO        shift, and go to state 24
+    IF        shift, and go to state 25
+    PARSEINT  shift, and go to state 26
+    PRINT     shift, and go to state 27
+    RETURN    shift, and go to state 28
+    WHILE     shift, and go to state 29
+    OBRACE    shift, and go to state 30
+    ID        shift, and go to state 32
 
-    SEMI      reduzir usando a regra 43 (OptAMIPA)
-    $default  reduzir usando a regra 35 (MultipleStatements)
+    SEMI      reduce using rule 43 (OptAMIPA)
+    $default  reduce using rule 35 (MultipleStatements)
 
-    Statement           ir para o estado 64
-    MultipleStatements  ir para o estado 96
-    OptAMIPA            ir para o estado 36
-    Assignment          ir para o estado 37
-    MethodInvocation    ir para o estado 38
-    ParseArgs           ir para o estado 39
+    Statement           go to state 64
+    MultipleStatements  go to state 96
+    OptAMIPA            go to state 36
+    Assignment          go to state 37
+    MethodInvocation    go to state 38
+    ParseArgs           go to state 39
 
 
 State 65
 
    27 Statement: OBRACE MultipleStatements . CBRACE
 
-    CBRACE  fazer shift, e ir para o estado 97
+    CBRACE  shift, and go to state 97
 
 
 State 66
 
    47 MethodInvocation: ID OCURV . OptExprCommaExprs CCURV
 
-    CCURV     reduzir usando a regra 51 (OptExprCommaExprs)
-    $default  reduzir usando a regra 49 (MultipleCommaExpr)
+    CCURV     reduce using rule 51 (OptExprCommaExprs)
+    $default  reduce using rule 49 (MultipleCommaExpr)
 
-    MultipleCommaExpr  ir para o estado 98
-    OptExprCommaExprs  ir para o estado 99
+    MultipleCommaExpr  go to state 98
+    OptExprCommaExprs  go to state 99
 
 
 State 67
 
    46 Assignment: ID ASSIGN . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 100
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 100
 
 
 State 68
 
    21 VarDecl: Type ID . SubVarDecl SEMI
 
-    COMMA  fazer shift, e ir para o estado 101
+    COMMA  shift, and go to state 101
 
-    $default  reduzir usando a regra 23 (SubVarDecl)
+    $default  reduce using rule 23 (SubVarDecl)
 
-    SubVarDecl  ir para o estado 102
+    SubVarDecl  go to state 102
 
 
 State 69
 
    32 Statement: OptAMIPA SEMI .
 
-    $default  reduzir usando a regra 32 (Statement)
+    $default  reduce using rule 32 (Statement)
 
 
 State 70
 
    18 FormalParams: STRING OSQUARE . CSQUARE ID
 
-    CSQUARE  fazer shift, e ir para o estado 103
+    CSQUARE  shift, and go to state 103
 
 
 State 71
 
    10 MethodHeader: Type ID OCURV OptFormalParams CCURV .
 
-    $default  reduzir usando a regra 10 (MethodHeader)
+    $default  reduce using rule 10 (MethodHeader)
 
 
 State 72
 
    17 FormalParams: Type ID . SubFormalParams
 
-    $default  reduzir usando a regra 20 (SubFormalParams)
+    $default  reduce using rule 20 (SubFormalParams)
 
-    SubFormalParams  ir para o estado 104
+    SubFormalParams  go to state 104
 
 
 State 73
 
     7 SubFieldDecl: SubFieldDecl COMMA ID .
 
-    $default  reduzir usando a regra 7 (SubFieldDecl)
+    $default  reduce using rule 7 (SubFieldDecl)
 
 
 State 74
 
    30 Statement: DO Statement WHILE . OCURV Expr CCURV SEMI
 
-    OCURV  fazer shift, e ir para o estado 105
+    OCURV  shift, and go to state 105
 
 
 State 75
@@ -1064,36 +1064,36 @@ State 75
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    CCURV  fazer shift, e ir para o estado 106
-    AND    fazer shift, e ir para o estado 87
-    OR     fazer shift, e ir para o estado 88
-    LT     fazer shift, e ir para o estado 89
-    GT     fazer shift, e ir para o estado 90
-    EQ     fazer shift, e ir para o estado 91
-    NEQ    fazer shift, e ir para o estado 92
-    LEQ    fazer shift, e ir para o estado 93
-    GEQ    fazer shift, e ir para o estado 94
+    CCURV  shift, and go to state 106
+    AND    shift, and go to state 87
+    OR     shift, and go to state 88
+    LT     shift, and go to state 89
+    GT     shift, and go to state 90
+    EQ     shift, and go to state 91
+    NEQ    shift, and go to state 92
+    LEQ    shift, and go to state 93
+    GEQ    shift, and go to state 94
 
 
 State 76
 
    52 ParseArgs: PARSEINT OCURV ID . OSQUARE Expr CSQUARE CCURV
 
-    OSQUARE  fazer shift, e ir para o estado 107
+    OSQUARE  shift, and go to state 107
 
 
 State 77
 
    39 ExprStrlit: STRLIT .
 
-    $default  reduzir usando a regra 39 (ExprStrlit)
+    $default  reduce using rule 39 (ExprStrlit)
 
 
 State 78
 
    31 Statement: PRINT OCURV ExprStrlit . CCURV SEMI
 
-    CCURV  fazer shift, e ir para o estado 108
+    CCURV  shift, and go to state 108
 
 
 State 79
@@ -1108,16 +1108,16 @@ State 79
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    $default  reduzir usando a regra 38 (ExprStrlit)
+    $default  reduce using rule 38 (ExprStrlit)
 
 
 State 80
@@ -1132,15 +1132,15 @@ State 80
    65     | Expr . NEQ Expr
    70     | OCURV Expr . CCURV
 
-    CCURV  fazer shift, e ir para o estado 109
-    AND    fazer shift, e ir para o estado 87
-    OR     fazer shift, e ir para o estado 88
-    LT     fazer shift, e ir para o estado 89
-    GT     fazer shift, e ir para o estado 90
-    EQ     fazer shift, e ir para o estado 91
-    NEQ    fazer shift, e ir para o estado 92
-    LEQ    fazer shift, e ir para o estado 93
-    GEQ    fazer shift, e ir para o estado 94
+    CCURV  shift, and go to state 109
+    AND    shift, and go to state 87
+    OR     shift, and go to state 88
+    LT     shift, and go to state 89
+    GT     shift, and go to state 90
+    EQ     shift, and go to state 91
+    NEQ    shift, and go to state 92
+    LEQ    shift, and go to state 93
+    GEQ    shift, and go to state 94
 
 
 State 81
@@ -1155,24 +1155,24 @@ State 81
    65     | Expr . NEQ Expr
    66     | PLUS Expr .
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 66 (Expr)]
-    OR        [reduzir usando a regra 66 (Expr)]
-    LT        [reduzir usando a regra 66 (Expr)]
-    GT        [reduzir usando a regra 66 (Expr)]
-    EQ        [reduzir usando a regra 66 (Expr)]
-    NEQ       [reduzir usando a regra 66 (Expr)]
-    LEQ       [reduzir usando a regra 66 (Expr)]
-    GEQ       [reduzir usando a regra 66 (Expr)]
-    $default  reduzir usando a regra 66 (Expr)
+    AND       [reduce using rule 66 (Expr)]
+    OR        [reduce using rule 66 (Expr)]
+    LT        [reduce using rule 66 (Expr)]
+    GT        [reduce using rule 66 (Expr)]
+    EQ        [reduce using rule 66 (Expr)]
+    NEQ       [reduce using rule 66 (Expr)]
+    LEQ       [reduce using rule 66 (Expr)]
+    GEQ       [reduce using rule 66 (Expr)]
+    $default  reduce using rule 66 (Expr)
 
 
 State 82
@@ -1187,24 +1187,24 @@ State 82
    65     | Expr . NEQ Expr
    67     | MINUS Expr .
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 67 (Expr)]
-    OR        [reduzir usando a regra 67 (Expr)]
-    LT        [reduzir usando a regra 67 (Expr)]
-    GT        [reduzir usando a regra 67 (Expr)]
-    EQ        [reduzir usando a regra 67 (Expr)]
-    NEQ       [reduzir usando a regra 67 (Expr)]
-    LEQ       [reduzir usando a regra 67 (Expr)]
-    GEQ       [reduzir usando a regra 67 (Expr)]
-    $default  reduzir usando a regra 67 (Expr)
+    AND       [reduce using rule 67 (Expr)]
+    OR        [reduce using rule 67 (Expr)]
+    LT        [reduce using rule 67 (Expr)]
+    GT        [reduce using rule 67 (Expr)]
+    EQ        [reduce using rule 67 (Expr)]
+    NEQ       [reduce using rule 67 (Expr)]
+    LEQ       [reduce using rule 67 (Expr)]
+    GEQ       [reduce using rule 67 (Expr)]
+    $default  reduce using rule 67 (Expr)
 
 
 State 83
@@ -1219,205 +1219,205 @@ State 83
    65     | Expr . NEQ Expr
    68     | NOT Expr .
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 68 (Expr)]
-    OR        [reduzir usando a regra 68 (Expr)]
-    LT        [reduzir usando a regra 68 (Expr)]
-    GT        [reduzir usando a regra 68 (Expr)]
-    EQ        [reduzir usando a regra 68 (Expr)]
-    NEQ       [reduzir usando a regra 68 (Expr)]
-    LEQ       [reduzir usando a regra 68 (Expr)]
-    GEQ       [reduzir usando a regra 68 (Expr)]
-    $default  reduzir usando a regra 68 (Expr)
+    AND       [reduce using rule 68 (Expr)]
+    OR        [reduce using rule 68 (Expr)]
+    LT        [reduce using rule 68 (Expr)]
+    GT        [reduce using rule 68 (Expr)]
+    EQ        [reduce using rule 68 (Expr)]
+    NEQ       [reduce using rule 68 (Expr)]
+    LEQ       [reduce using rule 68 (Expr)]
+    GEQ       [reduce using rule 68 (Expr)]
+    $default  reduce using rule 68 (Expr)
 
 
 State 84
 
    53 OptDotLength: DOTLENGTH .
 
-    $default  reduzir usando a regra 53 (OptDotLength)
+    $default  reduce using rule 53 (OptDotLength)
 
 
 State 85
 
    69 Expr: ID OptDotLength .
 
-    $default  reduzir usando a regra 69 (Expr)
+    $default  reduce using rule 69 (Expr)
 
 
 State 86
 
    33 Statement: RETURN OptExpr SEMI .
 
-    $default  reduzir usando a regra 33 (Statement)
+    $default  reduce using rule 33 (Statement)
 
 
 State 87
 
    58 Expr: Expr AND . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 110
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 110
 
 
 State 88
 
    59 Expr: Expr OR . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 111
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 111
 
 
 State 89
 
    64 Expr: Expr LT . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 112
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 112
 
 
 State 90
 
    62 Expr: Expr GT . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 113
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 113
 
 
 State 91
 
    60 Expr: Expr EQ . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 114
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 114
 
 
 State 92
 
    65 Expr: Expr NEQ . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 115
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 115
 
 
 State 93
 
    63 Expr: Expr LEQ . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 116
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 116
 
 
 State 94
 
    61 Expr: Expr GEQ . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 117
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 117
 
 
 State 95
@@ -1432,29 +1432,29 @@ State 95
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    CCURV  fazer shift, e ir para o estado 118
-    AND    fazer shift, e ir para o estado 87
-    OR     fazer shift, e ir para o estado 88
-    LT     fazer shift, e ir para o estado 89
-    GT     fazer shift, e ir para o estado 90
-    EQ     fazer shift, e ir para o estado 91
-    NEQ    fazer shift, e ir para o estado 92
-    LEQ    fazer shift, e ir para o estado 93
-    GEQ    fazer shift, e ir para o estado 94
+    CCURV  shift, and go to state 118
+    AND    shift, and go to state 87
+    OR     shift, and go to state 88
+    LT     shift, and go to state 89
+    GT     shift, and go to state 90
+    EQ     shift, and go to state 91
+    NEQ    shift, and go to state 92
+    LEQ    shift, and go to state 93
+    GEQ    shift, and go to state 94
 
 
 State 96
 
    34 MultipleStatements: Statement MultipleStatements .
 
-    $default  reduzir usando a regra 34 (MultipleStatements)
+    $default  reduce using rule 34 (MultipleStatements)
 
 
 State 97
 
    27 Statement: OBRACE MultipleStatements CBRACE .
 
-    $default  reduzir usando a regra 27 (Statement)
+    $default  reduce using rule 27 (Statement)
 
 
 State 98
@@ -1462,28 +1462,28 @@ State 98
    48 MultipleCommaExpr: MultipleCommaExpr . COMMA Expr
    50 OptExprCommaExprs: MultipleCommaExpr . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    COMMA     fazer shift, e ir para o estado 119
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    COMMA     shift, and go to state 119
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 120
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 120
 
 
 State 99
 
    47 MethodInvocation: ID OCURV OptExprCommaExprs . CCURV
 
-    CCURV  fazer shift, e ir para o estado 121
+    CCURV  shift, and go to state 121
 
 
 State 100
@@ -1498,45 +1498,45 @@ State 100
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 46 (Assignment)]
-    OR        [reduzir usando a regra 46 (Assignment)]
-    LT        [reduzir usando a regra 46 (Assignment)]
-    GT        [reduzir usando a regra 46 (Assignment)]
-    EQ        [reduzir usando a regra 46 (Assignment)]
-    NEQ       [reduzir usando a regra 46 (Assignment)]
-    LEQ       [reduzir usando a regra 46 (Assignment)]
-    GEQ       [reduzir usando a regra 46 (Assignment)]
-    $default  reduzir usando a regra 46 (Assignment)
+    AND       [reduce using rule 46 (Assignment)]
+    OR        [reduce using rule 46 (Assignment)]
+    LT        [reduce using rule 46 (Assignment)]
+    GT        [reduce using rule 46 (Assignment)]
+    EQ        [reduce using rule 46 (Assignment)]
+    NEQ       [reduce using rule 46 (Assignment)]
+    LEQ       [reduce using rule 46 (Assignment)]
+    GEQ       [reduce using rule 46 (Assignment)]
+    $default  reduce using rule 46 (Assignment)
 
 
 State 101
 
    22 SubVarDecl: COMMA . ID SubVarDecl
 
-    ID  fazer shift, e ir para o estado 122
+    ID  shift, and go to state 122
 
 
 State 102
 
    21 VarDecl: Type ID SubVarDecl . SEMI
 
-    SEMI  fazer shift, e ir para o estado 123
+    SEMI  shift, and go to state 123
 
 
 State 103
 
    18 FormalParams: STRING OSQUARE CSQUARE . ID
 
-    ID  fazer shift, e ir para o estado 124
+    ID  shift, and go to state 124
 
 
 State 104
@@ -1544,85 +1544,85 @@ State 104
    17 FormalParams: Type ID SubFormalParams .
    19 SubFormalParams: SubFormalParams . COMMA Type ID
 
-    COMMA  fazer shift, e ir para o estado 125
+    COMMA  shift, and go to state 125
 
-    $default  reduzir usando a regra 17 (FormalParams)
+    $default  reduce using rule 17 (FormalParams)
 
 
 State 105
 
    30 Statement: DO Statement WHILE OCURV . Expr CCURV SEMI
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 126
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 126
 
 
 State 106
 
    28 Statement: IF OCURV Expr CCURV . Statement OptElseStatement
 
-    DO        fazer shift, e ir para o estado 24
-    IF        fazer shift, e ir para o estado 25
-    PARSEINT  fazer shift, e ir para o estado 26
-    PRINT     fazer shift, e ir para o estado 27
-    RETURN    fazer shift, e ir para o estado 28
-    WHILE     fazer shift, e ir para o estado 29
-    OBRACE    fazer shift, e ir para o estado 30
-    ID        fazer shift, e ir para o estado 32
+    DO        shift, and go to state 24
+    IF        shift, and go to state 25
+    PARSEINT  shift, and go to state 26
+    PRINT     shift, and go to state 27
+    RETURN    shift, and go to state 28
+    WHILE     shift, and go to state 29
+    OBRACE    shift, and go to state 30
+    ID        shift, and go to state 32
 
-    $default  reduzir usando a regra 43 (OptAMIPA)
+    $default  reduce using rule 43 (OptAMIPA)
 
-    Statement         ir para o estado 127
-    OptAMIPA          ir para o estado 36
-    Assignment        ir para o estado 37
-    MethodInvocation  ir para o estado 38
-    ParseArgs         ir para o estado 39
+    Statement         go to state 127
+    OptAMIPA          go to state 36
+    Assignment        go to state 37
+    MethodInvocation  go to state 38
+    ParseArgs         go to state 39
 
 
 State 107
 
    52 ParseArgs: PARSEINT OCURV ID OSQUARE . Expr CSQUARE CCURV
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 128
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 128
 
 
 State 108
 
    31 Statement: PRINT OCURV ExprStrlit CCURV . SEMI
 
-    SEMI  fazer shift, e ir para o estado 129
+    SEMI  shift, and go to state 129
 
 
 State 109
 
    70 Expr: OCURV Expr CCURV .
 
-    $default  reduzir usando a regra 70 (Expr)
+    $default  reduce using rule 70 (Expr)
 
 
 State 110
@@ -1637,24 +1637,24 @@ State 110
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 58 (Expr)]
-    OR        [reduzir usando a regra 58 (Expr)]
-    LT        [reduzir usando a regra 58 (Expr)]
-    GT        [reduzir usando a regra 58 (Expr)]
-    EQ        [reduzir usando a regra 58 (Expr)]
-    NEQ       [reduzir usando a regra 58 (Expr)]
-    LEQ       [reduzir usando a regra 58 (Expr)]
-    GEQ       [reduzir usando a regra 58 (Expr)]
-    $default  reduzir usando a regra 58 (Expr)
+    AND       [reduce using rule 58 (Expr)]
+    OR        [reduce using rule 58 (Expr)]
+    LT        [reduce using rule 58 (Expr)]
+    GT        [reduce using rule 58 (Expr)]
+    EQ        [reduce using rule 58 (Expr)]
+    NEQ       [reduce using rule 58 (Expr)]
+    LEQ       [reduce using rule 58 (Expr)]
+    GEQ       [reduce using rule 58 (Expr)]
+    $default  reduce using rule 58 (Expr)
 
 
 State 111
@@ -1669,24 +1669,24 @@ State 111
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 59 (Expr)]
-    OR        [reduzir usando a regra 59 (Expr)]
-    LT        [reduzir usando a regra 59 (Expr)]
-    GT        [reduzir usando a regra 59 (Expr)]
-    EQ        [reduzir usando a regra 59 (Expr)]
-    NEQ       [reduzir usando a regra 59 (Expr)]
-    LEQ       [reduzir usando a regra 59 (Expr)]
-    GEQ       [reduzir usando a regra 59 (Expr)]
-    $default  reduzir usando a regra 59 (Expr)
+    AND       [reduce using rule 59 (Expr)]
+    OR        [reduce using rule 59 (Expr)]
+    LT        [reduce using rule 59 (Expr)]
+    GT        [reduce using rule 59 (Expr)]
+    EQ        [reduce using rule 59 (Expr)]
+    NEQ       [reduce using rule 59 (Expr)]
+    LEQ       [reduce using rule 59 (Expr)]
+    GEQ       [reduce using rule 59 (Expr)]
+    $default  reduce using rule 59 (Expr)
 
 
 State 112
@@ -1701,24 +1701,24 @@ State 112
    64     | Expr LT Expr .
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 64 (Expr)]
-    OR        [reduzir usando a regra 64 (Expr)]
-    LT        [reduzir usando a regra 64 (Expr)]
-    GT        [reduzir usando a regra 64 (Expr)]
-    EQ        [reduzir usando a regra 64 (Expr)]
-    NEQ       [reduzir usando a regra 64 (Expr)]
-    LEQ       [reduzir usando a regra 64 (Expr)]
-    GEQ       [reduzir usando a regra 64 (Expr)]
-    $default  reduzir usando a regra 64 (Expr)
+    AND       [reduce using rule 64 (Expr)]
+    OR        [reduce using rule 64 (Expr)]
+    LT        [reduce using rule 64 (Expr)]
+    GT        [reduce using rule 64 (Expr)]
+    EQ        [reduce using rule 64 (Expr)]
+    NEQ       [reduce using rule 64 (Expr)]
+    LEQ       [reduce using rule 64 (Expr)]
+    GEQ       [reduce using rule 64 (Expr)]
+    $default  reduce using rule 64 (Expr)
 
 
 State 113
@@ -1733,24 +1733,24 @@ State 113
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 62 (Expr)]
-    OR        [reduzir usando a regra 62 (Expr)]
-    LT        [reduzir usando a regra 62 (Expr)]
-    GT        [reduzir usando a regra 62 (Expr)]
-    EQ        [reduzir usando a regra 62 (Expr)]
-    NEQ       [reduzir usando a regra 62 (Expr)]
-    LEQ       [reduzir usando a regra 62 (Expr)]
-    GEQ       [reduzir usando a regra 62 (Expr)]
-    $default  reduzir usando a regra 62 (Expr)
+    AND       [reduce using rule 62 (Expr)]
+    OR        [reduce using rule 62 (Expr)]
+    LT        [reduce using rule 62 (Expr)]
+    GT        [reduce using rule 62 (Expr)]
+    EQ        [reduce using rule 62 (Expr)]
+    NEQ       [reduce using rule 62 (Expr)]
+    LEQ       [reduce using rule 62 (Expr)]
+    GEQ       [reduce using rule 62 (Expr)]
+    $default  reduce using rule 62 (Expr)
 
 
 State 114
@@ -1765,24 +1765,24 @@ State 114
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 60 (Expr)]
-    OR        [reduzir usando a regra 60 (Expr)]
-    LT        [reduzir usando a regra 60 (Expr)]
-    GT        [reduzir usando a regra 60 (Expr)]
-    EQ        [reduzir usando a regra 60 (Expr)]
-    NEQ       [reduzir usando a regra 60 (Expr)]
-    LEQ       [reduzir usando a regra 60 (Expr)]
-    GEQ       [reduzir usando a regra 60 (Expr)]
-    $default  reduzir usando a regra 60 (Expr)
+    AND       [reduce using rule 60 (Expr)]
+    OR        [reduce using rule 60 (Expr)]
+    LT        [reduce using rule 60 (Expr)]
+    GT        [reduce using rule 60 (Expr)]
+    EQ        [reduce using rule 60 (Expr)]
+    NEQ       [reduce using rule 60 (Expr)]
+    LEQ       [reduce using rule 60 (Expr)]
+    GEQ       [reduce using rule 60 (Expr)]
+    $default  reduce using rule 60 (Expr)
 
 
 State 115
@@ -1797,24 +1797,24 @@ State 115
    65     | Expr . NEQ Expr
    65     | Expr NEQ Expr .
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 65 (Expr)]
-    OR        [reduzir usando a regra 65 (Expr)]
-    LT        [reduzir usando a regra 65 (Expr)]
-    GT        [reduzir usando a regra 65 (Expr)]
-    EQ        [reduzir usando a regra 65 (Expr)]
-    NEQ       [reduzir usando a regra 65 (Expr)]
-    LEQ       [reduzir usando a regra 65 (Expr)]
-    GEQ       [reduzir usando a regra 65 (Expr)]
-    $default  reduzir usando a regra 65 (Expr)
+    AND       [reduce using rule 65 (Expr)]
+    OR        [reduce using rule 65 (Expr)]
+    LT        [reduce using rule 65 (Expr)]
+    GT        [reduce using rule 65 (Expr)]
+    EQ        [reduce using rule 65 (Expr)]
+    NEQ       [reduce using rule 65 (Expr)]
+    LEQ       [reduce using rule 65 (Expr)]
+    GEQ       [reduce using rule 65 (Expr)]
+    $default  reduce using rule 65 (Expr)
 
 
 State 116
@@ -1829,24 +1829,24 @@ State 116
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 63 (Expr)]
-    OR        [reduzir usando a regra 63 (Expr)]
-    LT        [reduzir usando a regra 63 (Expr)]
-    GT        [reduzir usando a regra 63 (Expr)]
-    EQ        [reduzir usando a regra 63 (Expr)]
-    NEQ       [reduzir usando a regra 63 (Expr)]
-    LEQ       [reduzir usando a regra 63 (Expr)]
-    GEQ       [reduzir usando a regra 63 (Expr)]
-    $default  reduzir usando a regra 63 (Expr)
+    AND       [reduce using rule 63 (Expr)]
+    OR        [reduce using rule 63 (Expr)]
+    LT        [reduce using rule 63 (Expr)]
+    GT        [reduce using rule 63 (Expr)]
+    EQ        [reduce using rule 63 (Expr)]
+    NEQ       [reduce using rule 63 (Expr)]
+    LEQ       [reduce using rule 63 (Expr)]
+    GEQ       [reduce using rule 63 (Expr)]
+    $default  reduce using rule 63 (Expr)
 
 
 State 117
@@ -1861,66 +1861,66 @@ State 117
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    AND       [reduzir usando a regra 61 (Expr)]
-    OR        [reduzir usando a regra 61 (Expr)]
-    LT        [reduzir usando a regra 61 (Expr)]
-    GT        [reduzir usando a regra 61 (Expr)]
-    EQ        [reduzir usando a regra 61 (Expr)]
-    NEQ       [reduzir usando a regra 61 (Expr)]
-    LEQ       [reduzir usando a regra 61 (Expr)]
-    GEQ       [reduzir usando a regra 61 (Expr)]
-    $default  reduzir usando a regra 61 (Expr)
+    AND       [reduce using rule 61 (Expr)]
+    OR        [reduce using rule 61 (Expr)]
+    LT        [reduce using rule 61 (Expr)]
+    GT        [reduce using rule 61 (Expr)]
+    EQ        [reduce using rule 61 (Expr)]
+    NEQ       [reduce using rule 61 (Expr)]
+    LEQ       [reduce using rule 61 (Expr)]
+    GEQ       [reduce using rule 61 (Expr)]
+    $default  reduce using rule 61 (Expr)
 
 
 State 118
 
    29 Statement: WHILE OCURV Expr CCURV . Statement
 
-    DO        fazer shift, e ir para o estado 24
-    IF        fazer shift, e ir para o estado 25
-    PARSEINT  fazer shift, e ir para o estado 26
-    PRINT     fazer shift, e ir para o estado 27
-    RETURN    fazer shift, e ir para o estado 28
-    WHILE     fazer shift, e ir para o estado 29
-    OBRACE    fazer shift, e ir para o estado 30
-    ID        fazer shift, e ir para o estado 32
+    DO        shift, and go to state 24
+    IF        shift, and go to state 25
+    PARSEINT  shift, and go to state 26
+    PRINT     shift, and go to state 27
+    RETURN    shift, and go to state 28
+    WHILE     shift, and go to state 29
+    OBRACE    shift, and go to state 30
+    ID        shift, and go to state 32
 
-    $default  reduzir usando a regra 43 (OptAMIPA)
+    $default  reduce using rule 43 (OptAMIPA)
 
-    Statement         ir para o estado 130
-    OptAMIPA          ir para o estado 36
-    Assignment        ir para o estado 37
-    MethodInvocation  ir para o estado 38
-    ParseArgs         ir para o estado 39
+    Statement         go to state 130
+    OptAMIPA          go to state 36
+    Assignment        go to state 37
+    MethodInvocation  go to state 38
+    ParseArgs         go to state 39
 
 
 State 119
 
    48 MultipleCommaExpr: MultipleCommaExpr COMMA . Expr
 
-    BOOLLIT   fazer shift, e ir para o estado 50
-    PARSEINT  fazer shift, e ir para o estado 26
-    OCURV     fazer shift, e ir para o estado 51
-    PLUS      fazer shift, e ir para o estado 52
-    MINUS     fazer shift, e ir para o estado 53
-    NOT       fazer shift, e ir para o estado 54
-    DECLIT    fazer shift, e ir para o estado 55
-    REALLIT   fazer shift, e ir para o estado 56
-    ID        fazer shift, e ir para o estado 57
+    BOOLLIT   shift, and go to state 50
+    PARSEINT  shift, and go to state 26
+    OCURV     shift, and go to state 51
+    PLUS      shift, and go to state 52
+    MINUS     shift, and go to state 53
+    NOT       shift, and go to state 54
+    DECLIT    shift, and go to state 55
+    REALLIT   shift, and go to state 56
+    ID        shift, and go to state 57
 
-    Assignment        ir para o estado 59
-    MethodInvocation  ir para o estado 60
-    ParseArgs         ir para o estado 61
-    Expr              ir para o estado 131
+    Assignment        go to state 59
+    MethodInvocation  go to state 60
+    ParseArgs         go to state 61
+    Expr              go to state 131
 
 
 State 120
@@ -1935,59 +1935,59 @@ State 120
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    $default  reduzir usando a regra 50 (OptExprCommaExprs)
+    $default  reduce using rule 50 (OptExprCommaExprs)
 
 
 State 121
 
    47 MethodInvocation: ID OCURV OptExprCommaExprs CCURV .
 
-    $default  reduzir usando a regra 47 (MethodInvocation)
+    $default  reduce using rule 47 (MethodInvocation)
 
 
 State 122
 
    22 SubVarDecl: COMMA ID . SubVarDecl
 
-    COMMA  fazer shift, e ir para o estado 101
+    COMMA  shift, and go to state 101
 
-    $default  reduzir usando a regra 23 (SubVarDecl)
+    $default  reduce using rule 23 (SubVarDecl)
 
-    SubVarDecl  ir para o estado 132
+    SubVarDecl  go to state 132
 
 
 State 123
 
    21 VarDecl: Type ID SubVarDecl SEMI .
 
-    $default  reduzir usando a regra 21 (VarDecl)
+    $default  reduce using rule 21 (VarDecl)
 
 
 State 124
 
    18 FormalParams: STRING OSQUARE CSQUARE ID .
 
-    $default  reduzir usando a regra 18 (FormalParams)
+    $default  reduce using rule 18 (FormalParams)
 
 
 State 125
 
    19 SubFormalParams: SubFormalParams COMMA . Type ID
 
-    BOOL    fazer shift, e ir para o estado 13
-    DOUBLE  fazer shift, e ir para o estado 14
-    INT     fazer shift, e ir para o estado 15
+    BOOL    shift, and go to state 13
+    DOUBLE  shift, and go to state 14
+    INT     shift, and go to state 15
 
-    Type  ir para o estado 133
+    Type  go to state 133
 
 
 State 126
@@ -2002,27 +2002,27 @@ State 126
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    CCURV  fazer shift, e ir para o estado 134
-    AND    fazer shift, e ir para o estado 87
-    OR     fazer shift, e ir para o estado 88
-    LT     fazer shift, e ir para o estado 89
-    GT     fazer shift, e ir para o estado 90
-    EQ     fazer shift, e ir para o estado 91
-    NEQ    fazer shift, e ir para o estado 92
-    LEQ    fazer shift, e ir para o estado 93
-    GEQ    fazer shift, e ir para o estado 94
+    CCURV  shift, and go to state 134
+    AND    shift, and go to state 87
+    OR     shift, and go to state 88
+    LT     shift, and go to state 89
+    GT     shift, and go to state 90
+    EQ     shift, and go to state 91
+    NEQ    shift, and go to state 92
+    LEQ    shift, and go to state 93
+    GEQ    shift, and go to state 94
 
 
 State 127
 
    28 Statement: IF OCURV Expr CCURV Statement . OptElseStatement
 
-    ELSE  fazer shift, e ir para o estado 135
+    ELSE  shift, and go to state 135
 
-    ELSE      [reduzir usando a regra 37 (OptElseStatement)]
-    $default  reduzir usando a regra 37 (OptElseStatement)
+    ELSE      [reduce using rule 37 (OptElseStatement)]
+    $default  reduce using rule 37 (OptElseStatement)
 
-    OptElseStatement  ir para o estado 136
+    OptElseStatement  go to state 136
 
 
 State 128
@@ -2037,29 +2037,29 @@ State 128
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    CSQUARE  fazer shift, e ir para o estado 137
-    AND      fazer shift, e ir para o estado 87
-    OR       fazer shift, e ir para o estado 88
-    LT       fazer shift, e ir para o estado 89
-    GT       fazer shift, e ir para o estado 90
-    EQ       fazer shift, e ir para o estado 91
-    NEQ      fazer shift, e ir para o estado 92
-    LEQ      fazer shift, e ir para o estado 93
-    GEQ      fazer shift, e ir para o estado 94
+    CSQUARE  shift, and go to state 137
+    AND      shift, and go to state 87
+    OR       shift, and go to state 88
+    LT       shift, and go to state 89
+    GT       shift, and go to state 90
+    EQ       shift, and go to state 91
+    NEQ      shift, and go to state 92
+    LEQ      shift, and go to state 93
+    GEQ      shift, and go to state 94
 
 
 State 129
 
    31 Statement: PRINT OCURV ExprStrlit CCURV SEMI .
 
-    $default  reduzir usando a regra 31 (Statement)
+    $default  reduce using rule 31 (Statement)
 
 
 State 130
 
    29 Statement: WHILE OCURV Expr CCURV Statement .
 
-    $default  reduzir usando a regra 29 (Statement)
+    $default  reduce using rule 29 (Statement)
 
 
 State 131
@@ -2074,98 +2074,98 @@ State 131
    64     | Expr . LT Expr
    65     | Expr . NEQ Expr
 
-    AND  fazer shift, e ir para o estado 87
-    OR   fazer shift, e ir para o estado 88
-    LT   fazer shift, e ir para o estado 89
-    GT   fazer shift, e ir para o estado 90
-    EQ   fazer shift, e ir para o estado 91
-    NEQ  fazer shift, e ir para o estado 92
-    LEQ  fazer shift, e ir para o estado 93
-    GEQ  fazer shift, e ir para o estado 94
+    AND  shift, and go to state 87
+    OR   shift, and go to state 88
+    LT   shift, and go to state 89
+    GT   shift, and go to state 90
+    EQ   shift, and go to state 91
+    NEQ  shift, and go to state 92
+    LEQ  shift, and go to state 93
+    GEQ  shift, and go to state 94
 
-    $default  reduzir usando a regra 48 (MultipleCommaExpr)
+    $default  reduce using rule 48 (MultipleCommaExpr)
 
 
 State 132
 
    22 SubVarDecl: COMMA ID SubVarDecl .
 
-    $default  reduzir usando a regra 22 (SubVarDecl)
+    $default  reduce using rule 22 (SubVarDecl)
 
 
 State 133
 
    19 SubFormalParams: SubFormalParams COMMA Type . ID
 
-    ID  fazer shift, e ir para o estado 138
+    ID  shift, and go to state 138
 
 
 State 134
 
    30 Statement: DO Statement WHILE OCURV Expr CCURV . SEMI
 
-    SEMI  fazer shift, e ir para o estado 139
+    SEMI  shift, and go to state 139
 
 
 State 135
 
    36 OptElseStatement: ELSE . Statement
 
-    DO        fazer shift, e ir para o estado 24
-    IF        fazer shift, e ir para o estado 25
-    PARSEINT  fazer shift, e ir para o estado 26
-    PRINT     fazer shift, e ir para o estado 27
-    RETURN    fazer shift, e ir para o estado 28
-    WHILE     fazer shift, e ir para o estado 29
-    OBRACE    fazer shift, e ir para o estado 30
-    ID        fazer shift, e ir para o estado 32
+    DO        shift, and go to state 24
+    IF        shift, and go to state 25
+    PARSEINT  shift, and go to state 26
+    PRINT     shift, and go to state 27
+    RETURN    shift, and go to state 28
+    WHILE     shift, and go to state 29
+    OBRACE    shift, and go to state 30
+    ID        shift, and go to state 32
 
-    $default  reduzir usando a regra 43 (OptAMIPA)
+    $default  reduce using rule 43 (OptAMIPA)
 
-    Statement         ir para o estado 140
-    OptAMIPA          ir para o estado 36
-    Assignment        ir para o estado 37
-    MethodInvocation  ir para o estado 38
-    ParseArgs         ir para o estado 39
+    Statement         go to state 140
+    OptAMIPA          go to state 36
+    Assignment        go to state 37
+    MethodInvocation  go to state 38
+    ParseArgs         go to state 39
 
 
 State 136
 
    28 Statement: IF OCURV Expr CCURV Statement OptElseStatement .
 
-    $default  reduzir usando a regra 28 (Statement)
+    $default  reduce using rule 28 (Statement)
 
 
 State 137
 
    52 ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE . CCURV
 
-    CCURV  fazer shift, e ir para o estado 141
+    CCURV  shift, and go to state 141
 
 
 State 138
 
    19 SubFormalParams: SubFormalParams COMMA Type ID .
 
-    $default  reduzir usando a regra 19 (SubFormalParams)
+    $default  reduce using rule 19 (SubFormalParams)
 
 
 State 139
 
    30 Statement: DO Statement WHILE OCURV Expr CCURV SEMI .
 
-    $default  reduzir usando a regra 30 (Statement)
+    $default  reduce using rule 30 (Statement)
 
 
 State 140
 
    36 OptElseStatement: ELSE Statement .
 
-    $default  reduzir usando a regra 36 (OptElseStatement)
+    $default  reduce using rule 36 (OptElseStatement)
 
 
 State 141
 
    52 ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV .
 
-    $default  reduzir usando a regra 52 (ParseArgs)
+    $default  reduce using rule 52 (ParseArgs)
