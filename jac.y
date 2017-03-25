@@ -75,28 +75,29 @@
 %%
 
 Program: CLASS ID OBRACE SubProgram CBRACE
-SubProgram: SubProgram FieldDecl | SubProgram MethodDecl | SubProgram SEMI | %empty
+SubProgram: SubProgram FieldDecl | SubProgram MethodDecl | SubProgram SEMI | Empty
 
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI
-SubFieldDecl: SubFieldDecl COMMA ID | %empty
+SubFieldDecl: SubFieldDecl COMMA ID | Empty
 
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody
 MethodHeader: Type ID OCURV OptFormalParams CCURV
-OptFormalParams: FormalParams | %empty
+OptFormalParams: FormalParams | Empty
 
 MethodBody: OBRACE SubMethodBody CBRACE
-SubMethodBody: SubMethodBody VarDecl | SubMethodBody Statement | %empty
+SubMethodBody: SubMethodBody VarDecl | SubMethodBody Statement | Empty
 
 
 FormalParams: Type ID SubFormalParams
     | STRING OSQUARE CSQUARE ID
-SubFormalParams: SubFormalParams COMMA Type ID | %empty
+SubFormalParams: SubFormalParams COMMA Type ID | Empty
 
 VarDecl: Type ID SubVarDecl SEMI
-SubVarDecl: COMMA ID SubVarDecl | %empty
+SubVarDecl: COMMA ID SubVarDecl | Empty
 
 Type: BOOL | INT | DOUBLE
 
+OptElseStatement: ELSE Statement | Empty
 Statement: OBRACE MultipleStatements CBRACE
     | IF OCURV Expr CCURV Statement OptElseStatement
     | WHILE OCURV Expr CCURV Statement
@@ -104,21 +105,20 @@ Statement: OBRACE MultipleStatements CBRACE
     | PRINT OCURV ExprStrlit CCURV SEMI
     | OptAMIPA SEMI
     | RETURN OptExpr SEMI
-MultipleStatements: Statement MultipleStatements | %empty
-OptElseStatement: ELSE Statement | %empty
+MultipleStatements: Statement MultipleStatements | Empty
 ExprStrlit: Expr | STRLIT
-OptAMIPA: Assignment | MethodInvocation | ParseArgs | %empty
-OptExpr: Expr | %empty
+OptAMIPA: Assignment | MethodInvocation | ParseArgs | Empty
+OptExpr: Expr | Empty
 
 Assignment: ID ASSIGN Expr
 
 MethodInvocation: ID OCURV OptExprCommaExprs CCURV
-MultipleCommaExpr: MultipleCommaExpr COMMA Expr | %empty
-OptExprCommaExprs: MultipleCommaExpr Expr | %empty
+MultipleCommaExpr: MultipleCommaExpr COMMA Expr | Empty
+OptExprCommaExprs: Expr MultipleCommaExpr | Empty
 
 ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
 
-OptDotLength: DOTLENGTH | %empty
+OptDotLength: DOTLENGTH | Empty
 
 Expr: Assignment | MethodInvocation | ParseArgs
     | Expr AND Expr
@@ -136,10 +136,11 @@ Expr: Assignment | MethodInvocation | ParseArgs
     | OCURV Expr CCURV
     | BOOLLIT | DECLIT | REALLIT
 
-
+Empty: ;
 
 %%
 
 void yyerror (const char *s){
 	printf ("Line %d, col %d: %s: %s\n",num_line, (int)(num_col- strlen(yytext)+1), s, yytext);
 }
+
