@@ -2,11 +2,13 @@
     #include <stdio.h>
     #include "string.h"
     #include "y.tab.h"
-	#include "structs.h"
+	#include "struct.h"
+	#include "ast.h"
     int yylex(void);
 	extern int num_line;
 	extern int num_col;
 	extern char * yytext;
+	extern Node * tree;
     void yyerror (const char *s);
 	int flag=1;
 %}
@@ -14,7 +16,7 @@
 %union{
 	char * string;
 	struct node *node;
-};
+}
 
 %token BOOL
 %token BOOLLIT
@@ -84,7 +86,7 @@
 
 %%
 
-Program: CLASS ID OBRACE SubProgram CBRACE
+Program: CLASS ID OBRACE SubProgram CBRACE												{$$ = insert_node(NODE_Program)}
 SubProgram: SubProgram FieldDecl | SubProgram MethodDecl | SubProgram SEMI | Empty
 
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI

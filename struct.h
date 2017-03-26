@@ -1,8 +1,8 @@
 typedef enum {
 	NODE_Program,
 	//Declaracao de variaveis
-	NODE_FieldDecl
-	NODE_VarDecl
+	NODE_FieldDecl,
+	NODE_VarDecl,
 	//Definicao de metodos
 	NODE_MethodDecl,
 	NODE_MethodHeader,
@@ -41,7 +41,6 @@ typedef enum {
 	NODE_Minus,
 	NODE_Plus,
 	NODE_Length,
-	NODE_Call,
 
 	//Terminais
 	NODE_Bool,
@@ -64,5 +63,5 @@ typedef struct node{
 	struct node_ele *father;
 	struct node_ele *brother;
 	struct node_ele *child;
-	char *value
+	char *value;
 }Node;
