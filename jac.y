@@ -2,6 +2,7 @@
     #include <stdio.h>
     #include "string.h"
     #include "y.tab.h"
+	#include "structs.h"
     int yylex(void);
 	extern int num_line;
 	extern int num_col;
@@ -9,6 +10,11 @@
     void yyerror (const char *s);
 	int flag=1;
 %}
+
+%union{
+	char * string;
+	struct node *node;
+};
 
 %token BOOL
 %token BOOLLIT
@@ -50,12 +56,16 @@
 %token ASSIGN
 %token SEMI
 %token COMMA
-%token RESERVED
+%token <string> RESERVED
 %token NEWLINE
-%token STRLIT
-%token DECLIT
-%token REALLIT
-%token ID
+%token <string> STRLIT
+%token <string> DECLIT
+%token <string> REALLIT
+%token <string> ID
+
+%type <node> Program SubProgram FieldDecl SubFieldDecl MethodDecl MethodHeader OptFormalParams MethodBody SubMethodBody FormalParams SubFormalParams VarDecl SubVarDecl Type Statement MultipleStatements ExprStrlit OptAMIPA OptExpr Assignment MethodInvocation MultipleCommaExpr OptExprCommaExprs ParseArgs OptDotLength Expr Empty 
+
+
 
 
 %left COMMA
