@@ -3,12 +3,12 @@
 	#include <stdlib.h>
     #include <string.h>
     #include "y.tab.h"
-//	#include "ast.h"
+	#include "ast.h"
     int yylex(void);
 	extern int num_line;
 	extern int num_col;
 	extern char * yytext;
-	//extern Node * tree;
+	extern Node * tree;
     void yyerror (const char *s);
 	int flag=1;
 %}
@@ -110,15 +110,22 @@
 
 %%
 
-Program: CLASS ID OBRACE SubProgram CBRACE  {;}
+Program: CLASS ID OBRACE SubProgram CBRACE  {$$ = insert_node(NODE_Program);
+	  $$->child = insert_node_leaf(NODE_Id,$2);
+	  insert_child($$,); 
+}
 	   ; 
    										
 SubProgram: Empty {;}
-		  | SubProgram FieldDecl {;}
-		  | SubProgram MethodDecl {;}
+		  | SubProgram FieldDecl {$$ = $2;}
+		  | SubProgram MethodDecl {$$ = $2;}
 		  | SubProgram SEMI {;}
 		  ;
-FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {;}
+FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = insert_node(NODE_FieldDecl);
+	insert_child($$,$3);		 
+	insert_child($$,insert_node_leaf(NODE_Id,$4));
+
+}
 	| error SEMI {;}
 	;
 SubFieldDecl: Empty {;}
