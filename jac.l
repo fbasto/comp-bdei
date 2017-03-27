@@ -25,54 +25,54 @@ STRLIT		"\""(([^"\\\n\r]|({ESCAPES}))*)"\""
 REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))|([0-9]+(([0-9]|_)*[0-9])*)|(["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))?)|((\.)([0-9]+(([0-9]|_)*[0-9])*)((["e""E"][-+]?)([0-9]+(([0-9]|_)*[0-9])*))?)|(([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?([0-9]+(([0-9]|_)*[0-9])*)))
 
 %%
-"boolean"	{num_col=num_col+yyleng;if(output) printf("BOOL\n"); if(output==2){return BOOL;}}
-"true"|"false"	{num_col=num_col+yyleng;if(output) printf("BOOLLIT(%s)\n",yytext); if(output==2){return BOOLLIT;}}
-"class"		{num_col=num_col+yyleng;if(output) printf("CLASS\n"); if(output==2){return CLASS;}}
-"do"		{num_col=num_col+yyleng;if(output) printf("DO\n"); if(output==2){return DO;}}
-"double"	{num_col=num_col+yyleng;if(output) printf("DOUBLE\n"); if(output==2){return DOUBLE;}}
-".length"	{num_col=num_col+yyleng;if(output) printf("DOTLENGTH\n"); if(output==2){return DOTLENGTH;}}
-"else"		{num_col=num_col+yyleng;if(output) printf("ELSE\n"); if(output==2){return ELSE;}}
-"if"		{num_col=num_col+yyleng;if(output) printf("IF\n"); if(output==2){return IF;}}
-"int"		{num_col=num_col+yyleng;if(output) printf("INT\n"); if(output==2){return INT;}}
-"Integer.parseInt"	{num_col=num_col+yyleng;if(output) printf("PARSEINT\n"); if(output==2){return PARSEINT;}}
-"System.out.println"	{num_col=num_col+yyleng;if(output) printf("PRINT\n"); if(output==2){return PRINT;}}
-"public"	{num_col=num_col+yyleng;if(output) printf("PUBLIC\n"); if(output==2){return PUBLIC;}}
-"return"	{num_col=num_col+yyleng;if(output) printf("RETURN\n"); if(output==2){return RETURN;}}
-"static"	{num_col=num_col+yyleng;if(output) printf("STATIC\n"); if(output==2){return STATIC;}}
-"String"	{num_col=num_col+yyleng;if(output) printf("STRING\n"); if(output==2){return STRING;}}
-"void"		{num_col=num_col+yyleng;if(output) printf("VOID\n"); if(output==2){return VOID;}}
-"while"		{num_col=num_col+yyleng;if(output) printf("WHILE\n"); if(output==2){return WHILE;}}
-"("		{num_col=num_col+yyleng;if(output) printf("OCURV\n"); if(output==2){return OCURV;}}
-")"		{num_col=num_col+yyleng;if(output) printf("CCURV\n"); if(output==2){return CCURV;}}
-"{"		{num_col=num_col+yyleng;if(output) printf("OBRACE\n"); if(output==2){return OBRACE;}}
-"}"		{num_col=num_col+yyleng;if(output) printf("CBRACE\n"); if(output==2){return CBRACE;}}
-"["		{num_col=num_col+yyleng;if(output) printf("OSQUARE\n"); if(output==2){return OSQUARE;}}
-"]"		{num_col=num_col+yyleng;if(output) printf("CSQUARE\n"); if(output==2){return CSQUARE;}}
-"&&"		{num_col=num_col+yyleng;if(output) printf("AND\n"); if(output==2){return AND;}}
-"||"		{num_col=num_col+yyleng;if(output) printf("OR\n"); if(output==2){return OR;}}
-"<"		{num_col=num_col+yyleng;if(output) printf("LT\n"); if(output==2){return LT;}}
-">"		{num_col=num_col+yyleng;if(output) printf("GT\n"); if(output==2){return GT;}}	
-"=="		{num_col=num_col+yyleng;if(output) printf("EQ\n"); if(output==2){return EQ;}}
-"!="		{num_col=num_col+yyleng;if(output) printf("NEQ\n"); if(output==2){return NEQ;}}
-"<="		{num_col=num_col+yyleng;if(output) printf("LEQ\n"); if(output==2){return LEQ;}}
-">="		{num_col=num_col+yyleng;if(output) printf("GEQ\n"); if(output==2){return GEQ;}}
-"+"		{num_col=num_col+yyleng;if(output) printf("PLUS\n"); if(output==2){return PLUS;}}
-"-"		{num_col=num_col+yyleng;if(output) printf("MINUS\n"); if(output==2){return MINUS;}}
-"*"		{num_col=num_col+yyleng;if(output) printf("STAR\n"); if(output==2){return STAR;}}
-"/"		{num_col=num_col+yyleng;if(output) printf("DIV\n"); if(output==2){return DIV;}}
-"%"		{num_col=num_col+yyleng;if(output) printf("MOD\n"); if(output==2){return MOD;}}
-"!"		{num_col=num_col+yyleng;if(output) printf("NOT\n"); if(output==2){return NOT;}}
-"="		{num_col=num_col+yyleng;if(output) printf("ASSIGN\n"); if(output==2){return ASSIGN;}}
-";"		{num_col=num_col+yyleng;if(output) printf("SEMI\n"); if(output==2){return SEMI;}}
-","		{num_col=num_col+yyleng;if(output) printf("COMMA\n"); if(output==2){return COMMA;}}
-"abstract"|"assert"|"byte"|"break"|"case"|"catch"|"char"|"const"|"continue"|"default"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{num_col=num_col+yyleng;if(output) printf("RESERVED(%s)\n",yytext); if(output==2){return RESERVED;}}
+"boolean"	{num_col=num_col+yyleng;if(output) printf("BOOL\n"); return BOOL;}
+"true"|"false"	{num_col=num_col+yyleng;if(output) printf("BOOLLIT(%s)\n",yytext); return BOOLLIT;}
+"class"		{num_col=num_col+yyleng;if(output) printf("CLASS\n"); return CLASS;}
+"do"		{num_col=num_col+yyleng;if(output) printf("DO\n"); return DO;}
+"double"	{num_col=num_col+yyleng;if(output) printf("DOUBLE\n"); return DOUBLE;}
+".length"	{num_col=num_col+yyleng;if(output) printf("DOTLENGTH\n"); return DOTLENGTH;}
+"else"		{num_col=num_col+yyleng;if(output) printf("ELSE\n"); return ELSE;}
+"if"		{num_col=num_col+yyleng;if(output) printf("IF\n"); return IF;}
+"int"		{num_col=num_col+yyleng;if(output) printf("INT\n"); return INT;}
+"Integer.parseInt"	{num_col=num_col+yyleng;if(output) printf("PARSEINT\n"); return PARSEINT;}
+"System.out.println"	{num_col=num_col+yyleng;if(output) printf("PRINT\n"); return PRINT;}
+"public"	{num_col=num_col+yyleng;if(output) printf("PUBLIC\n"); return PUBLIC;}
+"return"	{num_col=num_col+yyleng;if(output) printf("RETURN\n"); return RETURN;}
+"static"	{num_col=num_col+yyleng;if(output) printf("STATIC\n"); return STATIC;}
+"String"	{num_col=num_col+yyleng;if(output) printf("STRING\n"); return STRING;}
+"void"		{num_col=num_col+yyleng;if(output) printf("VOID\n"); return VOID;}
+"while"		{num_col=num_col+yyleng;if(output) printf("WHILE\n"); return WHILE;}
+"("		{num_col=num_col+yyleng;if(output) printf("OCURV\n"); return OCURV;}
+")"		{num_col=num_col+yyleng;if(output) printf("CCURV\n"); return CCURV;}
+"{"		{num_col=num_col+yyleng;if(output) printf("OBRACE\n"); return OBRACE;}
+"}"		{num_col=num_col+yyleng;if(output) printf("CBRACE\n"); return CBRACE;}
+"["		{num_col=num_col+yyleng;if(output) printf("OSQUARE\n"); return OSQUARE;}
+"]"		{num_col=num_col+yyleng;if(output) printf("CSQUARE\n"); return CSQUARE;}
+"&&"		{num_col=num_col+yyleng;if(output) printf("AND\n"); return AND;}
+"||"		{num_col=num_col+yyleng;if(output) printf("OR\n"); return OR;}
+"<"		{num_col=num_col+yyleng;if(output) printf("LT\n"); return LT;}
+">"		{num_col=num_col+yyleng;if(output) printf("GT\n"); return GT;}	
+"=="		{num_col=num_col+yyleng;if(output) printf("EQ\n"); return EQ;}
+"!="		{num_col=num_col+yyleng;if(output) printf("NEQ\n"); return NEQ;}
+"<="		{num_col=num_col+yyleng;if(output) printf("LEQ\n"); return LEQ;}
+">="		{num_col=num_col+yyleng;if(output) printf("GEQ\n"); return GEQ;}
+"+"		{num_col=num_col+yyleng;if(output) printf("PLUS\n"); return PLUS;}
+"-"		{num_col=num_col+yyleng;if(output) printf("MINUS\n"); return MINUS;}
+"*"		{num_col=num_col+yyleng;if(output) printf("STAR\n"); return STAR;}
+"/"		{num_col=num_col+yyleng;if(output) printf("DIV\n"); return DIV;}
+"%"		{num_col=num_col+yyleng;if(output) printf("MOD\n"); return MOD;}
+"!"		{num_col=num_col+yyleng;if(output) printf("NOT\n"); return NOT;}
+"="		{num_col=num_col+yyleng;if(output) printf("ASSIGN\n"); return ASSIGN;}
+";"		{num_col=num_col+yyleng;if(output) printf("SEMI\n"); return SEMI;}
+","		{num_col=num_col+yyleng;if(output) printf("COMMA\n"); return COMMA;}
+"abstract"|"assert"|"byte"|"break"|"case"|"catch"|"char"|"const"|"continue"|"default"|"enum"|"extends"|"final"|"finally"|"float"|"for"|"goto"|"implements"|"import"|"instanceof"|"interface"|"long"|"native"|"new"|"package"|"private"|"protected"|"short"|"strictfp"|"super"|"switch"|"synchronized"|"this"|"throws"|"throw"|"transient"|"try"|"volatile"|"++"|"--"|"null"|"Integer"|"System"		{num_col=num_col+yyleng;if(output) printf("RESERVED(%s)\n",yytext); return RESERVED;}
 
 
 
-{ID}	 	{num_col=num_col+yyleng;if(output)printf("ID(%s)\n",yytext);yylval.string = strdup(yytext); if(output==2){return ID;}}
-{STRLIT}	{num_col=num_col+yyleng;if(output)printf("STRLIT(%s)\n",yytext);yylval.string = strdup(yytext); if(output==2){return STRLIT;}}
-{REALLIT}		{num_col=num_col+yyleng;if(output)printf("REALLIT(%s)\n",yytext);yylval.string = strdup(yytext); if(output==2){return REALLIT;}}
-{DECLIT}		{num_col=num_col+yyleng;if(output)printf("DECLIT(%s)\n",yytext);yylval.string = strdup(yytext); if(output==2){return DECLIT;}
+{ID}	 	{num_col=num_col+yyleng;if(output)printf("ID(%s)\n",yytext);yylval.string = strdup(yytext);return ID;}
+{STRLIT}	{num_col=num_col+yyleng;if(output)printf("STRLIT(%s)\n",yytext);yylval.string = strdup(yytext);return STRLIT;}
+{REALLIT}		{num_col=num_col+yyleng;if(output)printf("REALLIT(%s)\n",yytext);yylval.string = strdup(yytext); return REALLIT;}
+{DECLIT}		{num_col=num_col+yyleng;if(output)printf("DECLIT(%s)\n",yytext);yylval.string = strdup(yytext); return DECLIT;}
 
 
 "\""	{BEGIN STR;num_col=num_col+yyleng;aux_line = num_line; aux_col = (int)(num_col-yyleng);}
@@ -113,7 +113,7 @@ int main(int argc, char* argv[])
 		{/*caso a flag seja -l ou -1 nao deve imprimir os tokens*/}
 		if(strcmp(argv[1],"-l") == 0 || strcmp(argv[1],"-1") == 0){
 			if(strcmp(argv[1],"-l") == 0){
-			output = 1 ;
+				output = 1 ;
 			}
 		yylex();
 		}
@@ -130,3 +130,4 @@ int yywrap()
 {
 	return 1;
 }
+
