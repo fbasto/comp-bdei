@@ -258,6 +258,7 @@ Empty: {;}
 %%
 
 void yyerror (const char *s){
+	syntax_errors++;
 	printf ("Line %d, col %d: %s: %s\n",num_line, (int)(num_col- strlen(yytext)), s, yytext);
 }
 
