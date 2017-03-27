@@ -129,7 +129,10 @@ MethodDecl: PUBLIC STATIC MethodHeader MethodBody {;}
 		  ;
 
 MethodHeader: Type ID OCURV OptFormalParams CCURV {;}
-			;
+            | VOID ID OCURV OptFormalParams CCURV {;}
+	    ;
+
+
 OptFormalParams: FormalParams {;}
 			   | Empty {;}
 			   ;
