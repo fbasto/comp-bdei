@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ast.h"
+#include "header.h"
 
 //falta um array com o nome dos nos
 void print_tree(Node *node,int level);

@@ -3,13 +3,14 @@
 	#include <stdlib.h>
     #include <string.h>
     #include "y.tab.h"
-	#include "ast.h"
+	#include "header.h"
     int yylex(void);
 	extern int num_line;
 	extern int num_col;
 	extern char * yytext;
 	Node * tree = NULL;
 	int syntax_errors=0;
+	int yylex(void);
     void yyerror (const char *s);
 	int flag=1;
 %}
