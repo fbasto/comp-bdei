@@ -142,60 +142,60 @@ SubMethodBody: Empty {;}
 
 
 FormalParams: Type ID SubFormalParams {;}
-    | STRING OSQUARE CSQUARE ID
-SubFormalParams: Empty | SubFormalParams COMMA Type ID
+    | STRING OSQUARE CSQUARE ID {;}
+SubFormalParams: Empty | SubFormalParams COMMA Type ID {;}
 
-VarDecl: Type ID SubVarDecl SEMI
-SubVarDecl: Empty | COMMA ID SubVarDecl
+VarDecl: Type ID SubVarDecl SEMI {;}
+SubVarDecl: Empty | COMMA ID SubVarDecl {;}
 
-Type: BOOL | INT | DOUBLE
+Type: BOOL | INT | DOUBLE {;}
 
-Statement: OBRACE MultipleStatements CBRACE
-    | IF OCURV Expr CCURV Statement ELSE Statement
-    | IF OCURV Expr CCURV Statement %prec ELSE
-    | WHILE OCURV Expr CCURV Statement
-    | DO Statement WHILE OCURV Expr CCURV SEMI
-    | PRINT OCURV ExprStrlit CCURV SEMI
-    | OptAMIPA SEMI
-    | RETURN OptExpr SEMI
-    | error SEMI
-MultipleStatements: Empty | Statement MultipleStatements
-ExprStrlit: Expr | STRLIT
-OptAMIPA: Assignment | MethodInvocation | ParseArgs | Empty
-OptExpr: Expr | Empty
+Statement: OBRACE MultipleStatements CBRACE {;}
+    | IF OCURV Expr CCURV Statement ELSE Statement {;}
+    | IF OCURV Expr CCURV Statement %prec ELSE {;}
+    | WHILE OCURV Expr CCURV Statement {;}
+    | DO Statement WHILE OCURV Expr CCURV SEMI {;}
+    | PRINT OCURV ExprStrlit CCURV SEMI {;}
+    | OptAMIPA SEMI {;}
+    | RETURN OptExpr SEMI {;}
+    | error SEMI {;}
+MultipleStatements: Empty | Statement MultipleStatements {;}
+ExprStrlit: Expr | STRLIT {;}
+OptAMIPA: Assignment | MethodInvocation | ParseArgs | Empty {;}
+OptExpr: Expr | Empty {;}
 
-Assignment: ID ASSIGN Expr
+Assignment: ID ASSIGN Expr {;}
 
-MethodInvocation: ID OCURV OptExprCommaExprs CCURV
-    | ID OCURV error CCURV
-MultipleCommaExpr: Empty | MultipleCommaExpr COMMA Expr
-OptExprCommaExprs: Expr MultipleCommaExpr | Empty
+MethodInvocation: ID OCURV OptExprCommaExprs CCURV {;}
+    | ID OCURV error CCURV {;}
+MultipleCommaExpr: Empty | MultipleCommaExpr COMMA Expr {;}
+OptExprCommaExprs: Expr MultipleCommaExpr | Empty {;}
 
-ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
-    | PARSEINT OCURV error CCURV
+ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {;}
+    | PARSEINT OCURV error CCURV {;}
 
-OptDotLength: DOTLENGTH | Empty
+OptDotLength: DOTLENGTH | Empty {;}
 
-Expr: Assignment | MethodInvocation | ParseArgs
-    | Expr AND Expr
-    | Expr OR Expr
-    | Expr EQ Expr
-    | Expr GEQ Expr
-    | Expr GT Expr
-    | Expr LEQ Expr
-    | Expr LT Expr
-    | Expr NEQ Expr
-    | PLUS Expr
-    | MINUS Expr
-    | NOT Expr
-    | ID OptDotLength
-    | OCURV Expr CCURV
-    | OCURV error CCURV
-    | BOOLLIT | DECLIT | REALLIT
+Expr: Assignment | MethodInvocation | ParseArgs {;}
+    | Expr AND Expr {;}
+    | Expr OR Expr {;}
+    | Expr EQ Expr {;}
+    | Expr GEQ Expr {;}
+    | Expr GT Expr {;}
+    | Expr LEQ Expr {;}
+    | Expr LT Expr {;}
+    | Expr NEQ Expr {;}
+    | PLUS Expr {;}
+    | MINUS Expr {;}
+    | NOT Expr {;}
+    | ID OptDotLength {;} 
+    | OCURV Expr CCURV {;}
+    | OCURV error CCURV {;}
+    | BOOLLIT | DECLIT | REALLIT {;}
 
 
 
-Empty: ;
+Empty: ; {;}
 
 %%
 
