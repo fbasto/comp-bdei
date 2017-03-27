@@ -8,7 +8,8 @@
 	extern int num_line;
 	extern int num_col;
 	extern char * yytext;
-	extern Node * tree;
+	Node * tree = NULL;
+	int syntax_errors=0;
     void yyerror (const char *s);
 	int flag=1;
 %}
@@ -111,8 +112,8 @@
 %%
 
 Program: CLASS ID OBRACE SubProgram CBRACE  {$$ = insert_node(NODE_Program);
-	  $$->child = insert_node_leaf(NODE_Id,$2);
-	  insert_child($$,); 
+	  insert_child($$,insert_node_leaf(NODE_Id,$2));
+	  insert_child($$,$4); 
 }
 	   ; 
    										
@@ -123,13 +124,15 @@ SubProgram: Empty {;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = insert_node(NODE_FieldDecl);
 	insert_child($$,$3);		 
-	insert_child($$,insert_node_leaf(NODE_Id,$4));
+	insert_brother($$,insert_node_leaf(NODE_Id,$4));
 
 }
-	| error SEMI {;}
+	| error SEMI {syntax_errors++;}
 	;
 SubFieldDecl: Empty {;}
-			| SubFieldDecl COMMA ID {;}
+			| SubFieldDecl COMMA ID {$1 = insert_node(NODE_FieldDecl);
+			insert_child($1,$$->child);
+}
 			;
 
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody {;}
@@ -178,7 +181,7 @@ Statement: OBRACE MultipleStatements CBRACE {;}
     | PRINT OCURV ExprStrlit CCURV SEMI {;}
     | OptAMIPA SEMI {;}
     | RETURN OptExpr SEMI {;}
-    | error SEMI {;}
+    | error SEMI {syntax_errors++;}
 	;
 
 
@@ -205,7 +208,7 @@ Assignment: ID ASSIGN Expr {;}
 	;
 
 MethodInvocation: ID OCURV OptExprCommaExprs CCURV {;}
-    | ID OCURV error CCURV {;}
+    | ID OCURV error CCURV {syntax_errors++;}
 	;
 
 MultipleCommaExpr: Empty {;}
@@ -216,7 +219,7 @@ OptExprCommaExprs: Expr MultipleCommaExpr {;}
 				 ;
 
 ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {;}
-    | PARSEINT OCURV error CCURV {;}
+    | PARSEINT OCURV error CCURV {syntax_errors++;}
 	;
 
 OptDotLength: DOTLENGTH {;}
@@ -239,7 +242,7 @@ Expr: Assignment {;}
     | NOT Expr {;}
     | ID OptDotLength {;} 
     | OCURV Expr CCURV {;}
-    | OCURV error CCURV {;}
+    | OCURV error CCURV {syntax_errors++;}
     | BOOLLIT {;}
 	| DECLIT {;} 
 	| REALLIT {;}
