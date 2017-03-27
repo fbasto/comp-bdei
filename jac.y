@@ -1,14 +1,14 @@
 %{
     #include <stdio.h>
 	#include <stdlib.h>
-    #include "string.h"
+    #include <string.h>
     #include "y.tab.h"
-	#include "ast.h"
+//	#include "ast.h"
     int yylex(void);
 	extern int num_line;
 	extern int num_col;
 	extern char * yytext;
-	extern Node * tree;
+	//extern Node * tree;
     void yyerror (const char *s);
 	int flag=1;
 %}
