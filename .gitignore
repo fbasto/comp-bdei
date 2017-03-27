@@ -3,3 +3,5 @@
 *~
 lex.yy.c
 *.zip
+y.tab.c
+y.output
