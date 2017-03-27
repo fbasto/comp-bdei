@@ -65,9 +65,33 @@
 %token <string> REALLIT
 %token <string> ID
 
-%type <node> Program SubProgram FieldDecl SubFieldDecl MethodDecl MethodHeader OptFormalParams MethodBody SubMethodBody FormalParams SubFormalParams VarDecl SubVarDecl Type Statement MultipleStatements ExprStrlit OptAMIPA OptExpr Assignment MethodInvocation MultipleCommaExpr OptExprCommaExprs ParseArgs OptDotLength Expr Empty 
-
-
+%type <node> Program
+%type <node> SubProgram
+%type <node> FieldDecl
+%type <node> SubFieldDecl
+%type <node> MethodDecl
+%type <node> MethodHeader
+%type <node> OptFormalParams
+%type <node> MethodBody
+%type <node> SubMethodBody
+%type <node> FormalParams
+%type <node> SubFormalParams
+%type <node> VarDecl
+%type <node> SubVarDecl
+%type <node> Type
+%type <node> Statement
+%type <node> MultipleStatements
+%type <node> ExprStrlit
+%type <node> OptAMIPA
+%type <node> OptExpr
+%type <node> Assignment
+%type <node> MethodInvocation
+%type <node> MultipleCommaExpr
+%type <node> OptExprCommaExprs
+%type <node> ParseArgs
+%type <node> OptDotLength
+%type <node> Expr
+%type <node> Empty
 
 
 %left COMMA
@@ -86,15 +110,29 @@
 
 %%
 
-Program: CLASS ID OBRACE SubProgram CBRACE												
+Program: CLASS ID OBRACE SubProgram CBRACE {
+    $$ = insert_node(NODE_Program);
+    tree = $$;
+    if($1 != NULL){
+        insert_child($$,$1);
+        insert_brother($1,$2);
+    }
+}											
 SubProgram: Empty | SubProgram FieldDecl | SubProgram MethodDecl | SubProgram SEMI
 
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI
 	| error SEMI
 SubFieldDecl: Empty | SubFieldDecl COMMA ID
 
-MethodDecl: PUBLIC STATIC MethodHeader MethodBody
-MethodHeader: Type ID OCURV OptFormalParams CCURV
+MethodDecl: PUBLIC STATIC MethodHeader MethodBody {
+    $$ = insert_node(NODE_MethodDecl);
+}
+MethodHeader: Type ID OCURV OptFormalParams CCURV {
+    node = insert_term_node(NODE_ID, $2);
+    if($1 != NULL){
+        $$ = $1;
+    }
+}
 OptFormalParams: FormalParams | Empty
 
 MethodBody: OBRACE SubMethodBody CBRACE
