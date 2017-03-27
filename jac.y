@@ -64,6 +64,7 @@
 %token <string> DECLIT
 %token <string> REALLIT
 %token <string> ID
+%type <node> Empty
 
 %type <node> Program
 %type <node> SubProgram
@@ -91,7 +92,6 @@
 %type <node> ParseArgs
 %type <node> OptDotLength
 %type <node> Expr
-%type <node> Empty
 
 
 %left COMMA
@@ -131,7 +131,7 @@ MethodDecl: PUBLIC STATIC MethodHeader MethodBody {;}
 MethodHeader: Type ID OCURV OptFormalParams CCURV {;}
 			;
 OptFormalParams: FormalParams {;}
-			   | Emptpy {;}
+			   | Empty {;}
 			   ;
 MethodBody: OBRACE SubMethodBody CBRACE {;}
 		  ;
@@ -143,12 +143,22 @@ SubMethodBody: Empty {;}
 
 FormalParams: Type ID SubFormalParams {;}
     | STRING OSQUARE CSQUARE ID {;}
-SubFormalParams: Empty | SubFormalParams COMMA Type ID {;}
+	;
+
+
+SubFormalParams: Empty {;}
+			   | SubFormalParams COMMA Type ID {;}
+			   ;
 
 VarDecl: Type ID SubVarDecl SEMI {;}
-SubVarDecl: Empty | COMMA ID SubVarDecl {;}
+SubVarDecl: Empty {;}
+		  | COMMA ID SubVarDecl {;}
+	      ;
 
-Type: BOOL | INT | DOUBLE {;}
+Type: BOOL {;}
+	| INT {;}
+	| DOUBLE {;}
+	;
 
 Statement: OBRACE MultipleStatements CBRACE {;}
     | IF OCURV Expr CCURV Statement ELSE Statement {;}
@@ -159,24 +169,53 @@ Statement: OBRACE MultipleStatements CBRACE {;}
     | OptAMIPA SEMI {;}
     | RETURN OptExpr SEMI {;}
     | error SEMI {;}
-MultipleStatements: Empty | Statement MultipleStatements {;}
-ExprStrlit: Expr | STRLIT {;}
-OptAMIPA: Assignment | MethodInvocation | ParseArgs | Empty {;}
-OptExpr: Expr | Empty {;}
+	;
+
+
+MultipleStatements: Empty {;}
+				  | Statement MultipleStatements {;}
+				  ;
+
+
+ExprStrlit: Expr {;}
+		  | STRLIT {;}
+		  ;
+
+OptAMIPA: Assignment {;}
+		| MethodInvocation {;}
+		| ParseArgs {;}
+		| Empty {;}
+		;
+
+OptExpr: Expr {;}
+	   | Empty {;}
+	   ;
 
 Assignment: ID ASSIGN Expr {;}
+	;
 
 MethodInvocation: ID OCURV OptExprCommaExprs CCURV {;}
     | ID OCURV error CCURV {;}
-MultipleCommaExpr: Empty | MultipleCommaExpr COMMA Expr {;}
-OptExprCommaExprs: Expr MultipleCommaExpr | Empty {;}
+	;
+
+MultipleCommaExpr: Empty {;}
+				 | MultipleCommaExpr COMMA Expr {;}
+				 ;
+OptExprCommaExprs: Expr MultipleCommaExpr {;}
+				 | Empty {;}
+				 ;
 
 ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {;}
     | PARSEINT OCURV error CCURV {;}
+	;
 
-OptDotLength: DOTLENGTH | Empty {;}
+OptDotLength: DOTLENGTH {;}
+			| Empty {;}
+			;	
 
-Expr: Assignment | MethodInvocation | ParseArgs {;}
+Expr: Assignment {;}
+	| MethodInvocation {;}
+	| ParseArgs {;}
     | Expr AND Expr {;}
     | Expr OR Expr {;}
     | Expr EQ Expr {;}
@@ -191,11 +230,14 @@ Expr: Assignment | MethodInvocation | ParseArgs {;}
     | ID OptDotLength {;} 
     | OCURV Expr CCURV {;}
     | OCURV error CCURV {;}
-    | BOOLLIT | DECLIT | REALLIT {;}
+    | BOOLLIT {;}
+	| DECLIT {;} 
+	| REALLIT {;}
+	;
 
 
-
-Empty: ; {;}
+Empty: {;} 
+	 ; 
 
 %%
 
