@@ -115,7 +115,7 @@ int main(int argc, char* argv[])
 			if(strcmp(argv[1],"-l") == 0){
 				output = 1 ;
 			}
-		yylex();
+			yylex();
 		}
 		
 	}
