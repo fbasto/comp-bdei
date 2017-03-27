@@ -110,36 +110,38 @@
 
 %%
 
-Program: CLASS ID OBRACE SubProgram CBRACE {
-    $$ = insert_node(NODE_Program);
-    tree = $$;
-    if($1 != NULL){
-        insert_child($$,$1);
-        insert_brother($1,$2);
-    }
-}											
-SubProgram: Empty | SubProgram FieldDecl | SubProgram MethodDecl | SubProgram SEMI
+Program: CLASS ID OBRACE SubProgram CBRACE  {;}
+	   ; 
+   										
+SubProgram: Empty {;}
+		  | SubProgram FieldDecl {;}
+		  | SubProgram MethodDecl {;}
+		  | SubProgram SEMI {;}
+		  ;
+FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {;}
+	| error SEMI {;}
+	;
+SubFieldDecl: Empty {;}
+			| SubFieldDecl COMMA ID {;}
+			;
 
-FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI
-	| error SEMI
-SubFieldDecl: Empty | SubFieldDecl COMMA ID
+MethodDecl: PUBLIC STATIC MethodHeader MethodBody {;}
+		  ;
 
-MethodDecl: PUBLIC STATIC MethodHeader MethodBody {
-    $$ = insert_node(NODE_MethodDecl);
-}
-MethodHeader: Type ID OCURV OptFormalParams CCURV {
-    node = insert_term_node(NODE_ID, $2);
-    if($1 != NULL){
-        $$ = $1;
-    }
-}
-OptFormalParams: FormalParams | Empty
-
-MethodBody: OBRACE SubMethodBody CBRACE
-SubMethodBody: Empty | SubMethodBody VarDecl | SubMethodBody Statement
+MethodHeader: Type ID OCURV OptFormalParams CCURV {;}
+			;
+OptFormalParams: FormalParams {;}
+			   | Emptpy {;}
+			   ;
+MethodBody: OBRACE SubMethodBody CBRACE {;}
+		  ;
+SubMethodBody: Empty {;}
+			 | SubMethodBody VarDecl {;}
+			 | SubMethodBody Statement {;}
+			 ;
 
 
-FormalParams: Type ID SubFormalParams
+FormalParams: Type ID SubFormalParams {;}
     | STRING OSQUARE CSQUARE ID
 SubFormalParams: Empty | SubFormalParams COMMA Type ID
 
