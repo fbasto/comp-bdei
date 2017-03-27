@@ -111,14 +111,18 @@ int main(int argc, char* argv[])
 	if(argc>1)
 	{
 		{/*caso a flag seja -l ou -1 nao deve imprimir os tokens*/}
-		if(strcmp(argv[1],"-l") == 0)
-		{
+		if(strcmp(argv[1],"-l") == 0 || strcmp(argv[1],"-1") == 0){
+			if(strcmp(argv[1],"-l") == 0){
 			output = 1 ;
+			}
+		yylex();
 		}
-
+		
 	}
-	yylex();
-	yyparse();
+	else{
+		output = 2;
+		yyparse();
+	}
 	return 0;
 }
 
