@@ -5,13 +5,14 @@
     #include "y.tab.h"
 	#include "header.h"
     int yylex(void);
+    void yyerror (const char *s);
+
 	extern int num_line;
 	extern int num_col;
 	extern char * yytext;
 	Node * tree = NULL;
+	Node *aux_node = NULL;
 	int syntax_errors=0;
-	int yylex(void);
-    void yyerror (const char *s);
 	int flag=1;
 %}
 
@@ -113,7 +114,8 @@
 %%
 
 Program: CLASS ID OBRACE SubProgram CBRACE  {$$ = insert_node(NODE_Program);
-	  insert_child($$,insert_node_leaf(NODE_Id,$2));
+	  aux_node = insert_leaf_node(NODE_Id,$2);
+	  insert_child($$,aux_node);
 	  insert_child($$,$4); 
 }
 	   ; 
@@ -125,7 +127,7 @@ SubProgram: Empty {;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = insert_node(NODE_FieldDecl);
 	insert_child($$,$3);		 
-	insert_brother($$,insert_node_leaf(NODE_Id,$4));
+	insert_brother($$,insert_leaf_node(NODE_Id,$4));
 
 }
 	| error SEMI {syntax_errors++;}
