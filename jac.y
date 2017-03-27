@@ -8,7 +8,8 @@
 	extern int num_line;
 	extern int num_col;
 	extern char * yytext;
-	//extern Node * tree;
+	Node * tree = NULL;
+	int syntax_errors=0;
     void yyerror (const char *s);
 	int flag=1;
 %}
@@ -119,7 +120,7 @@ SubProgram: Empty {;}
 		  | SubProgram SEMI {;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {;}
-	| error SEMI {;}
+	| error SEMI {syntax_errors++;}
 	;
 SubFieldDecl: Empty {;}
 			| SubFieldDecl COMMA ID {;}
@@ -171,7 +172,7 @@ Statement: OBRACE MultipleStatements CBRACE {;}
     | PRINT OCURV ExprStrlit CCURV SEMI {;}
     | OptAMIPA SEMI {;}
     | RETURN OptExpr SEMI {;}
-    | error SEMI {;}
+    | error SEMI {syntax_errors++;}
 	;
 
 
@@ -198,7 +199,7 @@ Assignment: ID ASSIGN Expr {;}
 	;
 
 MethodInvocation: ID OCURV OptExprCommaExprs CCURV {;}
-    | ID OCURV error CCURV {;}
+    | ID OCURV error CCURV {syntax_errors++;}
 	;
 
 MultipleCommaExpr: Empty {;}
@@ -209,7 +210,7 @@ OptExprCommaExprs: Expr MultipleCommaExpr {;}
 				 ;
 
 ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {;}
-    | PARSEINT OCURV error CCURV {;}
+    | PARSEINT OCURV error CCURV {syntax_errors++;}
 	;
 
 OptDotLength: DOTLENGTH {;}
@@ -232,7 +233,7 @@ Expr: Assignment {;}
     | NOT Expr {;}
     | ID OptDotLength {;} 
     | OCURV Expr CCURV {;}
-    | OCURV error CCURV {;}
+    | OCURV error CCURV {syntax_errors++;}
     | BOOLLIT {;}
 	| DECLIT {;} 
 	| REALLIT {;}
