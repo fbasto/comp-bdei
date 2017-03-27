@@ -72,7 +72,7 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 {ID}	 	{num_col=num_col+yyleng;if(output)printf("ID(%s)\n",yytext);yylval.string = strdup(yytext); if(output==2){return ID;}}
 {STRLIT}	{num_col=num_col+yyleng;if(output)printf("STRLIT(%s)\n",yytext);yylval.string = strdup(yytext); if(output==2){return STRLIT;}}
 {REALLIT}		{num_col=num_col+yyleng;if(output)printf("REALLIT(%s)\n",yytext);yylval.string = strdup(yytext); if(output==2){return REALLIT;}}
-{DECLIT}		{num_col=num_col+yyleng;if(output)printf("DECLIT(%s)\n",yytext);yylval.string = strdup(yytext); if(output==2){return DECLIT;}
+{DECLIT}		{num_col=num_col+yyleng;if(output)printf("DECLIT(%s)\n",yytext);yylval.string = strdup(yytext); if(output==2){return DECLIT;}}
 
 
 "\""	{BEGIN STR;num_col=num_col+yyleng;aux_line = num_line; aux_col = (int)(num_col-yyleng);}
