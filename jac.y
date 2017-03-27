@@ -87,25 +87,26 @@
 %%
 
 Program: CLASS ID OBRACE SubProgram CBRACE												{$$ = insert_node(NODE_Program)}
-SubProgram: SubProgram FieldDecl | SubProgram MethodDecl | SubProgram SEMI | Empty
+SubProgram: Empty | SubProgram FieldDecl | SubProgram MethodDecl | SubProgram SEMI
 
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI
-SubFieldDecl: SubFieldDecl COMMA ID | Empty
+	| error SEMI
+SubFieldDecl: Empty | SubFieldDecl COMMA ID
 
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody
 MethodHeader: Type ID OCURV OptFormalParams CCURV
 OptFormalParams: FormalParams | Empty
 
 MethodBody: OBRACE SubMethodBody CBRACE
-SubMethodBody: SubMethodBody VarDecl | SubMethodBody Statement | Empty
+SubMethodBody: Empty | SubMethodBody VarDecl | SubMethodBody Statement
 
 
 FormalParams: Type ID SubFormalParams
     | STRING OSQUARE CSQUARE ID
-SubFormalParams: SubFormalParams COMMA Type ID | Empty
+SubFormalParams: Empty | SubFormalParams COMMA Type ID
 
 VarDecl: Type ID SubVarDecl SEMI
-SubVarDecl: COMMA ID SubVarDecl | Empty
+SubVarDecl: Empty | COMMA ID SubVarDecl
 
 Type: BOOL | INT | DOUBLE
 
@@ -117,7 +118,8 @@ Statement: OBRACE MultipleStatements CBRACE
     | PRINT OCURV ExprStrlit CCURV SEMI
     | OptAMIPA SEMI
     | RETURN OptExpr SEMI
-MultipleStatements: Statement MultipleStatements | Empty
+    | error SEMI
+MultipleStatements: Empty | Statement MultipleStatements
 ExprStrlit: Expr | STRLIT
 OptAMIPA: Assignment | MethodInvocation | ParseArgs | Empty
 OptExpr: Expr | Empty
@@ -125,10 +127,12 @@ OptExpr: Expr | Empty
 Assignment: ID ASSIGN Expr
 
 MethodInvocation: ID OCURV OptExprCommaExprs CCURV
-MultipleCommaExpr: MultipleCommaExpr COMMA Expr | Empty
+    | ID OCURV error CCURV
+MultipleCommaExpr: Empty | MultipleCommaExpr COMMA Expr
 OptExprCommaExprs: Expr MultipleCommaExpr | Empty
 
 ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
+    | PARSEINT OCURV error CCURV
 
 OptDotLength: DOTLENGTH | Empty
 
@@ -146,7 +150,10 @@ Expr: Assignment | MethodInvocation | ParseArgs
     | NOT Expr
     | ID OptDotLength
     | OCURV Expr CCURV
+    | OCURV error CCURV
     | BOOLLIT | DECLIT | REALLIT
+
+
 
 Empty: ;
 
