@@ -1,8 +1,8 @@
 %{
     #include <stdio.h>
+	#include <stdlib.h>
     #include "string.h"
     #include "y.tab.h"
-	#include "struct.h"
 	#include "ast.h"
     int yylex(void);
 	extern int num_line;
@@ -86,7 +86,7 @@
 
 %%
 
-Program: CLASS ID OBRACE SubProgram CBRACE												{$$ = insert_node(NODE_Program)}
+Program: CLASS ID OBRACE SubProgram CBRACE												
 SubProgram: Empty | SubProgram FieldDecl | SubProgram MethodDecl | SubProgram SEMI
 
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI

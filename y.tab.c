@@ -65,9 +65,9 @@
 #line 1 "jac.y" /* yacc.c:339  */
 
     #include <stdio.h>
+	#include <stdlib.h>
     #include "string.h"
     #include "y.tab.h"
-	#include "struct.h"
 	#include "ast.h"
     int yylex(void);
 	extern int num_line;
@@ -1450,14 +1450,8 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 2:
-#line 89 "jac.y" /* yacc.c:1646  */
-    {(yyval.node) = insert_node(NODE_Program)}
-#line 1457 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-
-#line 1461 "y.tab.c" /* yacc.c:1646  */
+      
+#line 1455 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

@@ -1,4 +1,3 @@
-
 static const char *Node_names[] = {
 	"Program",
 	"FieldDecl",
@@ -43,7 +42,7 @@ static const char *Node_names[] = {
 	"RealLit",
 	"StrLit",
 	"Void"
-}
+};
 
 typedef enum {
 	NODE_Program,
@@ -99,8 +98,6 @@ typedef enum {
 	NODE_RealLit,
 	NODE_StrLit,
 	NODE_Void
-
-
 }Node_type;
 
 

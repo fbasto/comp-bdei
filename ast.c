@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include "struct.h"
 #include "ast.h"
 
 
@@ -13,18 +11,18 @@ Node *insert_node(Node_type type){
 	return node;
 }
 
-Node *insert_leaf_node(Node_type type,char* value){
+Node *insert_leaf_node(Node_type type,char *value){
 
 	Node* node = insert_node(type);
 	node->value = value;
 	return node;
 
 }
-void insert_child(Node* father,Node* child){
+void insert_child(Node *father,Node *child){
 	
 	Node * temp = father->child;
 	if(temp ==NULL){
-		child->falther = father;
+		child->father = father;
 		father->child = child;
 	}
 	else {
