@@ -2151,7 +2151,7 @@ yyreturn:
 
 
 void yyerror (const char *s){
-	printf ("Line %d, col %d: %s: %s\n",num_line, (int)(num_col- strlen(yytext)+1), s, yytext);
+	printf ("Line %d, col %d: %s: %s\n",num_line, (int)(num_col- strlen(yytext)), s, yytext);
 }
 
 
