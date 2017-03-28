@@ -229,6 +229,7 @@ OptDotLength: DOTLENGTH {$$=NULL;}
 			;	
 
 Expr: Assignment {$$=NULL;}
+	| Expre {$$ = NULL;}
 	;
 
 Expre: MethodInvocation {$$=NULL;}
