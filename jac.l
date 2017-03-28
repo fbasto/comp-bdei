@@ -122,9 +122,8 @@ int main(int argc, char* argv[])
 		}
 		
 	}
-	else if(argc==1 || strcmp(argv[1],"-t") == 0){
+	if(strcmp(argv[1],"-t") == 0){
 		output = 0;
-		printf("hey!");
 		yyparse();
 		if(strcmp(argv[1],"-t") == 0 && syntax_errors == 0){
 			print_tree(tree,0);
