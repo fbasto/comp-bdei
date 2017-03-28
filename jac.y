@@ -95,6 +95,7 @@
 %type <node> ParseArgs
 %type <node> OptDotLength
 %type <node> Expr
+%type <node> Expre
 
 
 %left COMMA
