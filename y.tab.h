@@ -149,7 +149,7 @@ union YYSTYPE
 #line 19 "jac.y" /* yacc.c:1909  */
 
 	char * string;
-	struct node *node;
+	struct node * node;
 
 #line 155 "y.tab.h" /* yacc.c:1909  */
 };

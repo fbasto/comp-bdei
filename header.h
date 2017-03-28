@@ -120,7 +120,7 @@ void print_tree(Node *node,int level);
 void print_points(int n);
 void print_leaf(Node *node);
 
-Node *insert_node(Node_type type);
-Node *insert_leaf_node(Node_type type,char *value);
+Node *create_node(Node_type type);
+//Node *insert_leaf_node(Node_type type,char *value);
 void insert_child(Node *father,Node *child);
 void insert_brother(Node *brother,Node *self);
