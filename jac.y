@@ -269,14 +269,14 @@ Expre: MethodInvocation {$$=NULL;}
     | ID OptDotLength {$$=NULL;} 
     | OCURV Expr CCURV {$$=NULL;}
 
-    | OCURV error CCURV {syntax_errors++;}
+    | OCURV error CCURV {syntax_errors++;$$=NULL;}
     | BOOLLIT {$$=NULL;}
 	| DECLIT {$$=NULL;} 
 	| REALLIT {$$=NULL;}
 	;
 
 
-Empty: {$$=NULL;} 
+Empty: {;} 
 	 ; 
 
 %%
