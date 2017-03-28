@@ -262,7 +262,6 @@ Expre: MethodInvocation {$$=NULL;}
     | Expre NEQ Expre {$$=NULL;}
     | Expre STAR Expre {$$=NULL;}
     | Expre MINUS Expre {$$=NULL;}
-    | Expre MINUS Expre {$$=NULL;}
     | Expre PLUS Expre {$$=NULL;}
     | PLUS Expre {$$=NULL;}
     | MINUS Expre  {$$=NULL;}
