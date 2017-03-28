@@ -126,9 +126,8 @@ int main(int argc, char* argv[])
 		}
 		
 	}
-	else if(argc==0){
+	else if(argc==1){
 		output = 0;
-		yylex();
 		yyparse();
 	}
 	return 0;
