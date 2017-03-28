@@ -3,7 +3,6 @@
 
 
 void print_tree(Node *node,int level){
-	printf("INiCIO\n");
 	print_points(level);
 	if (node->type == NODE_Id || node->type == NODE_RealLit || node->type == NODE_Declit || node->type == NODE_StrLit){
 		print_leaf(node);
@@ -21,7 +20,6 @@ void print_tree(Node *node,int level){
 		}
 	}
 
-	printf("FIM\n");
 }
 
 

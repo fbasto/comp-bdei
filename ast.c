@@ -2,7 +2,7 @@
 
 
 Node *create_node(Node_type type){
-	printf("create node: %s\n",Node_names[type]);
+	//printf("create node: %s\n",Node_names[type]);
 	Node * node = (Node *)malloc(sizeof(Node));
 	if (node != NULL){
 		node->type = type;
@@ -31,14 +31,14 @@ void insert_child(Node *father,Node *child){
 		child->father = father;
 		father->child = child;*/
 	}
-	printf("DENTRO\n");
+	//printf("DENTRO\n");
 
 }
 
 void insert_brother(Node *brother,Node *self){
 	Node *aux = brother;
 
-	printf("BROTHER\n");
+//	printf("BROTHER\n");
 	if(aux != NULL && self !=NULL){
 		while(aux->brother != NULL){
 			aux = aux->brother;
@@ -46,4 +46,13 @@ void insert_brother(Node *brother,Node *self){
 		aux->brother = self;
 		self->father = aux->father;
 	}
+}
+
+
+void change_type(Node *typo ,Node *nodes){
+	while (nodes->brother != NULL){
+		nodes->child->type = typo->child->type;
+		nodes = nodes->brother;
+	}
+	nodes->child->type = typo->child->type;
 }

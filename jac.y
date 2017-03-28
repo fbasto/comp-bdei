@@ -12,6 +12,8 @@
 	extern char * yytext;
 	Node * tree;
 	Node *aux_node;
+	Node *aux_node2;
+	Node *aux_node3;
 	int syntax_errors=0;
 	int flag=1;
 %}
@@ -116,24 +118,40 @@
 Program: CLASS ID OBRACE SubProgram CBRACE  {$$ = tree = create_node(NODE_Program);
 	 aux_node = create_node(NODE_Id);
 	 aux_node->value = $2;
-	 printf("AQUI\n");
+	 
 	 insert_brother(aux_node,$4);
 	 insert_child($$,aux_node);  
-	 printf("OI\n");
+	
 }
 	   ; 
    										
-SubProgram: Empty {printf("SO NOOBS!\n");$$ = NULL;}
-		  | SubProgram FieldDecl {printf("SOOBS\n");$$ = NULL;}
-		  | SubProgram MethodDecl {printf("NOOBS!\n");$$=NULL;}
-		  | SubProgram SEMI {printf("SO !\n");$$=NULL;}
+SubProgram: Empty {printf("hey\n");}
+		  | SubProgram FieldDecl {printf("dps\n");$$ = $2;}
+		  | SubProgram MethodDecl {$$=NULL;}
+		  | SubProgram SEMI {$$=NULL;}
 		  ;
-FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = NULL;}
+FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ =$5; 	
+		insert_child($$,$3);
+		aux_node =create_node(NODE_Id);
+		aux_node->value=$4;
+		insert_brother($3,aux_node);		 
+		change_type($$,$5);
+		/*if ($3->brother != NULL){
+			printf("Tdd fdd\n");
+		}*/
+}
 
 	| error SEMI {syntax_errors++;}
 	;
-SubFieldDecl: Empty {$$=NULL;}
-			| SubFieldDecl COMMA ID {$$= NULL;}
+SubFieldDecl: Empty {$$=create_node(NODE_FieldDecl);}
+			| SubFieldDecl COMMA ID {$1 = create_node(NODE_FieldDecl);
+				aux_node = create_node(NODE_Comp);
+				insert_child($1,aux_node);
+				aux_node3 = create_node(NODE_Id);
+				aux_node3->value = $3;
+				insert_brother(aux_node,aux_node3);
+				insert_brother($$,$1);
+}
 			;
 
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody {$$ = NULL;}
@@ -171,7 +189,7 @@ SubVarDecl: Empty {$$=NULL;}
 	      ;
 
 Type: BOOL {$$=NULL;}
-	| INT {$$=NULL;}
+	| INT {$$=create_node(NODE_Int);}
 	| DOUBLE {$$=NULL;}
 	;
 

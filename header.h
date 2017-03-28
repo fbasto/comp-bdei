@@ -46,7 +46,8 @@ static const char *Node_names[] = {
 	"Int",
 	"RealLit",
 	"StrLit",
-	"Void"
+	"Void",
+	"Comp"
 };
 
 typedef enum {
@@ -102,7 +103,8 @@ typedef enum {
 	NODE_Int,
 	NODE_RealLit,
 	NODE_StrLit,
-	NODE_Void
+	NODE_Void,
+	NODE_Comp
 }Node_type;
 
 
@@ -124,3 +126,4 @@ Node *create_node(Node_type type);
 //Node *insert_leaf_node(Node_type type,char *value);
 void insert_child(Node *father,Node *child);
 void insert_brother(Node *brother,Node *self);
+void change_type(Node *typo ,Node *nodes);
