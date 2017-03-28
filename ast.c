@@ -21,7 +21,7 @@ Node *insert_leaf_node(Node_type type,char *value){
 
 }
 void insert_child(Node *father,Node *child){
-	
+	printf("inserir filho: %s\n", child->value);
 	Node * temp = father->child;
 	if(temp ==NULL){
 		child->father = father;

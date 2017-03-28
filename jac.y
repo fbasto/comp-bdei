@@ -18,7 +18,7 @@
 
 %union{
 	char * string;
-	struct node *node;
+	struct node * node;
 }
 
 %token BOOL
@@ -115,10 +115,12 @@
 
 Program: CLASS ID OBRACE SubProgram CBRACE  {$$ = insert_node(NODE_Program);
 	  tree = $$;
-	  printf("inserir primeiro filho\n");
 	  aux_node = insert_leaf_node(NODE_Id,$2);
+	  printf("n!!!!!!!!!o: %s\n", $2);
 	  insert_child($$,aux_node);
-	  insert_child($$,$4); 
+	  printf("inserir primeiro filho\n");
+	  insert_brother($$->child,$4);
+	  printf("DPS\n");
 }
 	   ; 
    										
@@ -140,11 +142,24 @@ SubFieldDecl: Empty {;}
 }
 			;
 
-MethodDecl: PUBLIC STATIC MethodHeader MethodBody {;}
+MethodDecl: PUBLIC STATIC MethodHeader MethodBody {$$ = insert_node(NODE_MethodDecl);
+	insert_child($$,$3);
+	insert_brother($$->child,$4);
+
+
+}
+
 		  ;
 
-MethodHeader: Type ID OCURV OptFormalParams CCURV {;}
-            | VOID ID OCURV OptFormalParams CCURV {;}
+MethodHeader: Type ID OCURV OptFormalParams CCURV {$$ = insert_node(NODE_MethodHeader);
+			insert_child($$,$1);			
+			insert_brother($$->child,insert_leaf_node(NODE_Id,$2));
+
+}
+            | VOID ID OCURV OptFormalParams CCURV {$$ = insert_node(NODE_MethodHeader);
+			insert_child($$,insert_node(NODE_Void));
+			insert_brother($$->child,insert_leaf_node(NODE_Id,$2));
+}
 	    ;
 
 
