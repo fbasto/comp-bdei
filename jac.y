@@ -128,7 +128,7 @@ Program: CLASS ID OBRACE SubProgram CBRACE  {$$ = tree = create_node(NODE_Progra
    										
 SubProgram: Empty {$$=NULL;}
 		  | SubProgram FieldDecl {$$ = $2;}
-		  | SubProgram MethodDecl {$$=NULL;}
+		  | SubProgram MethodDecl {$$=$2;}
 		  | SubProgram SEMI {$$=NULL;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ =$5; 	
@@ -154,12 +154,28 @@ SubFieldDecl: Empty {$$=create_node(NODE_FieldDecl);}
 }
 			;
 
-MethodDecl: PUBLIC STATIC MethodHeader MethodBody {$$ = NULL;}
+MethodDecl: PUBLIC STATIC MethodHeader MethodBody {$$ = create_node(NODE_MethodDecl);
+			insert_child($$,$3);
+			insert_brother($$->child,$4);			  
 
+}
+			
 		  ;
 
-MethodHeader: Type ID OCURV OptFormalParams CCURV {$$=NULL;}
-            | VOID ID OCURV OptFormalParams CCURV {$$=NULL;}
+MethodHeader: Type ID OCURV OptFormalParams CCURV {$$=create_node(NODE_MethodHeader);
+			insert_child($$,$1);
+			aux_node = create_node(NODE_Id);
+			aux_node->value = $2;
+			insert_brother($$->child,aux_node);
+
+}
+            | VOID ID OCURV OptFormalParams CCURV {$$=create_node(NODE_MethodHeader);
+			aux_node2 = create_node(NODE_Void);
+			insert_child($$,aux_node2);
+			aux_node = create_node(NODE_Id);
+			aux_node->value = $2;
+			insert_brother($$->child,aux_node);
+}
 	    ;
 
 
@@ -188,9 +204,9 @@ SubVarDecl: Empty {$$=NULL;}
 		  | COMMA ID SubVarDecl {$$=NULL;}
 	      ;
 
-Type: BOOL {$$=NULL;}
+Type: BOOL {$$=create_node(NODE_Bool);}
 	| INT {$$=create_node(NODE_Int);}
-	| DOUBLE {$$=NULL;}
+	| DOUBLE {$$=create_node(NODE_Double);}
 	;
 
 Statement: OBRACE MultipleStatements CBRACE {$$=NULL;}
@@ -270,9 +286,11 @@ Expre: MethodInvocation {$$=NULL;}
     | OCURV Expr CCURV {$$=NULL;}
 
     | OCURV error CCURV {syntax_errors++;}
-    | BOOLLIT {$$=NULL;}
-	| DECLIT {$$=NULL;} 
-	| REALLIT {$$=NULL;}
+    | BOOLLIT {;}
+	| DECLIT {aux_node = create_node(NODE_Declit);
+			 aux_node->value = $1;
+			 $$=aux_node;} 
+	| REALLIT {;}
 	;
 
 
