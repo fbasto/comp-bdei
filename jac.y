@@ -97,6 +97,7 @@
 %type <node> ParseArgs
 %type <node> OptDotLength
 %type <node> Expr
+%type <node> Expre
 
 
 %left COMMA
@@ -247,19 +248,26 @@ OptDotLength: DOTLENGTH {$$=NULL;}
 			;	
 
 Expr: Assignment {$$=NULL;}
-	| MethodInvocation {$$=NULL;}
+	| Expre {$$ = NULL;}
+	;
+
+Expre: MethodInvocation {$$=NULL;}
 	| ParseArgs {$$=NULL;}
-    | Expr AND Expr {$$=NULL;}
-    | Expr OR Expr {$$=NULL;}
-    | Expr EQ Expr {$$=NULL;}
-    | Expr GEQ Expr {$$=NULL;}
-    | Expr GT Expr {$$=NULL;}
-    | Expr LEQ Expr {$$=NULL;}
-    | Expr LT Expr {$$=NULL;}
-    | Expr NEQ Expr {$$=NULL;}
-    | PLUS Expr {$$=NULL;}
-    | MINUS Expr {$$=NULL;}
-    | NOT Expr {$$=NULL;}
+    | Expre AND Expre {$$=NULL;}
+    | Expre OR Expre {$$=NULL;}
+    | Expre EQ Expre {$$=NULL;}
+    | Expre GEQ Expre {$$=NULL;}
+    | Expre GT Expre {$$=NULL;}
+    | Expre LEQ Expre {$$=NULL;}
+    | Expre LT Expre {$$=NULL;}
+    | Expre NEQ Expre {$$=NULL;}
+    | Expre STAR Expre {$$=NULL;}
+    | Expre MINUS Expre {$$=NULL;}
+    | Expre MINUS Expre {$$=NULL;}
+    | Expre PLUS Expre {$$=NULL;}
+    | PLUS Expre {$$=NULL;}
+    | MINUS Expre  {$$=NULL;}
+    | NOT Expre {$$=NULL;}
     | ID OptDotLength {$$=NULL;} 
     | OCURV Expr CCURV {$$=NULL;}
 
