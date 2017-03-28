@@ -141,7 +141,7 @@ FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ =$5;
 		}*/
 }
 
-	| error SEMI {syntax_errors++;}
+	| error SEMI {syntax_errors++;$$=NULL;}
 	;
 SubFieldDecl: Empty {$$=create_node(NODE_FieldDecl);}
 			| SubFieldDecl COMMA ID {$1 = create_node(NODE_FieldDecl);
@@ -201,7 +201,7 @@ Statement: OBRACE MultipleStatements CBRACE {$$=NULL;}
     | PRINT OCURV ExprStrlit CCURV SEMI {$$=NULL;}
     | OptAMIPA SEMI {$$=NULL;}
     | RETURN OptExpr SEMI {$$=NULL;}
-    | error SEMI {syntax_errors++;}
+    | error SEMI {syntax_errors++;$$=NULL;}
 	;
 
 
@@ -228,7 +228,7 @@ Assignment: ID ASSIGN Expr {$$=NULL;}
 	;
 
 MethodInvocation: ID OCURV OptExprCommaExprs CCURV {$$=NULL;}
-    | ID OCURV error CCURV {syntax_errors++;}
+    | ID OCURV error CCURV {syntax_errors++;$$=NULL;}
 	;
 
 MultipleCommaExpr: Empty {$$=NULL;}
@@ -276,7 +276,7 @@ Expre: MethodInvocation {$$=NULL;}
 	;
 
 
-Empty: {;} 
+Empty: {$$=NULL;} 
 	 ; 
 
 %%

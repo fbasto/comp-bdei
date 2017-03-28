@@ -121,6 +121,7 @@ int main(int argc, char* argv[])
 			yylex();
 		}
 		if(strcmp(argv[1],"-t") == 0 && syntax_errors == 0){
+			output = 0;
 			yyparse();
 			print_tree(tree,0);
 		}
