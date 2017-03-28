@@ -114,6 +114,8 @@
 %%
 
 Program: CLASS ID OBRACE SubProgram CBRACE  {$$ = insert_node(NODE_Program);
+	  tree = $$;
+	  printf("inserir primeiro filho\n");
 	  aux_node = insert_leaf_node(NODE_Id,$2);
 	  insert_child($$,aux_node);
 	  insert_child($$,$4); 

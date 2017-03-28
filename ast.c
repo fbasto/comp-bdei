@@ -2,6 +2,8 @@
 
 
 Node *insert_node(Node_type type){
+	printf("insert node\n");
+	printf("insert node: %s\n",Node_names[type]);
 	Node * node = (Node *)malloc(sizeof(Node));
 	if (node != NULL){
 		node->type = type;
@@ -12,7 +14,7 @@ Node *insert_node(Node_type type){
 }
 
 Node *insert_leaf_node(Node_type type,char *value){
-
+	printf("insert leaf node :%s\n",value);
 	Node* node = insert_node(type);
 	node->value = value;
 	return node;
