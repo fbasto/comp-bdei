@@ -138,7 +138,6 @@ FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ =$5;
 		insert_brother($3,aux_node);		 
 		change_type($$,$5);
 		/*if ($3->brother != NULL){
-			printf("Tdd fdd\n");
 		}*/
 }
 
