@@ -126,8 +126,8 @@ Program: CLASS ID OBRACE SubProgram CBRACE  {$$ = tree = create_node(NODE_Progra
 }
 	   ; 
    										
-SubProgram: Empty {printf("hey\n");}
-		  | SubProgram FieldDecl {printf("dps\n");$$ = $2;}
+SubProgram: Empty {$$=NULL;}
+		  | SubProgram FieldDecl {$$ = $2;}
 		  | SubProgram MethodDecl {$$=NULL;}
 		  | SubProgram SEMI {$$=NULL;}
 		  ;
@@ -282,7 +282,6 @@ Empty: {$$=NULL;}
 %%
 
 void yyerror (const char *s){
-	syntax_errors++;
 	printf ("Line %d, col %d: %s: %s\n",num_line, (int)(num_col- strlen(yytext)), s, yytext);
 }
 
