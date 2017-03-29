@@ -217,19 +217,25 @@ OptDotLength: DOTLENGTH {;}
 			;	
 
 Expr: Assignment {;}
-	| MethodInvocation {;}
+	| Expre {;}
+	;
+
+Expre: MethodInvocation {;}
 	| ParseArgs {;}
-    | Expr AND Expr {;}
-    | Expr OR Expr {;}
-    | Expr EQ Expr {;}
-    | Expr GEQ Expr {;}
-    | Expr GT Expr {;}
-    | Expr LEQ Expr {;}
-    | Expr LT Expr {;}
-    | Expr NEQ Expr {;}
-    | PLUS Expr {;}
-    | MINUS Expr {;}
-    | NOT Expr {;}
+    | Expre AND Expre {;}
+    | Expre OR Expre {;}
+    | Expre EQ Expre {;}
+    | Expre GEQ Expre {;}
+    | Expre GT Expre {;}
+    | Expre LEQ Expre {;}
+    | Expre LT Expre {;}
+    | Expre NEQ Expre {;}
+    | Expre STAR Expre {;}
+    | Expre MINUS Expre {;}
+    | Expre PLUS Expre {;}
+    | PLUS Expre {;}
+    | MINUS Expre  {;}
+    | NOT Expre {;}
     | ID OptDotLength {;} 
     | OCURV Expr CCURV {;}
     | OCURV error CCURV {;}

@@ -10,7 +10,7 @@
 	#include "y.tab.h"
 	#include "header.h"
 	extern Node *tree;
-	extern int syntax_errors;
+	//extern int syntax_errors;
 	int output = 0;
 	int num_line = 1;
 	int num_col = 1;
