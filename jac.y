@@ -72,7 +72,6 @@
 %type <node> SubFieldDecl
 %type <node> MethodDecl
 %type <node> MethodHeader
-%type <node> OptFormalParams
 %type <node> MethodBody
 %type <node> SubMethodBody
 %type <node> FormalParams
@@ -128,14 +127,10 @@ SubFieldDecl: Empty {;}
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody {;}
 		  ;
 
-MethodHeader: Type ID OCURV OptFormalParams CCURV {;}
-            | VOID ID OCURV OptFormalParams CCURV {;}
+MethodHeader: Type ID OCURV FormalParams CCURV {;}
+            | VOID ID OCURV FormalParams CCURV {;}
 	    ;
 
-
-OptFormalParams: FormalParams {;}
-			   | Empty {;}
-			   ;
 MethodBody: OBRACE SubMethodBody CBRACE {;}
 		  ;
 SubMethodBody: Empty {;}
@@ -146,6 +141,7 @@ SubMethodBody: Empty {;}
 
 FormalParams: Type ID SubFormalParams {;}
     | STRING OSQUARE CSQUARE ID {;}
+	| Empty {;}
 	;
 
 
