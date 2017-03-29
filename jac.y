@@ -132,12 +132,10 @@ FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = $5;
 			printf("$$ nulo fielddecl\n");
 		}
 		insert_child($$,$3);
-		printf("$$ nulo fielddecl\n");
 		aux_node = create_node(NODE_Id);
 		aux_node->value = $4;
 		insert_brother($3,aux_node);
 		insert_brother($$,$5);
-		printf("FieldDecl b4 type\n");
 		change_type($$,$5);
 		printf("FieldDecl fim\n");
 }
@@ -163,11 +161,12 @@ MethodHeader: Type ID OCURV FormalParams CCURV {;}
             | VOID ID OCURV FormalParams CCURV {;}
 	    ;
 
-MethodBody: OBRACE SubMethodBody CBRACE {;}
+MethodBody: OBRACE SubMethodBody CBRACE {$$ = create_node(NODE_MethodBody);
+			insert_child($$,$2);}
 		  ;
 SubMethodBody: Empty {;}
-			 | SubMethodBody VarDecl {;}
-			 | SubMethodBody Statement {;}
+			 | SubMethodBody VarDecl {$$=$2;}
+			 | SubMethodBody Statement {$$=$2;}
 			 ;
 
 
@@ -192,14 +191,37 @@ Type: BOOL {$$=create_node(NODE_Bool);}
 	;
 
 Statement: OBRACE MultipleStatements CBRACE {;}
-    | IF OCURV Expr CCURV Statement ELSE Statement {;}
-    | IF OCURV Expr CCURV Statement %prec ELSE {;}
-    | WHILE OCURV Expr CCURV Statement {;}
-    | DO Statement WHILE OCURV Expr CCURV SEMI {;}
-    | PRINT OCURV ExprStrlit CCURV SEMI {;}
-    | OptAMIPA SEMI {;}
-    | RETURN OptExpr SEMI {;}
-    | error SEMI {$$=NULL;}
+    | IF OCURV Expr CCURV Statement ELSE Statement {;
+    	// $$=create_node(Node_If);
+    	// insert_child($$,$3);
+    	// insert_brother($3,$5);
+    	// insert_brother($3,$7);
+}
+    | IF OCURV Expr CCURV Statement %prec ELSE {;
+    	// $$=create_node(Node_If);
+    	// insert_child($$,$3);
+    	// insert_brother($3,$5);
+}
+    | WHILE OCURV Expr CCURV Statement {;
+    	// $$=create_node(Node_While);
+    	// insert_child($$,$3);
+    	// insert_brother($3,$5);
+}
+    | DO Statement WHILE OCURV Expr CCURV SEMI {;
+    	// $$=create_node(Node_DoWhile);
+    	// insert_child($$,$2);
+    	// insert_brother($2,$5);
+}
+    | PRINT OCURV ExprStrlit CCURV SEMI {;
+		// $$=create_node(Node_Print);
+		// insert_child($$,$3);
+}
+    | OptAMIPA SEMI {//$$=$1;
+    	;}
+    | RETURN OptExpr SEMI {//$$=$2;
+    	;}
+    | error SEMI {//$$=NULL;
+    	;}
 	;
 
 
@@ -208,17 +230,17 @@ MultipleStatements: Empty {;}
 				  ;
 
 
-ExprStrlit: Expr {;}
-		  | STRLIT {;}
+ExprStrlit: Expr {$$=$1;}
+		  | STRLIT {$$=create_node(NODE_StrLit);}
 		  ;
 
-OptAMIPA: Assignment {;}
-		| MethodInvocation {;}
-		| ParseArgs {;}
+OptAMIPA: Assignment {$$=create_node(NODE_Assign);}
+		| MethodInvocation {$$=$1;}
+		| ParseArgs {$$=$1;}
 		| Empty {;}
 		;
 
-OptExpr: Expr {;}
+OptExpr: Expr {$$=$1;}
 	   | Empty {;}
 	   ;
 
