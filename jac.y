@@ -196,7 +196,13 @@ SubMethodBody: Empty {;}
 
 
 FormalParams:  Type ID SubFormalParams {
-			;
+			//$$ = create_node(NODE_ParamDecl);
+			$$ = $3;	
+			insert_child($$,$1);
+			aux_node = create_node(NODE_Id);
+			aux_node->value = $2;
+			insert_brother($$->child,aux_node);
+			//insert_brother($$,$3);
 
 
 }
