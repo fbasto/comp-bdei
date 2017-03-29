@@ -8,9 +8,6 @@
 		output=1 imprime	
 	*/
 	#include "y.tab.h"
-	#include "header.h"
-	extern Node *tree;
-	extern int syntax_errors;
 	int output = 0;
 	int num_line = 1;
 	int num_col = 1;
@@ -120,14 +117,9 @@ int main(int argc, char* argv[])
 			}
 			yylex();
 		}
-		if(strcmp(argv[1],"-t") == 0 && syntax_errors == 0){
-			output = 0;
-			yyparse();
-			print_tree(tree,0);
-		}
 		
 	}
-	else if(argc==1){
+	else{
 		output = 0;
 		yyparse();
 	}
