@@ -139,9 +139,9 @@ SubMethodBody: Empty {;}
 			 ;
 
 
-FormalParams: Type ID SubFormalParams {;}
+FormalParams: Empty {;}
+	| Type ID SubFormalParams {;}
     | STRING OSQUARE CSQUARE ID {;}
-	| Empty {;}
 	;
 
 
