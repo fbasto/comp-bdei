@@ -124,7 +124,7 @@ int main(int argc, char* argv[])
 			// if && syntax_errors == 0
 			output = 0;
 			yyparse();
-			//print_tree(tree,0);
+			print_tree(tree,0);
 		}
 		
 	}

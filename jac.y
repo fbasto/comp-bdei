@@ -3,12 +3,15 @@
 	#include <stdlib.h>
     #include <string.h>
     #include "y.tab.h"
+	#include "header.h"
 //	#include "ast.h"
     int yylex(void);
 	extern int num_line;
 	extern int num_col;
-	extern char * yytext;
-	//extern Node * tree;
+	extern char *yytext;
+	Node *tree;
+	Node *aux_node;
+	Node *aux_node2;
     void yyerror (const char *s);
 	int flag=1;
 %}
@@ -109,19 +112,38 @@
 
 %%
 
-Program: CLASS ID OBRACE SubProgram CBRACE  {;}
+Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
+	   
+	   aux_node = create_node(NODE_Id);
+	   aux_node->value = $2; 
+	   insert_child($$,aux_node);
+	   insert_brother(aux_node,$4);	   
+}
 	   ; 
    										
 SubProgram: Empty {;}
-		  | SubProgram FieldDecl {;}
-		  | SubProgram MethodDecl {;}
+		  | SubProgram FieldDecl {$$ = $2;}
+		  | SubProgram MethodDecl {$$ = $2;}
 		  | SubProgram SEMI {;}
 		  ;
-FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {;}
-	| error SEMI {;}
+FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = create_node(NODE_FieldDecl);
+		insert_child($$,$3);		 
+		aux_node = create_node(NODE_Id);
+		aux_node->value = $4;
+		insert_brother($3,aux_node);
+		insert_brother($$,$5);
+		change_type($$,$5);
+
+}
+	| error SEMI {$$=NULL;}
 	;
-SubFieldDecl: Empty {;}
-			| SubFieldDecl COMMA ID {;}
+SubFieldDecl:Empty {$$=NULL;}
+			| SubFieldDecl COMMA ID {$$ = create_node(NODE_FieldDecl);
+			aux_node = create_node(NODE_Comp);
+			aux_node2 = create_node(NODE_Id);
+			aux_node->value = $3;
+			insert_brother(aux_node,aux_node2);
+}
 			;
 
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody {;}
