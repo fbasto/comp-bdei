@@ -115,44 +115,46 @@
 %%
 
 Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
-	   
+
 	   aux_node = create_node(NODE_Id);
 	   aux_node->value = $2; 
 	   insert_child($$,aux_node);
 	   insert_brother(aux_node,$4);	   
+	   printf("GFEEFEF\n");
 }
 	   ; 
    										
-SubProgram: Empty {;}
+SubProgram: Empty {$$= NULL;}
 		  | SubProgram FieldDecl {$$ = $2;}
 		  | SubProgram MethodDecl {$$ = $2;}
 		  | SubProgram SEMI {;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = $5;
-		if($3==NULL){
-			printf("$$ nulo fielddecl\n");
-		}
+		printf("$$ nulo fielddecl\n");
+		
 		insert_child($$,$3);
-		//printf("$$ nulo fielddecl\n");
+		printf("$$ nulo fielddecl\n");
 		aux_node = create_node(NODE_Id);
 		aux_node->value = $4;
-		insert_brother($5->child,aux_node);
-		insert_brother($$,$5);
-		//printf("FieldDecl b4 type\n");
+		insert_brother($3,aux_node);
+		printf("FieldDecl b4 type\n");
 		change_type($$,$5);
-		//printf("FieldDecl fim\n");
+		printf("FieldDecl fim\n");
 }
 	| error SEMI {$$=NULL;}
 	;
-SubFieldDecl:Empty {$$ = create_node(NODE_FieldDecl);}
-			| SubFieldDecl COMMA ID {$1 = create_node(NODE_FieldDecl);
+SubFieldDecl: SubFieldDecl COMMA ID {
+			$1 = create_node(NODE_FieldDecl);
 			aux_node = create_node(NODE_Comp);
-			insert_child($1,aux_node);
+			insert_child($1,aux_node);		
 			aux_node2 = create_node(NODE_Id);
-			aux_node->value = $3;
+			aux_node2->value = $3;
 			insert_brother($1->child,aux_node2);
-			//printf("SubFieldDecl fim\n");
+			insert_brother($$,$1);
 }
+			
+
+			| Empty {$$ = create_node(NODE_FieldDecl);}
 			;
 
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody {$$=create_node(NODE_MethodDecl);
@@ -166,9 +168,9 @@ MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHead
 			aux_node = create_node(NODE_Id);
 			aux_node->value = $2;
 			insert_brother($$->child,aux_node);			
-			if ($4 != NULL){
-				insert_brother($$->child->brother,$4);
-			}
+			aux_node3 = create_node(NODE_MethodParams);		
+			insert_brother($$->child->brother,aux_node3);
+			
 }
             | VOID ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHeader);
 			aux_node = create_node(NODE_Void);
@@ -176,9 +178,8 @@ MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHead
 			aux_node2 = create_node(NODE_Id);
 			aux_node2->value = $2;
 			insert_brother($$->child,aux_node2);
-			if ($4 != NULL){
-				insert_brother($$->child->brother,$4);
-			}
+			aux_node3 = create_node(NODE_MethodParams);
+			insert_brother($$->child->brother,aux_node3);
 }
 	    ;
 
@@ -191,36 +192,34 @@ SubMethodBody: Empty {;}
 			 ;
 
 
-FormalParams: Empty {$$ = create_node(NODE_MethodParams);}
-	| Type ID SubFormalParams {$$ = create_node(NODE_MethodParams);
-			aux_node = create_node(NODE_ParamDecl);
-			insert_child($3,aux_node);
-			insert_child($3->child,$1);
-			aux_node2 = create_node(NODE_Id);
-			aux_node2->value;
-			insert_brother($3->child->child,aux_node2);
+FormalParams:  Type ID SubFormalParams {
+			;
+
 
 }
-    | STRING OSQUARE CSQUARE ID {$$ = create_node(NODE_MethodParams);
-			aux_node = create_node(NODE_ParamDecl);
-			insert_child($$,aux_node);			
-			aux_node2 = create_node(NODE_StringArray);
-			insert_child($$->child,aux_node);
-			aux_node3 = create_node(NODE_Id);
-			aux_node3->value = $4;
-			insert_brother($$->child->child,aux_node2);
+    | STRING OSQUARE CSQUARE ID {$$ = create_node(NODE_ParamDecl);
+				aux_node = create_node(NODE_StringArray);
+				insert_child($$,aux_node);
+				aux_node2 = create_node(NODE_Id);
+				aux_node2->value = $4;
+				insert_brother($$->child,aux_node2);
+				
 }
+	|Empty {/*$$ = create_node(NODE_MethodParams)*/;}
 	;
+	
 
 
-SubFormalParams: Empty {$$ = create_node(NODE_ParamDecl);}
-			   | SubFormalParams COMMA Type ID {$1 = create_node(NODE_ParamDecl);
-				insert_child($1,$3);
-				aux_node = create_node(NODE_Id);
-				aux_node->value = $4;
-				insert_child($1->child,aux_node);
-
+SubFormalParams:  SubFormalParams COMMA Type ID {
+			   $1 = create_node(NODE_ParamDecl);
+			   insert_child($1,$3);
+			   aux_node = create_node(NODE_Id);
+			   aux_node->value = $4;
+			   insert_brother($1->child,aux_node);
+			   insert_brother($$,$1);
 }
+				|Empty {$$ = create_node(NODE_ParamDecl);}
+			   
 			   ;
 
 VarDecl: Type ID SubVarDecl SEMI {;}
