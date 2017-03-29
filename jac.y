@@ -12,6 +12,7 @@
 	Node *tree;
 	Node *aux_node;
 	Node *aux_node2;
+	Node *aux_node3;
     void yyerror (const char *s);
 	int flag=1;
 %}
@@ -132,24 +133,25 @@ FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = $5;
 			printf("$$ nulo fielddecl\n");
 		}
 		insert_child($$,$3);
-		printf("$$ nulo fielddecl\n");
+		//printf("$$ nulo fielddecl\n");
 		aux_node = create_node(NODE_Id);
 		aux_node->value = $4;
-		insert_brother($3,aux_node);
+		insert_brother($5->child,aux_node);
 		insert_brother($$,$5);
-		printf("FieldDecl b4 type\n");
+		//printf("FieldDecl b4 type\n");
 		change_type($$,$5);
-		printf("FieldDecl fim\n");
+		//printf("FieldDecl fim\n");
 }
 	| error SEMI {$$=NULL;}
 	;
 SubFieldDecl:Empty {$$ = create_node(NODE_FieldDecl);}
 			| SubFieldDecl COMMA ID {$1 = create_node(NODE_FieldDecl);
 			aux_node = create_node(NODE_Comp);
+			insert_child($1,aux_node);
 			aux_node2 = create_node(NODE_Id);
 			aux_node->value = $3;
-			insert_brother(aux_node,aux_node2);
-			printf("SubFieldDecl fim\n");
+			insert_brother($1->child,aux_node2);
+			//printf("SubFieldDecl fim\n");
 }
 			;
 
@@ -159,8 +161,21 @@ MethodDecl: PUBLIC STATIC MethodHeader MethodBody {$$=create_node(NODE_MethodDec
 }
 		  ;
 
-MethodHeader: Type ID OCURV FormalParams CCURV {;}
-            | VOID ID OCURV FormalParams CCURV {;}
+MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHeader);
+			insert_child($$,$1);
+			aux_node = create_node(NODE_Id);
+			aux_node->value = $2;
+			insert_brother($$->child,aux_node);			
+			insert_brother($$->child->brother,$4);
+}
+            | VOID ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHeader);
+			aux_node = create_node(NODE_Void);
+			insert_child($$,aux_node);
+			aux_node2 = create_node(NODE_Id);
+			aux_node2->value = $2;
+			insert_brother($$->child,aux_node2);
+			insert_brother($$->child,$4);
+}
 	    ;
 
 MethodBody: OBRACE SubMethodBody CBRACE {;}
@@ -171,14 +186,36 @@ SubMethodBody: Empty {;}
 			 ;
 
 
-FormalParams: Empty {;}
-	| Type ID SubFormalParams {;}
-    | STRING OSQUARE CSQUARE ID {;}
+FormalParams: Empty {$$ = create_node(NODE_MethodParams);}
+	| Type ID SubFormalParams {$$ = create_node(NODE_MethodParams);
+			aux_node = create_node(NODE_ParamDecl);
+			insert_child($3,aux_node);
+			insert_child($3->child,$1);
+			aux_node2 = create_node(NODE_Id);
+			aux_node2->value;
+			insert_brother($3->child->child,aux_node2);
+
+}
+    | STRING OSQUARE CSQUARE ID {$$ = create_node(NODE_MethodParams);
+			aux_node = create_node(NODE_ParamDecl);
+			insert_child($$,aux_node);			
+			aux_node2 = create_node(NODE_StringArray);
+			insert_child($$->child,aux_node);
+			aux_node3 = create_node(NODE_Id);
+			aux_node3->value = $4;
+			insert_brother($$->child->child,aux_node2);
+}
 	;
 
 
-SubFormalParams: Empty {;}
-			   | SubFormalParams COMMA Type ID {;}
+SubFormalParams: Empty {$$ = create_node(NODE_ParamDecl);}
+			   | SubFormalParams COMMA Type ID {$1 = create_node(NODE_ParamDecl);
+				insert_child($1,$3);
+				aux_node = create_node(NODE_Id);
+				aux_node->value = $4;
+				insert_child($1->child,aux_node);
+
+}
 			   ;
 
 VarDecl: Type ID SubVarDecl SEMI {;}
