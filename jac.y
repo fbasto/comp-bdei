@@ -230,9 +230,11 @@ Expre: MethodInvocation {;}
     | Expre LEQ Expre {;}
     | Expre LT Expre {;}
     | Expre NEQ Expre {;}
-    | Expre STAR Expre {;}
     | Expre MINUS Expre {;}
     | Expre PLUS Expre {;}
+    | Expre STAR Expre {;}
+    | Expre DIV Expre {;}
+    | Expre MOD Expre {;}
     | PLUS Expre {;}
     | MINUS Expre  {;}
     | NOT Expre {;}
