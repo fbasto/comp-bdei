@@ -166,7 +166,9 @@ MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHead
 			aux_node = create_node(NODE_Id);
 			aux_node->value = $2;
 			insert_brother($$->child,aux_node);			
-			insert_brother($$->child->brother,$4);
+			if ($4 != NULL){
+				insert_brother($$->child->brother,$4);
+			}
 }
             | VOID ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHeader);
 			aux_node = create_node(NODE_Void);
@@ -174,7 +176,9 @@ MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHead
 			aux_node2 = create_node(NODE_Id);
 			aux_node2->value = $2;
 			insert_brother($$->child,aux_node2);
-			insert_brother($$->child,$4);
+			if ($4 != NULL){
+				insert_brother($$->child->brother,$4);
+			}
 }
 	    ;
 
