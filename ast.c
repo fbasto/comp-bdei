@@ -20,25 +20,32 @@ Node *create_node(Node_type type){
 	return node;
 
 }*/
-void insert_child(Node *father,Node *child){
+void insert_child(Node *father,Node *newchild){
+	//printf("CHILD INICIO\n");
 	Node * temp = father->child;
-	if(temp ==NULL){
-		child->father = father;
-		father->child = child;
+	if(newchild == NULL){
+		printf("newchild nulo\n");
+	}
+	if(father == NULL){
+		printf("father nulo\n");
+	}
+	if(temp == NULL){
+		newchild->father = father;
+		father->child = newchild;
 	}
 	else {
 		/*child->brother = father->child;
 		child->father = father;
 		father->child = child;*/
 	}
-	//printf("DENTRO\n");
+	//printf("CHILD FIM\n");
 
 }
 
 void insert_brother(Node *brother,Node *self){
 	Node *aux = brother;
 
-//	printf("BROTHER\n");
+	//printf("BROTHER\n");
 	if(aux != NULL && self !=NULL){
 		while(aux->brother != NULL){
 			aux = aux->brother;
@@ -46,6 +53,7 @@ void insert_brother(Node *brother,Node *self){
 		aux->brother = self;
 		self->father = aux->father;
 	}
+	//printf("BROTHER FIM\n");
 }
 
 

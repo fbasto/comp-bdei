@@ -94,6 +94,7 @@
 %type <node> ParseArgs
 %type <node> OptDotLength
 %type <node> Expr
+%type <node> Expre
 
 
 %left COMMA
@@ -121,151 +122,160 @@ Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
 }
 	   ; 
    										
-SubProgram: Empty {;}
+SubProgram: Empty {$$=NULL;}
 		  | SubProgram FieldDecl {$$ = $2;}
 		  | SubProgram MethodDecl {$$ = $2;}
-		  | SubProgram SEMI {;}
+		  | SubProgram SEMI {$$=NULL;}
 		  ;
-FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = create_node(NODE_FieldDecl);
-		insert_child($$,$3);		 
+FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = $5;
+		if($3==NULL){
+			printf("$$ nulo fielddecl\n");
+		}
+		insert_child($$,$3);
+		printf("$$ nulo fielddecl\n");
 		aux_node = create_node(NODE_Id);
 		aux_node->value = $4;
 		insert_brother($3,aux_node);
 		insert_brother($$,$5);
+		printf("FieldDecl b4 type\n");
 		change_type($$,$5);
-
+		printf("FieldDecl fim\n");
 }
 	| error SEMI {$$=NULL;}
 	;
-SubFieldDecl:Empty {$$=NULL;}
-			| SubFieldDecl COMMA ID {$$ = create_node(NODE_FieldDecl);
+SubFieldDecl:Empty {$$ = create_node(NODE_FieldDecl);}
+			| SubFieldDecl COMMA ID {$1 = create_node(NODE_FieldDecl);
 			aux_node = create_node(NODE_Comp);
 			aux_node2 = create_node(NODE_Id);
 			aux_node->value = $3;
 			insert_brother(aux_node,aux_node2);
+			printf("SubFieldDecl fim\n");
 }
 			;
 
-MethodDecl: PUBLIC STATIC MethodHeader MethodBody {;}
+MethodDecl: PUBLIC STATIC MethodHeader MethodBody {$$=create_node(NODE_MethodDecl);
+		insert_child($$,$3);
+		insert_brother($$->child,$4);
+}
 		  ;
 
-MethodHeader: Type ID OCURV FormalParams CCURV {;}
-            | VOID ID OCURV FormalParams CCURV {;}
+MethodHeader: Type ID OCURV FormalParams CCURV {$$=NULL;}
+            | VOID ID OCURV FormalParams CCURV {$$=NULL;}
 	    ;
 
-MethodBody: OBRACE SubMethodBody CBRACE {;}
+MethodBody: OBRACE SubMethodBody CBRACE {$$=NULL;}
 		  ;
-SubMethodBody: Empty {;}
-			 | SubMethodBody VarDecl {;}
-			 | SubMethodBody Statement {;}
+SubMethodBody: Empty {$$=NULL;}
+			 | SubMethodBody VarDecl {$$=NULL;}
+			 | SubMethodBody Statement {$$=NULL;}
 			 ;
 
 
-FormalParams: Empty {;}
-	| Type ID SubFormalParams {;}
-    | STRING OSQUARE CSQUARE ID {;}
+FormalParams: Empty {$$=NULL;}
+	| Type ID SubFormalParams {$$=NULL;}
+    | STRING OSQUARE CSQUARE ID {$$=NULL;}
 	;
 
 
-SubFormalParams: Empty {;}
-			   | SubFormalParams COMMA Type ID {;}
+SubFormalParams: Empty {$$=NULL;}
+			   | SubFormalParams COMMA Type ID {$$=NULL;}
 			   ;
 
-VarDecl: Type ID SubVarDecl SEMI {;}
-SubVarDecl: Empty {;}
-		  | COMMA ID SubVarDecl {;}
+VarDecl: Type ID SubVarDecl SEMI {$$=NULL;}
+SubVarDecl: Empty {$$=NULL;}
+		  | COMMA ID SubVarDecl {$$=NULL;}
 	      ;
 
-Type: BOOL {;}
-	| INT {;}
-	| DOUBLE {;}
+Type: BOOL {$$=create_node(NODE_Bool);}
+	| INT  {$$=create_node(NODE_Int);}
+	| DOUBLE {$$=create_node(NODE_Double);}
 	;
 
-Statement: OBRACE MultipleStatements CBRACE {;}
-    | IF OCURV Expr CCURV Statement ELSE Statement {;}
-    | IF OCURV Expr CCURV Statement %prec ELSE {;}
-    | WHILE OCURV Expr CCURV Statement {;}
-    | DO Statement WHILE OCURV Expr CCURV SEMI {;}
-    | PRINT OCURV ExprStrlit CCURV SEMI {;}
-    | OptAMIPA SEMI {;}
-    | RETURN OptExpr SEMI {;}
-    | error SEMI {;}
+Statement: OBRACE MultipleStatements CBRACE {$$=NULL;}
+    | IF OCURV Expr CCURV Statement ELSE Statement {$$=NULL;}
+    | IF OCURV Expr CCURV Statement %prec ELSE {$$=NULL;}
+    | WHILE OCURV Expr CCURV Statement {$$=NULL;}
+    | DO Statement WHILE OCURV Expr CCURV SEMI {$$=NULL;}
+    | PRINT OCURV ExprStrlit CCURV SEMI {$$=NULL;}
+    | OptAMIPA SEMI {$$=NULL;}
+    | RETURN OptExpr SEMI {$$=NULL;}
+    | error SEMI {$$=NULL;}
 	;
 
 
-MultipleStatements: Empty {;}
-				  | Statement MultipleStatements {;}
+MultipleStatements: Empty {$$=NULL;}
+				  | Statement MultipleStatements {$$=NULL;}
 				  ;
 
 
-ExprStrlit: Expr {;}
-		  | STRLIT {;}
+ExprStrlit: Expr {$$=NULL;}
+		  | STRLIT {$$=NULL;}
 		  ;
 
-OptAMIPA: Assignment {;}
-		| MethodInvocation {;}
-		| ParseArgs {;}
-		| Empty {;}
+OptAMIPA: Assignment {$$=NULL;}
+		| MethodInvocation {$$=NULL;}
+		| ParseArgs {$$=NULL;}
+		| Empty {$$=NULL;}
 		;
 
-OptExpr: Expr {;}
-	   | Empty {;}
+OptExpr: Expr {$$=NULL;}
+	   | Empty {$$=NULL;}
 	   ;
 
-Assignment: ID ASSIGN Expr {;}
+Assignment: ID ASSIGN Expr {$$=NULL;}
 	;
 
-MethodInvocation: ID OCURV OptExprCommaExprs CCURV {;}
-    | ID OCURV error CCURV {;}
+MethodInvocation: ID OCURV OptExprCommaExprs CCURV {$$=NULL;}
+    | ID OCURV error CCURV {$$=NULL;}
 	;
 
-MultipleCommaExpr: Empty {;}
-				 | MultipleCommaExpr COMMA Expr {;}
+MultipleCommaExpr: Empty {$$=NULL;}
+				 | MultipleCommaExpr COMMA Expr {$$=NULL;}
 				 ;
-OptExprCommaExprs: Expr MultipleCommaExpr {;}
-				 | Empty {;}
+OptExprCommaExprs: Expr MultipleCommaExpr {$$=NULL;}
+				 | Empty {$$=NULL;}
 				 ;
 
-ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {;}
-    | PARSEINT OCURV error CCURV {;}
+ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {$$=NULL;}
+    | PARSEINT OCURV error CCURV {$$=NULL;}
 	;
 
-OptDotLength: DOTLENGTH {;}
-			| Empty {;}
+OptDotLength: DOTLENGTH {$$=NULL;}
+			| Empty {$$=NULL;}
 			;	
 
-Expr: Assignment {;}
-	| Expre {;}
+Expr: Assignment {$$=NULL;}
+	| Expre {$$=NULL;}
 	;
 
-Expre: MethodInvocation {;}
-	| ParseArgs {;}
-    | Expre AND Expre {;}
-    | Expre OR Expre {;}
-    | Expre EQ Expre {;}
-    | Expre GEQ Expre {;}
-    | Expre GT Expre {;}
-    | Expre LEQ Expre {;}
-    | Expre LT Expre {;}
-    | Expre NEQ Expre {;}
-    | Expre MINUS Expre {;}
-    | Expre PLUS Expre {;}
-    | Expre STAR Expre {;}
-    | Expre DIV Expre {;}
-    | Expre MOD Expre {;}
-    | PLUS Expre {;}
-    | MINUS Expre  {;}
-    | NOT Expre {;}
-    | ID OptDotLength {;} 
-    | OCURV Expr CCURV {;}
-    | OCURV error CCURV {;}
-    | BOOLLIT {;}
-	| DECLIT {;} 
-	| REALLIT {;}
+Expre: MethodInvocation {$$=NULL;}
+	| ParseArgs {$$=NULL;}
+    | Expre AND Expre {$$=NULL;}
+    | Expre OR Expre {$$=NULL;}
+    | Expre EQ Expre {$$=NULL;}
+    | Expre GEQ Expre {$$=NULL;}
+    | Expre GT Expre {$$=NULL;}
+    | Expre LEQ Expre {$$=NULL;}
+    | Expre LT Expre {$$=NULL;}
+    | Expre NEQ Expre {$$=NULL;}
+    | Expre MINUS Expre {$$=NULL;}
+    | Expre PLUS Expre {$$=NULL;}
+    | Expre STAR Expre {$$=NULL;}
+    | Expre DIV Expre {$$=NULL;}
+    | Expre MOD Expre {$$=NULL;}
+    | PLUS Expre {$$=NULL;}
+    | MINUS Expre  {$$=NULL;}
+    | NOT Expre {$$=NULL;}
+    | ID OptDotLength {$$=NULL;} 
+    | OCURV Expr CCURV {$$=NULL;}
+    | OCURV error CCURV {$$=NULL;}
+    | BOOLLIT {$$=NULL;}
+	| DECLIT {$$=NULL;} 
+	| REALLIT {$$=NULL;}
 	;
 
 
-Empty: {;} 
+Empty: {$$=NULL;} 
 	 ; 
 
 %%
