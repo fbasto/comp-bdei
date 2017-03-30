@@ -41,7 +41,7 @@ static const char *Node_names[] = {
 	"Bool",
 	"BoolLit",
 	"Double",
-	"Declit",
+	"DecLit",
 	"Id",
 	"Int",
 	"RealLit",
