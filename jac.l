@@ -11,6 +11,7 @@
 	#include "header.h"
 	
 	extern Node *tree;
+	extern int syn_error;
 	//extern int syntax_errors;
 	int output = 0;
 	int num_line = 1;
@@ -125,7 +126,10 @@ int main(int argc, char* argv[])
 			// if && syntax_errors == 0
 			output = 0;
 			yyparse();
-			print_tree(tree,0);
+			if(syn_error== 0){
+				print_tree(tree,0);
+			}
+			
 		}
 		
 	}
