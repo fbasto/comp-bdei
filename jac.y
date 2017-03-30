@@ -397,13 +397,45 @@ Expr: Assignment {$$=$1;}
 
 Expre: MethodInvocation {$$=NULL;}
 	| ParseArgs {$$=$1;}
+    | Expre AND Expre {$$=NULL;
+    	// $$ = create_node(Node_And);
+    	// insert_child($$,$1);
+    	// insert_brother($$->child,$3);
 }
+    | Expre OR Expre {$$=NULL;
+    	// $$ = create_node(Node_Or);
+    	// insert_child($$,$1);
+    	// insert_brother($$->child,$3);
 }
+    | Expre EQ Expre {$$=NULL;
+    	// $$ = create_node(Node_Eq);
+    	// insert_child($$,$1);
+    	// insert_brother($$->child,$3);
 }
+    | Expre GEQ Expre {$$=NULL;
+    	// $$ = create_node(Node_Geq);
+    	// insert_child($$,$1);
+    	// insert_brother($$->child,$3);
 }
+    | Expre GT Expre {$$=NULL;
+    	// $$ = create_node(Node_Gt);
+    	// insert_child($$,$1);
+    	// insert_brother($$->child,$3);
 }
+    | Expre LEQ Expre {$$=NULL;
+    	// $$ = create_node(Node_Leq);
+    	// insert_child($$,$1);
+    	// insert_brother($$->child,$3);
 }
+    | Expre LT Expre {$$=NULL;
+    	// $$ = create_node(Node_Lt);
+    	// insert_child($$,$1);
+    	// insert_brother($$->child,$3);
 }
+    | Expre NEQ Expre {$$=NULL;
+    	// $$ = create_node(Node_Neq);
+    	// insert_child($$,$1);
+    	// insert_brother($$->child,$3);
 }
     | Expre MINUS Expre {$$=NULL;}
     | Expre PLUS Expre {$$=NULL;}
@@ -416,8 +448,17 @@ Expre: MethodInvocation {$$=NULL;}
     | ID OptDotLength {$$=NULL;} 
     | OCURV Expr CCURV {$$=$2;}
     | OCURV error CCURV {$$=NULL;}
+    | BOOLLIT {$$=NULL;
+		// $$ = create_node(NODE_Boolit);
+		// $$->value = $1;
 }
+	| DECLIT {
+		$$ = create_node(NODE_Declit);
+		$$->value = $1;
 } 
+	| REALLIT {$$=NULL;
+		// $$ = create_node(NODE_Reallit);
+		// $$->value = $1;
 };
 
 
