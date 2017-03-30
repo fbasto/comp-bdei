@@ -400,7 +400,10 @@ ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { //Integer.parseInt(ID[
     | PARSEINT OCURV error CCURV {$$=NULL;syn_error=1;}
 	;
 
-OptDotLength: DOTLENGTH {$$=NULL;}
+OptDotLength: DOTLENGTH {
+			$$ = create_node(NODE_Length);
+
+;}
 			| Empty {$$=NULL;}
 			;	
 
@@ -476,13 +479,23 @@ Expre: MethodInvocation {$$=NULL;}
     	insert_brother($$->child,$3);
 }
     | PLUS Expre %prec NOT{
-
+    	$$ = create_node(NODE_Plus);
+    	insert_child($$,$2);
 ;}
-    | MINUS Expre %prec NOT {$$=NULL;}
-    | NOT Expre %prec NOT{$$=NULL;}
+    | MINUS Expre %prec NOT {
+    	$$ = create_node(NODE_Minus);
+    	insert_child($$,$2);
+;}
+    | NOT Expre %prec NOT{
+    	$$ = create_node(NODE_Not);
+    	insert_child($$,$2);
+;}
     | ID OptDotLength {
     	$$ = create_node(NODE_Id);
     	$$->value = $1;
+    	if($2 != NULL){
+    		insert_child($$,$2);
+    	}
 ;} 
     | OCURV Expr CCURV {$$=$2;}
     | OCURV error CCURV {$$=NULL;}
