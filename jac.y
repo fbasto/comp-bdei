@@ -24,6 +24,7 @@
 }
 
 %token BOOL
+%token BOOLLIT
 %token CLASS
 %token DO
 %token DOTLENGTH
@@ -64,7 +65,6 @@
 %token COMMA
 %token <string> RESERVED
 %token NEWLINE
-%token <string> BOOLLIT
 %token <string> STRLIT
 %token <string> DECLIT
 %token <string> REALLIT
@@ -116,11 +116,13 @@
 %%
 
 Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
-
+	   
 	   aux_node = create_node(NODE_Id);
 	   aux_node->value = $2; 
 	   insert_child($$,aux_node);
-	   insert_brother(aux_node,$4);	   
+	   if($4 != NULL){
+		 	insert_brother(aux_node,$4);	   
+	   }
 //	   printf("GFEEFEF\n");
 }
 	   ; 
@@ -132,7 +134,6 @@ SubProgram: Empty {$$= NULL;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {
 		
-		printf("OIOIOIOI\n");
 		$$= create_node(NODE_FieldDecl); 
 		insert_child($$,$3);
 		aux_node2 = create_node(NODE_Id);
@@ -141,7 +142,6 @@ FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {
 		insert_brother($$,$5);
 		change_type($$,$5);
 
-		printf("FieldDecl fim\n");
 }
 	| error SEMI {$$=NULL;}
 	;
@@ -162,13 +162,13 @@ SubFieldDecl:COMMA ID SubFieldDecl {
 			aux_node2 = create_node(NODE_Id);
 			aux_node2->value = $2;
 			insert_brother($$->child,aux_node2);
-			if ($3->child != NULL){
+			if ($3 != NULL){
 				insert_brother($$,$3);
 			}
 }
 			
 
-			| Empty {$$ = create_node(NODE_FieldDecl);}
+			| Empty {$$=NULL;}
 			;
 
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody {$$=create_node(NODE_MethodDecl);
@@ -216,14 +216,7 @@ SubMethodBody: SubMethodBody VarDecl {
 				insert_brother($$->child,$2);
 			}
 }
-			 | SubMethodBody Statement {			
-			if($$->child == NULL){
-				insert_child($$,$2);
-			}
-			else{
-				insert_brother($$->child,$2);
-			}
-}
+			 | SubMethodBody Statement {$$=$2;}
 			 | Empty {$$ = create_node(NODE_MethodBody);}
 			 ;
 
@@ -328,7 +321,7 @@ Statement: OBRACE MultipleStatements CBRACE {$$=NULL;}
 		// insert_child($$,$3);
 }
     | OptAMIPA SEMI {//$$=$1;
-    	$$=$1;}
+    	$$=NULL;}
     | RETURN OptExpr SEMI {//$$=$2;
     	$$=NULL;}
     | error SEMI {//$$=NULL;
@@ -342,10 +335,10 @@ MultipleStatements: Empty {$$=NULL;}
 
 
 ExprStrlit: Expr {$$=$1;}
-		  | STRLIT {$$=create_node(NODE_Strlit);}
+		  | STRLIT {$$=create_node(NODE_StrLit);}
 		  ;
 
-OptAMIPA: Assignment {$$=$1;}
+OptAMIPA: Assignment {$$=create_node(NODE_Assign);}
 		| MethodInvocation {$$=$1;}
 		| ParseArgs {$$=$1;}
 		| Empty {$$=NULL;}
@@ -355,13 +348,7 @@ OptExpr: Expr {$$=$1;}
 	   | Empty {$$=NULL;}
 	   ;
 
-Assignment: ID ASSIGN Expr {
-		$$ = create_node(NODE_Assign);
-		aux_node = create_node(NODE_Id);
-		aux_node->value = $1;
-		insert_child($$,aux_node);
-		insert_brother($$->child,$3);
-	}
+Assignment: ID ASSIGN Expr {$$=NULL;}
 	;
 
 MethodInvocation: ID OCURV OptExprCommaExprs CCURV {$$=NULL;}
@@ -375,15 +362,7 @@ OptExprCommaExprs: Expr MultipleCommaExpr {$$=NULL;}
 				 | Empty {$$=NULL;}
 				 ;
 
-ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { //Integer.parseInt(ID[Expr])
-			$$ = create_node(NODE_ParseArgs);
-			aux_node2 = create_node(NODE_Id);
-			aux_node2->value = $3;
-			insert_child($$,aux_node2);
-			insert_brother($$->child,$5);
-
-
-}
+ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {$$=NULL;}
     | PARSEINT OCURV error CCURV {$$=NULL;syn_error=1;}
 	;
 
@@ -391,52 +370,20 @@ OptDotLength: DOTLENGTH {$$=NULL;}
 			| Empty {$$=NULL;}
 			;	
 
-Expr: Assignment {$$=$1;}
-	| Expre {$$=$1;}
+Expr: Assignment {$$=NULL;}
+	| Expre {$$=NULL;}
 	;
 
 Expre: MethodInvocation {$$=NULL;}
-	| ParseArgs {$$=$1;}
-    | Expre AND Expre {$$=NULL;
-    	// $$ = create_node(Node_And);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
-}
-    | Expre OR Expre {$$=NULL;
-    	// $$ = create_node(Node_Or);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
-}
-    | Expre EQ Expre {$$=NULL;
-    	// $$ = create_node(Node_Eq);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
-}
-    | Expre GEQ Expre {$$=NULL;
-    	// $$ = create_node(Node_Geq);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
-}
-    | Expre GT Expre {$$=NULL;
-    	// $$ = create_node(Node_Gt);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
-}
-    | Expre LEQ Expre {$$=NULL;
-    	// $$ = create_node(Node_Leq);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
-}
-    | Expre LT Expre {$$=NULL;
-    	// $$ = create_node(Node_Lt);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
-}
-    | Expre NEQ Expre {$$=NULL;
-    	// $$ = create_node(Node_Neq);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
-}
+	| ParseArgs {$$=NULL;}
+    | Expre AND Expre {$$=NULL;}
+    | Expre OR Expre {$$=NULL;}
+    | Expre EQ Expre {$$=NULL;}
+    | Expre GEQ Expre {$$=NULL;}
+    | Expre GT Expre {$$=NULL;}
+    | Expre LEQ Expre {$$=NULL;}
+    | Expre LT Expre {$$=NULL;}
+    | Expre NEQ Expre {$$=NULL;}
     | Expre MINUS Expre {$$=NULL;}
     | Expre PLUS Expre {$$=NULL;}
     | Expre STAR Expre {$$=NULL;}
@@ -446,20 +393,13 @@ Expre: MethodInvocation {$$=NULL;}
     | MINUS Expre  {$$=NULL;}
     | NOT Expre {$$=NULL;}
     | ID OptDotLength {$$=NULL;} 
-    | OCURV Expr CCURV {$$=$2;}
+    | OCURV Expr CCURV {$$=NULL;}
     | OCURV error CCURV {$$=NULL;}
-    | BOOLLIT {$$=NULL;
-		// $$ = create_node(NODE_Boolit);
-		// $$->value = $1;
-}
-	| DECLIT {
-		$$ = create_node(NODE_Declit);
-		$$->value = $1;
-} 
-	| REALLIT {$$=NULL;
-		// $$ = create_node(NODE_Reallit);
-		// $$->value = $1;
-};
+    | BOOLLIT {$$=NULL;}
+	| DECLIT {$$=NULL;} 
+	| REALLIT {$$=NULL;}
+
+	;
 
 
 Empty: {;} 
