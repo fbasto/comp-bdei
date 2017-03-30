@@ -127,9 +127,13 @@ Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
 	   ; 
    										
 SubProgram: Empty {$$= NULL;}
-		  | SubProgram FieldDecl {$$ = $2;}
-		  | SubProgram MethodDecl {$$ = $2;}
-		  | SubProgram SEMI {$$ = NULL;}
+		  |	FieldDecl  SubProgram {$$ = $1;
+			if($$ != NULL){
+				insert_brother($$,$2);
+			}
+}
+		  | MethodDecl SubProgram {$$ = $1;}
+		  | SEMI SubProgram {/*insert_child($$,$1)*/;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {
 		$$= create_node(NODE_FieldDecl); 
@@ -140,9 +144,7 @@ FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {
 		if($5 != NULL){
 			insert_brother($$,$5);
 		}
-		if($5->child != NULL){
-			change_type($$,$5);
-		}
+		change_type($$,$5);
 }
 	| error SEMI {$$=NULL;}
 	;
@@ -162,14 +164,13 @@ SubFieldDecl:COMMA ID SubFieldDecl {
 			insert_child($$,aux_node);		
 			aux_node2 = create_node(NODE_Id);
 			aux_node2->value = $2;
-			if($$->child != NULL){
+			if($$  != NULL){
 				insert_brother($$->child,aux_node2);
-			}
-			if($3->child != NULL){
 				insert_brother($$,$3);
 			}
+			
 }
-			| Empty {$$ = create_node(NODE_FieldDecl);}
+			| Empty {$$ = NULL/*create_node(NODE_FieldDecl)*/;}
 			;
 
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody {$$=create_node(NODE_MethodDecl);
@@ -231,13 +232,15 @@ SubMethodBody: SubMethodBody VarDecl {
 
 FormalParams:  Type ID SubFormalParams {
 			//$$ = create_node(NODE_ParamDecl);
-			$$ = $3;	
-			insert_child($$,$1);
-			aux_node = create_node(NODE_Id);
-			aux_node->value = $2;
-			insert_brother($$->child,aux_node);
-			//insert_brother($$,$3);
 
+			$$ = $3;
+			if ($3 != NULL){	
+				insert_child($$,$1);
+				aux_node = create_node(NODE_Id);
+				aux_node->value = $2;
+				insert_brother($$->child,aux_node);
+			//insert_brother($$,$3);
+			}
 
 }
     | STRING OSQUARE CSQUARE ID {$$ = create_node(NODE_ParamDecl);
@@ -248,20 +251,22 @@ FormalParams:  Type ID SubFormalParams {
 				insert_brother($$->child,aux_node2);
 				
 }
-	|Empty {$$ = create_node(NODE_ParamDecl);}
+	|Empty {$$ = NULL/*create_node(NODE_ParamDecl)*/;}
 	;
 	
 
 
 SubFormalParams:  SubFormalParams COMMA Type ID {
-				$1 = create_node(NODE_ParamDecl);
-				insert_child($1,$3);
-				aux_node = create_node(NODE_Id);
-				aux_node->value = $4;
-				insert_brother($1->child,aux_node);
-			   	insert_brother($$,$1);
+			   	if($1 != NULL){
+					$1 = create_node(NODE_ParamDecl);
+					insert_child($1,$3);
+					aux_node = create_node(NODE_Id);
+					aux_node->value = $4;
+					insert_brother($1->child,aux_node);
+			   		insert_brother($$,$1);
+				}
 }
-				|Empty {$$ = create_node(NODE_ParamDecl);}
+				|Empty {$$ = NULL/*create_node(NODE_ParamDecl)*/;}
 			   
 			   ;
 
