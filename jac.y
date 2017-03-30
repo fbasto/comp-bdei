@@ -24,7 +24,6 @@
 }
 
 %token BOOL
-%token BOOLLIT
 %token CLASS
 %token DO
 %token DOTLENGTH
@@ -65,6 +64,7 @@
 %token COMMA
 %token <string> RESERVED
 %token NEWLINE
+%token <string> BOOLLIT
 %token <string> STRLIT
 %token <string> DECLIT
 %token <string> REALLIT
@@ -216,7 +216,14 @@ SubMethodBody: SubMethodBody VarDecl {
 				insert_brother($$->child,$2);
 			}
 }
-			 | SubMethodBody Statement {$$=$2;}
+			 | SubMethodBody Statement {			
+			if($$->child == NULL){
+				insert_child($$,$2);
+			}
+			else{
+				insert_brother($$->child,$2);
+			}
+}
 			 | Empty {$$ = create_node(NODE_MethodBody);}
 			 ;
 
@@ -321,7 +328,7 @@ Statement: OBRACE MultipleStatements CBRACE {$$=NULL;}
 		// insert_child($$,$3);
 }
     | OptAMIPA SEMI {//$$=$1;
-    	$$=NULL;}
+    	$$=$1;}
     | RETURN OptExpr SEMI {//$$=$2;
     	$$=NULL;}
     | error SEMI {//$$=NULL;
@@ -338,7 +345,7 @@ ExprStrlit: Expr {$$=$1;}
 		  | STRLIT {$$=create_node(NODE_StrLit);}
 		  ;
 
-OptAMIPA: Assignment {$$=create_node(NODE_Assign);}
+OptAMIPA: Assignment {$$=$1;}
 		| MethodInvocation {$$=$1;}
 		| ParseArgs {$$=$1;}
 		| Empty {$$=NULL;}
@@ -348,7 +355,13 @@ OptExpr: Expr {$$=$1;}
 	   | Empty {$$=NULL;}
 	   ;
 
-Assignment: ID ASSIGN Expr {$$=NULL;}
+Assignment: ID ASSIGN Expr {
+		$$ = create_node(NODE_Assign);
+		aux_node = create_node(NODE_Id);
+		aux_node->value = $1;
+		insert_child($$,aux_node);
+		insert_brother($$->child,$3);
+	}
 	;
 
 MethodInvocation: ID OCURV OptExprCommaExprs CCURV {$$=NULL;}
@@ -362,7 +375,15 @@ OptExprCommaExprs: Expr MultipleCommaExpr {$$=NULL;}
 				 | Empty {$$=NULL;}
 				 ;
 
-ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {$$=NULL;}
+ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { //Integer.parseInt(ID[Expr])
+			$$ = create_node(NODE_ParseArgs);
+			aux_node2 = create_node(NODE_Id);
+			aux_node2->value = $3;
+			insert_child($$,aux_node2);
+			insert_brother($$->child,$5);
+
+
+}
     | PARSEINT OCURV error CCURV {$$=NULL;syn_error=1;}
 	;
 
@@ -370,20 +391,20 @@ OptDotLength: DOTLENGTH {$$=NULL;}
 			| Empty {$$=NULL;}
 			;	
 
-Expr: Assignment {$$=NULL;}
-	| Expre {$$=NULL;}
+Expr: Assignment {$$=$1;}
+	| Expre {$$=$1;}
 	;
 
 Expre: MethodInvocation {$$=NULL;}
-	| ParseArgs {$$=NULL;}
-    | Expre AND Expre {$$=NULL;}
-    | Expre OR Expre {$$=NULL;}
-    | Expre EQ Expre {$$=NULL;}
-    | Expre GEQ Expre {$$=NULL;}
-    | Expre GT Expre {$$=NULL;}
-    | Expre LEQ Expre {$$=NULL;}
-    | Expre LT Expre {$$=NULL;}
-    | Expre NEQ Expre {$$=NULL;}
+	| ParseArgs {$$=$1;}
+}
+}
+}
+}
+}
+}
+}
+}
     | Expre MINUS Expre {$$=NULL;}
     | Expre PLUS Expre {$$=NULL;}
     | Expre STAR Expre {$$=NULL;}
@@ -393,13 +414,11 @@ Expre: MethodInvocation {$$=NULL;}
     | MINUS Expre  {$$=NULL;}
     | NOT Expre {$$=NULL;}
     | ID OptDotLength {$$=NULL;} 
-    | OCURV Expr CCURV {$$=NULL;}
+    | OCURV Expr CCURV {$$=$2;}
     | OCURV error CCURV {$$=NULL;}
-    | BOOLLIT {$$=NULL;}
-	| DECLIT {$$=NULL;} 
-	| REALLIT {$$=NULL;}
-
-	;
+}
+} 
+};
 
 
 Empty: {;} 
