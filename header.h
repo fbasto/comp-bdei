@@ -48,7 +48,8 @@ static const char *Node_names[] = {
 	"StrLit",
 	"Void",
 	"StringArray",
-	"Comp"
+	"Comp",
+	"Error"
 };
 
 typedef enum {
@@ -106,7 +107,8 @@ typedef enum {
 	NODE_Strlit,
 	NODE_Void,
 	NODE_StringArray,
-	NODE_Comp
+	NODE_Comp,
+	NODE_Error
 }Node_type;
 
 
