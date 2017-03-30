@@ -46,47 +46,47 @@ extern int yydebug;
   enum yytokentype
   {
     BOOL = 258,
-    BOOLLIT = 259,
-    CLASS = 260,
-    DO = 261,
-    DOTLENGTH = 262,
-    DOUBLE = 263,
-    ELSE = 264,
-    IF = 265,
-    INT = 266,
-    PARSEINT = 267,
-    PRINT = 268,
-    PUBLIC = 269,
-    RETURN = 270,
-    STATIC = 271,
-    STRING = 272,
-    VOID = 273,
-    WHILE = 274,
-    OCURV = 275,
-    CCURV = 276,
-    OBRACE = 277,
-    CBRACE = 278,
-    OSQUARE = 279,
-    CSQUARE = 280,
-    AND = 281,
-    OR = 282,
-    LT = 283,
-    GT = 284,
-    EQ = 285,
-    NEQ = 286,
-    LEQ = 287,
-    GEQ = 288,
-    PLUS = 289,
-    MINUS = 290,
-    STAR = 291,
-    DIV = 292,
-    MOD = 293,
-    NOT = 294,
-    ASSIGN = 295,
-    SEMI = 296,
-    COMMA = 297,
-    RESERVED = 298,
-    NEWLINE = 299,
+    CLASS = 259,
+    DO = 260,
+    DOTLENGTH = 261,
+    DOUBLE = 262,
+    ELSE = 263,
+    IF = 264,
+    INT = 265,
+    PARSEINT = 266,
+    PRINT = 267,
+    PUBLIC = 268,
+    RETURN = 269,
+    STATIC = 270,
+    STRING = 271,
+    VOID = 272,
+    WHILE = 273,
+    OCURV = 274,
+    CCURV = 275,
+    OBRACE = 276,
+    CBRACE = 277,
+    OSQUARE = 278,
+    CSQUARE = 279,
+    AND = 280,
+    OR = 281,
+    LT = 282,
+    GT = 283,
+    EQ = 284,
+    NEQ = 285,
+    LEQ = 286,
+    GEQ = 287,
+    PLUS = 288,
+    MINUS = 289,
+    STAR = 290,
+    DIV = 291,
+    MOD = 292,
+    NOT = 293,
+    ASSIGN = 294,
+    SEMI = 295,
+    COMMA = 296,
+    RESERVED = 297,
+    NEWLINE = 298,
+    BOOLLIT = 299,
     STRLIT = 300,
     DECLIT = 301,
     REALLIT = 302,
@@ -95,47 +95,47 @@ extern int yydebug;
 #endif
 /* Tokens.  */
 #define BOOL 258
-#define BOOLLIT 259
-#define CLASS 260
-#define DO 261
-#define DOTLENGTH 262
-#define DOUBLE 263
-#define ELSE 264
-#define IF 265
-#define INT 266
-#define PARSEINT 267
-#define PRINT 268
-#define PUBLIC 269
-#define RETURN 270
-#define STATIC 271
-#define STRING 272
-#define VOID 273
-#define WHILE 274
-#define OCURV 275
-#define CCURV 276
-#define OBRACE 277
-#define CBRACE 278
-#define OSQUARE 279
-#define CSQUARE 280
-#define AND 281
-#define OR 282
-#define LT 283
-#define GT 284
-#define EQ 285
-#define NEQ 286
-#define LEQ 287
-#define GEQ 288
-#define PLUS 289
-#define MINUS 290
-#define STAR 291
-#define DIV 292
-#define MOD 293
-#define NOT 294
-#define ASSIGN 295
-#define SEMI 296
-#define COMMA 297
-#define RESERVED 298
-#define NEWLINE 299
+#define CLASS 259
+#define DO 260
+#define DOTLENGTH 261
+#define DOUBLE 262
+#define ELSE 263
+#define IF 264
+#define INT 265
+#define PARSEINT 266
+#define PRINT 267
+#define PUBLIC 268
+#define RETURN 269
+#define STATIC 270
+#define STRING 271
+#define VOID 272
+#define WHILE 273
+#define OCURV 274
+#define CCURV 275
+#define OBRACE 276
+#define CBRACE 277
+#define OSQUARE 278
+#define CSQUARE 279
+#define AND 280
+#define OR 281
+#define LT 282
+#define GT 283
+#define EQ 284
+#define NEQ 285
+#define LEQ 286
+#define GEQ 287
+#define PLUS 288
+#define MINUS 289
+#define STAR 290
+#define DIV 291
+#define MOD 292
+#define NOT 293
+#define ASSIGN 294
+#define SEMI 295
+#define COMMA 296
+#define RESERVED 297
+#define NEWLINE 298
+#define BOOLLIT 299
 #define STRLIT 300
 #define DECLIT 301
 #define REALLIT 302

@@ -50,28 +50,24 @@ void insert_brother(Node *brother,Node *self){
 		while(aux->brother != NULL){
 			aux = aux->brother;
 		}
-		if(self != NULL){
+
 			aux->brother = self;
-		}
-		if(aux->father != NULL){
+		
 			self->father = aux->father;
-		}
+		
+
 	}
 	//printf("BROTHER FIM\n");
 }
 
 
 void change_type(Node *typo ,Node *nodes){
-	int aux = 0;
 	// printf("UMA VEZ\n");
+	
 	while (nodes->brother != NULL){
 		nodes->child->type = typo->child->type;
 		nodes = nodes->brother;
-		aux = 1;
 	}
-	if(aux==1){
-		if(nodes->child != NULL){
-			nodes->child->type = typo->child->type;
-		}
-	}
+		nodes->child->type = typo->child->type;
+
 }
