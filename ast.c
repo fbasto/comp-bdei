@@ -59,7 +59,7 @@ void insert_brother(Node *brother,Node *self){
 
 void change_type(Node *typo ,Node *nodes){
 	int aux = 0;
-	printf("UMA VEZ\n");
+	// printf("UMA VEZ\n");
 	while (nodes->brother != NULL){
 		nodes->child->type = typo->child->type;
 		nodes = nodes->brother;

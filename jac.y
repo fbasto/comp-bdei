@@ -117,11 +117,13 @@
 
 Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
 
-	   aux_node = create_node(NODE_Id);
-	   aux_node->value = $2; 
-	   insert_child($$,aux_node);
-	   insert_brother(aux_node,$4);	   
-//	   printf("GFEEFEF\n");
+		aux_node = create_node(NODE_Id);
+		aux_node->value = $2; 
+		insert_child($$,aux_node);
+		if($4 != NULL){
+	   		insert_brother(aux_node,$4);
+	   	}
+	   //	   printf("GFEEFEF\n");
 }
 	   ; 
    										
@@ -131,17 +133,15 @@ SubProgram: Empty {$$= NULL;}
 		  | SubProgram SEMI {$$ = NULL;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {
-		
-		printf("OIOIOIOI\n");
 		$$= create_node(NODE_FieldDecl); 
 		insert_child($$,$3);
 		aux_node2 = create_node(NODE_Id);
 		aux_node2->value = $4;
 		insert_brother($$->child,aux_node2);
-		insert_brother($$,$5);
+		if($5 != NULL){
+			insert_brother($$,$5);
+		}
 		change_type($$,$5);
-
-		printf("FieldDecl fim\n");
 }
 	| error SEMI {$$=NULL;}
 	;
