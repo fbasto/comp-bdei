@@ -402,15 +402,38 @@ Assignment: ID ASSIGN Expr {if(buildingTree==1){
 	}
 	;
 
-MethodInvocation: ID OCURV OptExprCommaExprs CCURV {if(buildingTree==1){$$=NULL;}}
+MethodInvocation: ID OCURV OptExprCommaExprs CCURV {if(buildingTree==1){
+			$$ = create_node(NODE_Call);
+			aux_node = create_node(NODE_Id);
+			aux_node->value = $1;
+			insert_child($$,aux_node);
+			if($3 != NULL){
+				if($$->child != NULL){
+					insert_brother($$->child,$3);
+				}
+			}
+
+}}
     | ID OCURV error CCURV {if(buildingTree==1){buildingTree=0;syn_error=1;}}
 	;
 
 MultipleCommaExpr: Empty {if(buildingTree==1){$$=NULL;}}
-				 | MultipleCommaExpr COMMA Expr {if(buildingTree==1){$$=NULL;}}
-				 ;
-OptExprCommaExprs: Expr MultipleCommaExpr {if(buildingTree==1){$$=NULL;}}
-				 | Empty {if(buildingTree==1){$$=NULL;}}
+				| MultipleCommaExpr COMMA Expr {if(buildingTree==1){
+					$$ = $3;
+					if($1 != NULL){
+						insert_brother($$,$1);
+					}
+}};
+
+OptExprCommaExprs: Expr MultipleCommaExpr {if(buildingTree==1){
+					$$=$1;
+					if($2 != NULL){
+				 		insert_brother($$,$2);
+					}
+}}
+				| Empty {if(buildingTree==1){
+					$$ = NULL;
+}}
 				 ;
 
 ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {if(buildingTree==1){ //Integer.parseInt(ID[Expr])
@@ -420,8 +443,6 @@ ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {if(buildingTree==1){ //
 			insert_child($$,aux_node2);
 			insert_brother($$->child,$5);
 		}
-
-
 }
     | PARSEINT OCURV error CCURV {if(buildingTree==1){buildingTree=0;syn_error=1;}}
 	;
@@ -438,7 +459,7 @@ Expr: Assignment {if(buildingTree==1){$$=$1;}}
 	| Expre {if(buildingTree==1){$$=$1;}}
 	;
 
-Expre: MethodInvocation {if(buildingTree==1){$$=NULL;}}
+Expre: MethodInvocation {if(buildingTree==1){$$=$1;}}
 	| ParseArgs {if(buildingTree==1){$$=$1;}}
     | Expre AND Expre {if(buildingTree==1){//$$=NULL;
     	$$ = create_node(NODE_And);
