@@ -46,12 +46,16 @@ void insert_brother(Node *brother,Node *self){
 	Node *aux = brother;
 
 	//printf("BROTHER\n");
-	if(aux != NULL && self !=NULL){
+	if(aux != NULL && self != NULL){
 		while(aux->brother != NULL){
 			aux = aux->brother;
 		}
-		aux->brother = self;
-		self->father = aux->father;
+		if(self != NULL){
+			aux->brother = self;
+		}
+		if(aux->father != NULL){
+			self->father = aux->father;
+		}
 	}
 	//printf("BROTHER FIM\n");
 }
@@ -66,6 +70,8 @@ void change_type(Node *typo ,Node *nodes){
 		aux = 1;
 	}
 	if(aux==1){
-		nodes->child->type = typo->child->type;
+		if(nodes->child != NULL){
+			nodes->child->type = typo->child->type;
+		}
 	}
 }

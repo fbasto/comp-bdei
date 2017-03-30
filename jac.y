@@ -140,7 +140,9 @@ FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {
 		if($5 != NULL){
 			insert_brother($$,$5);
 		}
-		change_type($$,$5);
+		if($5->child != NULL){
+			change_type($$,$5);
+		}
 }
 	| error SEMI {$$=NULL;}
 	;
@@ -160,13 +162,13 @@ SubFieldDecl:COMMA ID SubFieldDecl {
 			insert_child($$,aux_node);		
 			aux_node2 = create_node(NODE_Id);
 			aux_node2->value = $2;
-			insert_brother($$->child,aux_node2);
-			if ($3->child != NULL){
+			if($$->child != NULL){
+				insert_brother($$->child,aux_node2);
+			}
+			if($3->child != NULL){
 				insert_brother($$,$3);
 			}
 }
-			
-
 			| Empty {$$ = create_node(NODE_FieldDecl);}
 			;
 
@@ -174,7 +176,7 @@ MethodDecl: PUBLIC STATIC MethodHeader MethodBody {$$=create_node(NODE_MethodDec
 		insert_child($$,$3);
 		insert_brother($$->child,$4);
 }
-		  ;
+			;
 
 MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHeader);
 			insert_child($$,$1);
