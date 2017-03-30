@@ -137,7 +137,7 @@ SubProgram: Empty {if(buildingTree==1){$$=NULL;}}
 		}
 }
 		  | MethodDecl SubProgram {if(buildingTree==1){$$ = $1;}}
-		  | SEMI SubProgram {if(buildingTree==1){/*insert_child($$,$1)*/};}
+		  | SEMI SubProgram {if(buildingTree==1){$$=NULL;}}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {if(buildingTree==1){
 		$$= create_node(NODE_FieldDecl); 
