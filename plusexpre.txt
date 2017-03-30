@@ -1,0 +1,12 @@
+class gcd {
+public static void main(String[] args) {
+int a, b;
+b=2;
+a=!b+5;
+a = 3;
+b=a.length;
+a = +b;
+if(a!=b)
+a = b;
+}
+}
