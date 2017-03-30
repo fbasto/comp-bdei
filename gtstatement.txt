@@ -1,7 +1,12 @@
 class gcd {
 public static void main(String[] args) {
-b = 3;
-if (b > 0)
-b = 4;
+int b,c;
+b=5;
+int d;
+c=6;
+if(c>b)
+d=7;
+if(b>0)
+d=3;
 }
 }
