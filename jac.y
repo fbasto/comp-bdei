@@ -128,7 +128,7 @@ Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
 SubProgram: Empty {$$= NULL;}
 		  | SubProgram FieldDecl {$$ = $2;}
 		  | SubProgram MethodDecl {$$ = $2;}
-		  | SubProgram SEMI {;}
+		  | SubProgram SEMI {$$=NULL;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = $5;
 		printf("$$ nulo fielddecl\n");
@@ -187,8 +187,8 @@ MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHead
 }
 	    ;
 
-MethodBody: OBRACE SubMethodBody CBRACE {$$ =NULL;} /*create_node(NODE_MethodBody)*/;
-//			insert_child($$,$2);}
+MethodBody: OBRACE SubMethodBody CBRACE {$$ =create_node(NODE_MethodBody);
+			insert_child($$,$2);}
 		  ;
 SubMethodBody: Empty {;}
 			 | SubMethodBody VarDecl {$$=$2;}
