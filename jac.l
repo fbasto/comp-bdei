@@ -31,7 +31,7 @@ REALLIT		(([0-9]+(([0-9]|_)*[0-9])*)\.((([0-9]+(([0-9]|_)*[0-9])*)(["e""E"][-+]?
 
 %%
 "boolean"	{num_col=num_col+yyleng;if(output) printf("BOOL\n"); if(output==0){return BOOL;}}
-"true"|"false"	{num_col=num_col+yyleng;if(output) printf("BOOLLIT(%s)\n",yytext); if(output==0){return BOOLLIT;}}
+"true"|"false"	{num_col=num_col+yyleng;if(output) printf("BOOLLIT(%s)\n",yytext);yylval.string = strdup(yytext); if(output==0){return BOOLLIT;}}
 "class"		{num_col=num_col+yyleng;if(output) printf("CLASS\n"); if(output==0){return CLASS;}}
 "do"		{num_col=num_col+yyleng;if(output) printf("DO\n"); if(output==0){return DO;}}
 "double"	{num_col=num_col+yyleng;if(output) printf("DOUBLE\n"); if(output==0){return DOUBLE;}}

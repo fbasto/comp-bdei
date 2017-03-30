@@ -128,7 +128,7 @@ Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
 SubProgram: Empty {$$= NULL;}
 		  | SubProgram FieldDecl {$$ = $2;}
 		  | SubProgram MethodDecl {$$ = $2;}
-		  | SubProgram SEMI {$$=NULL;}
+		  | SubProgram SEMI {$$ = NULL;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = $5;
 		printf("$$ nulo fielddecl\n");
@@ -238,9 +238,7 @@ SubFormalParams:  SubFormalParams COMMA Type ID {
 				aux_node = create_node(NODE_Id);
 				aux_node->value = $4;
 				insert_brother($1->child,aux_node);
-				if($1->child != NULL){
-			   		insert_brother($$,$1);
-			   	}
+			   	insert_brother($$,$1);
 }
 				|Empty {$$ = create_node(NODE_ParamDecl);}
 			   
