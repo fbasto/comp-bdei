@@ -231,11 +231,13 @@ SubMethodBody: SubMethodBody VarDecl {if(buildingTree==1){
 		}
 }
 			| SubMethodBody Statement {if(buildingTree==1){
-			if($$->child == NULL){
-				insert_child($$,$2);
-			}
-			else{
-				insert_brother($$->child,$2);
+			if($2 != NULL){
+				if($$->child == NULL){
+					insert_child($$,$2);
+				}
+				else{
+					insert_brother($$->child,$2);
+				}
 			}
 		}
 }
@@ -367,7 +369,7 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
     | RETURN OptExpr SEMI {if(buildingTree==1){//$$=$2;
     	$$=$2;}}
     | error SEMI {if(buildingTree==1){//$$=NULL;
-    	buildingTree=0;syn_error=1;}}
+    	buildingTree=0;syn_error=1;$$=create_node(NODE_Error);}}
 	;
 
 
@@ -414,7 +416,7 @@ MethodInvocation: ID OCURV OptExprCommaExprs CCURV {if(buildingTree==1){
 			}
 
 }}
-    | ID OCURV error CCURV {if(buildingTree==1){buildingTree=0;syn_error=1;}}
+    | ID OCURV error CCURV {if(buildingTree==1){buildingTree=0;syn_error=1;$$=create_node(NODE_Error);}}
 	;
 
 MultipleCommaExpr: Empty {if(buildingTree==1){$$=NULL;}}
@@ -444,7 +446,7 @@ ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {if(buildingTree==1){ //
 			insert_brother($$->child,$5);
 		}
 }
-    | PARSEINT OCURV error CCURV {if(buildingTree==1){buildingTree=0;syn_error=1;}}
+    | PARSEINT OCURV error CCURV {if(buildingTree==1){buildingTree=0;syn_error=1;$$=create_node(NODE_Error);}}
 	;
 
 OptDotLength: DOTLENGTH {if(buildingTree==1){
@@ -563,7 +565,7 @@ Expre: MethodInvocation {if(buildingTree==1){$$=$1;}}
     }
 ;} 
     | OCURV Expr CCURV {if(buildingTree==1){$$=$2;}}
-    | OCURV error CCURV {if(buildingTree==1){buildingTree=0;syn_error=1;}}
+    | OCURV error CCURV {if(buildingTree==1){buildingTree=0;syn_error=1;$$=create_node(NODE_Error);}}
     | BOOLLIT {if(buildingTree==1){//$$=NULL;
 		$$ = create_node(NODE_Boolit);
 		$$->value = $1;
