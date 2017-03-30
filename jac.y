@@ -128,7 +128,7 @@ Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
 SubProgram: Empty {$$= NULL;}
 		  | SubProgram FieldDecl {$$ = $2;}
 		  | SubProgram MethodDecl {$$ = $2;}
-		  | SubProgram SEMI {$$=NULL;}
+		  | SubProgram SEMI {$$ = NULL;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = $5;
 		printf("$$ nulo fielddecl\n");
@@ -171,7 +171,9 @@ MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHead
 			insert_brother($$->child,aux_node);			
 			aux_node3 = create_node(NODE_MethodParams);		
 			insert_brother($$->child->brother,aux_node3);
-			insert_child($$->child->brother->brother,$4);
+			if($4->child != NULL){
+				insert_child($$->child->brother->brother,$4);
+			}
 
 			
 }
@@ -183,7 +185,9 @@ MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHead
 			insert_brother($$->child,aux_node2);
 			aux_node3 = create_node(NODE_MethodParams);
 			insert_brother($$->child->brother,aux_node3);
-			insert_child($$->child->brother->brother,$4);
+			if($4->child != NULL){
+				insert_child($$->child->brother->brother,$4);
+			}
 }
 	    ;
 
@@ -192,7 +196,12 @@ MethodBody: OBRACE SubMethodBody CBRACE {
 	  ;
 
 SubMethodBody: SubMethodBody VarDecl {
+			if($$->child == NULL){
 				insert_child($$,$2);
+			}
+			else{
+				insert_brother($$->child,$2);
+			}
 }
 			 | SubMethodBody Statement {$$=$2;}
 			 | Empty {$$ = create_node(NODE_MethodBody);}
@@ -224,31 +233,44 @@ FormalParams:  Type ID SubFormalParams {
 
 
 SubFormalParams:  SubFormalParams COMMA Type ID {
-			   $1 = create_node(NODE_ParamDecl);
-			   insert_child($1,$3);
-			   aux_node = create_node(NODE_Id);
-			   aux_node->value = $4;
-			   insert_brother($1->child,aux_node);
-			   insert_brother($$,$1);
+				$1 = create_node(NODE_ParamDecl);
+				insert_child($1,$3);
+				aux_node = create_node(NODE_Id);
+				aux_node->value = $4;
+				insert_brother($1->child,aux_node);
+			   	insert_brother($$,$1);
 }
 				|Empty {$$ = create_node(NODE_ParamDecl);}
 			   
 			   ;
 
 VarDecl: Type ID SubVarDecl SEMI {
-				$$ = $3;
+				// $$ = $3;
+				// insert_brother($3->child,$1);
+				// aux_node = create_node(NODE_Id);
+				// aux_node->value = $2;
+				// insert_brother($$->child,aux_node);
+				$$ = create_node(NODE_VarDecl);
 				insert_child($$,$1);
 				aux_node = create_node(NODE_Id);
 				aux_node->value = $2;
 				insert_brother($$->child,aux_node);
+				if($3->child != NULL){
+					insert_brother($$,$3);
+					change_type($$,$3);
+				}
 };
 
 SubVarDecl: COMMA ID SubVarDecl {
-				$3 = create_node(NODE_VarDecl);
+				$$ = create_node(NODE_VarDecl);
+				aux_node2 = create_node(NODE_Comp);
+				insert_child($$,aux_node2);
 				aux_node = create_node(NODE_Id);
 				aux_node->value = $2;
-				insert_brother($3->child,aux_node);
-				$$ = $3;
+				insert_brother($$->child,aux_node);
+				if($3->child != NULL){
+					insert_brother($$,$3);
+				}
 }
 			| Empty {
 				$$ = create_node(NODE_VarDecl);
