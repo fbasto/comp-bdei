@@ -50,12 +50,8 @@ void insert_brother(Node *brother,Node *self){
 		while(aux->brother != NULL){
 			aux = aux->brother;
 		}
-		if(self != NULL){
-			aux->brother = self;
-		}
-		if(aux->father != NULL){
-			self->father = aux->father;
-		}
+		aux->brother = self;
+		self->father = aux->father;
 	}
 	//printf("BROTHER FIM\n");
 }

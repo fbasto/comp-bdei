@@ -159,15 +159,15 @@ SubFieldDecl:COMMA ID SubFieldDecl {
 
 			$$ = create_node(NODE_FieldDecl);
 			aux_node = create_node(NODE_Comp);
-			insert_child($$,aux_node);		
+			insert_child($$,aux_node);	
 			aux_node2 = create_node(NODE_Id);
 			aux_node2->value = $2;
-			if($$->child != NULL){
+			if(aux_node2 != NULL){
 				insert_brother($$->child,aux_node2);
 			}
-			if($3->child != NULL){
+			// if($3 != NULL){
 				insert_brother($$,$3);
-			}
+			// }
 }
 			| Empty {$$ = create_node(NODE_FieldDecl);}
 			;
@@ -217,7 +217,7 @@ SubMethodBody: SubMethodBody VarDecl {
 				insert_brother($$->child,$2);
 			}
 }
-			 | SubMethodBody Statement {			
+			| SubMethodBody Statement {
 			if($$->child == NULL){
 				insert_child($$,$2);
 			}
@@ -225,8 +225,8 @@ SubMethodBody: SubMethodBody VarDecl {
 				insert_brother($$->child,$2);
 			}
 }
-			 | Empty {$$ = create_node(NODE_MethodBody);}
-			 ;
+			| Empty {$$ = create_node(NODE_MethodBody);}
+			;
 
 
 FormalParams:  Type ID SubFormalParams {
@@ -261,7 +261,7 @@ SubFormalParams:  SubFormalParams COMMA Type ID {
 				insert_brother($1->child,aux_node);
 			   	insert_brother($$,$1);
 }
-				|Empty {$$ = create_node(NODE_ParamDecl);}
+				| Empty {$$ = create_node(NODE_ParamDecl);}
 			   
 			   ;
 
@@ -302,36 +302,39 @@ Type: BOOL {$$=create_node(NODE_Bool);}
 	| DOUBLE {$$=create_node(NODE_Double);}
 	;
 
-Statement: OBRACE MultipleStatements CBRACE {$$=NULL;}
-    | IF OCURV Expr CCURV Statement ELSE Statement {$$=NULL;
-    	// $$=create_node(Node_If);
-    	// insert_child($$,$3);
-    	// insert_brother($3,$5);
-    	// insert_brother($3,$7);
+Statement: OBRACE MultipleStatements CBRACE {
+		$$ = $2;
 }
-    | IF OCURV Expr CCURV Statement %prec ELSE {$$=NULL;
-    	// $$=create_node(Node_If);
-    	// insert_child($$,$3);
-    	// insert_brother($3,$5);
+    | IF OCURV Expr CCURV Statement ELSE Statement {
+    	$$=create_node(NODE_If);
+    	insert_child($$,$3);
+    	insert_brother($3,$5);
+    	insert_brother($3,$7);
 }
-    | WHILE OCURV Expr CCURV Statement {$$=NULL;
-    	// $$=create_node(Node_While);
-    	// insert_child($$,$3);
-    	// insert_brother($3,$5);
+    | IF OCURV Expr CCURV Statement %prec ELSE {
+    	$$=create_node(NODE_If);
+    	insert_child($$,$3);
+    	insert_brother($3,$5);
+
 }
-    | DO Statement WHILE OCURV Expr CCURV SEMI {$$=NULL;
-    	// $$=create_node(Node_DoWhile);
-    	// insert_child($$,$2);
-    	// insert_brother($2,$5);
+    | WHILE OCURV Expr CCURV Statement {
+    	$$=create_node(NODE_While);
+    	insert_child($$,$3);
+    	insert_brother($3,$5);
 }
-    | PRINT OCURV ExprStrlit CCURV SEMI {$$=NULL;
-		// $$=create_node(Node_Print);
-		// insert_child($$,$3);
+    | DO Statement WHILE OCURV Expr CCURV SEMI {
+    	$$=create_node(NODE_DoWhile);
+    	insert_child($$,$2);
+    	insert_brother($2,$5);
+}
+    | PRINT OCURV ExprStrlit CCURV SEMI {
+		$$=create_node(NODE_Print);
+		insert_child($$,$3);
 }
     | OptAMIPA SEMI {//$$=$1;
     	$$=$1;}
     | RETURN OptExpr SEMI {//$$=$2;
-    	$$=NULL;}
+    	$$=$2;}
     | error SEMI {//$$=NULL;
     	$$=NULL;}
 	;
@@ -343,7 +346,9 @@ MultipleStatements: Empty {$$=NULL;}
 
 
 ExprStrlit: Expr {$$=$1;}
-		  | STRLIT {$$=create_node(NODE_Strlit);}
+		  | STRLIT {
+		  	$$=create_node(NODE_Strlit);
+		  	$$->value = $1;}
 		  ;
 
 OptAMIPA: Assignment {$$=$1;}
@@ -398,68 +403,93 @@ Expr: Assignment {$$=$1;}
 
 Expre: MethodInvocation {$$=NULL;}
 	| ParseArgs {$$=$1;}
-    | Expre AND Expre {$$=NULL;
-    	// $$ = create_node(Node_And);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
+    | Expre AND Expre {//$$=NULL;
+    	$$ = create_node(NODE_And);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
 }
-    | Expre OR Expre {$$=NULL;
-    	// $$ = create_node(Node_Or);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
+    | Expre OR Expre {//$$=NULL;
+    	$$ = create_node(NODE_Or);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
 }
-    | Expre EQ Expre {$$=NULL;
-    	// $$ = create_node(Node_Eq);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
+    | Expre EQ Expre {//$$=NULL;
+    	$$ = create_node(NODE_Eq);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
 }
-    | Expre GEQ Expre {$$=NULL;
-    	// $$ = create_node(Node_Geq);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
+    | Expre GEQ Expre {//$$=NULL;
+    	$$ = create_node(NODE_Geq);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
 }
-    | Expre GT Expre {$$=NULL;
-    	// $$ = create_node(Node_Gt);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
+    | Expre GT Expre {//$$=NULL;
+    	$$ = create_node(NODE_Gt);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
 }
-    | Expre LEQ Expre {$$=NULL;
-    	// $$ = create_node(Node_Leq);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
+    | Expre LEQ Expre {//$$=NULL;
+    	$$ = create_node(NODE_Leq);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
 }
-    | Expre LT Expre {$$=NULL;
-    	// $$ = create_node(Node_Lt);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
+    | Expre LT Expre {//$$=NULL;
+    	$$ = create_node(NODE_Lt);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
 }
-    | Expre NEQ Expre {$$=NULL;
-    	// $$ = create_node(Node_Neq);
-    	// insert_child($$,$1);
-    	// insert_brother($$->child,$3);
+    | Expre NEQ Expre {//$$=NULL;
+    	$$ = create_node(NODE_Neq);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
 }
-    | Expre MINUS Expre {$$=NULL;}
-    | Expre PLUS Expre {$$=NULL;}
-    | Expre STAR Expre {$$=NULL;}
-    | Expre DIV Expre {$$=NULL;}
-    | Expre MOD Expre {$$=NULL;}
-    | PLUS Expre {$$=NULL;}
-    | MINUS Expre  {$$=NULL;}
-    | NOT Expre {$$=NULL;}
-    | ID OptDotLength {$$=NULL;} 
+    | Expre MINUS Expre {//$$=NULL;
+    	$$ = create_node(NODE_Minus);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
+}
+    | Expre PLUS Expre {//$$=NULL;
+    	$$ = create_node(NODE_Plus);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
+}
+    | Expre STAR Expre {//$$=NULL;
+    	$$ = create_node(NODE_Mul);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
+}
+    | Expre DIV Expre {//$$=NULL;
+    	$$ = create_node(NODE_Div);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
+}
+    | Expre MOD Expre {//$$=NULL;
+    	$$ = create_node(NODE_Mod);
+    	insert_child($$,$1);
+    	insert_brother($$->child,$3);
+}
+    | PLUS Expre %prec NOT{
+
+;}
+    | MINUS Expre %prec NOT {$$=NULL;}
+    | NOT Expre %prec NOT{$$=NULL;}
+    | ID OptDotLength {
+    	$$ = create_node(NODE_Id);
+    	$$->value = $1;
+;} 
     | OCURV Expr CCURV {$$=$2;}
     | OCURV error CCURV {$$=NULL;}
-    | BOOLLIT {$$=NULL;
-		// $$ = create_node(NODE_Boolit);
-		// $$->value = $1;
+    | BOOLLIT {//$$=NULL;
+		$$ = create_node(NODE_Boolit);
+		$$->value = $1;
 }
 	| DECLIT {
 		$$ = create_node(NODE_Declit);
 		$$->value = $1;
 } 
-	| REALLIT {$$=NULL;
-		// $$ = create_node(NODE_Reallit);
-		// $$->value = $1;
+	| REALLIT {//$$=NULL;
+		$$ = create_node(NODE_Reallit);
+		$$->value = $1;
 };
 
 
