@@ -128,7 +128,7 @@ Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
 SubProgram: Empty {$$= NULL;}
 		  | SubProgram FieldDecl {$$ = $2;}
 		  | SubProgram MethodDecl {$$ = $2;}
-		  | SubProgram SEMI {;}
+		  | SubProgram SEMI {$$=NULL;}
 		  ;
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = $5;
 		printf("$$ nulo fielddecl\n");
@@ -187,12 +187,14 @@ MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHead
 }
 	    ;
 
-MethodBody: OBRACE SubMethodBody CBRACE {$$ =NULL;} /*create_node(NODE_MethodBody)*/;
-//			insert_child($$,$2);}
+MethodBody: OBRACE SubMethodBody CBRACE {
+			$$ = $2;}
 		  ;
-SubMethodBody: Empty {;}
-			 | SubMethodBody VarDecl {$$=$2;}
+SubMethodBody: SubMethodBody VarDecl {
+				insert_child($$,$2);
+}
 			 | SubMethodBody Statement {$$=$2;}
+			 | Empty {$$ = create_node(NODE_MethodBody);}
 			 ;
 
 
@@ -232,10 +234,24 @@ SubFormalParams:  SubFormalParams COMMA Type ID {
 			   
 			   ;
 
-VarDecl: Type ID SubVarDecl SEMI {$$=NULL;}
-SubVarDecl: Empty {$$=NULL;}
-		  | COMMA ID SubVarDecl {$$=NULL;}
-	      ;
+VarDecl: Type ID SubVarDecl SEMI {
+				$$ = $3;
+				insert_child($$,$1);
+				aux_node = create_node(NODE_Id);
+				aux_node->value = $2;
+				insert_brother($$->child,aux_node);
+};
+
+SubVarDecl: COMMA ID SubVarDecl {
+				$3 = create_node(NODE_VarDecl);
+				aux_node = create_node(NODE_Id);
+				aux_node->value = $2;
+				insert_brother($3->child,aux_node);
+				$$ = $3;
+}
+			| Empty {
+				$$ = create_node(NODE_VarDecl);
+			};
 
 Type: BOOL {$$=create_node(NODE_Bool);}
 	| INT  {$$=create_node(NODE_Int);}
@@ -359,5 +375,6 @@ void yyerror (const char *s){
 	syn_error++;
 	printf ("Line %d, col %d: %s: %s\n",num_line, (int)(num_col- strlen(yytext)), s, yytext);
 }
+
 
 
