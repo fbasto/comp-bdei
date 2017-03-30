@@ -189,7 +189,8 @@ MethodHeader: Type ID OCURV FormalParams CCURV {$$ = create_node(NODE_MethodHead
 
 MethodBody: OBRACE SubMethodBody CBRACE {
 			$$ = $2;}
-		  ;
+	  ;
+
 SubMethodBody: SubMethodBody VarDecl {
 				insert_child($$,$2);
 }

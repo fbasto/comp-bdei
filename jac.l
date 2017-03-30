@@ -9,7 +9,7 @@
 	*/
 	#include "y.tab.h"
 	#include "header.h"
-	
+	int yyparse();	
 	extern Node *tree;
 	extern int syn_error;
 	//extern int syntax_errors;

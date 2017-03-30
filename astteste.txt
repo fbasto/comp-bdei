@@ -1,4 +1,4 @@
-class ; gcd{
+class gcd{
   public static int cenas(int a){
 }
 }
