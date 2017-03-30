@@ -192,7 +192,12 @@ MethodBody: OBRACE SubMethodBody CBRACE {
 	  ;
 
 SubMethodBody: SubMethodBody VarDecl {
+			if($$->child == NULL){
 				insert_child($$,$2);
+			}
+			else{
+				insert_brother($$->child,$2);
+			}
 }
 			 | SubMethodBody Statement {$$=$2;}
 			 | Empty {$$ = create_node(NODE_MethodBody);}
@@ -236,19 +241,32 @@ SubFormalParams:  SubFormalParams COMMA Type ID {
 			   ;
 
 VarDecl: Type ID SubVarDecl SEMI {
-				$$ = $3;
+				// $$ = $3;
+				// insert_brother($3->child,$1);
+				// aux_node = create_node(NODE_Id);
+				// aux_node->value = $2;
+				// insert_brother($$->child,aux_node);
+				$$ = create_node(NODE_VarDecl);
 				insert_child($$,$1);
 				aux_node = create_node(NODE_Id);
 				aux_node->value = $2;
 				insert_brother($$->child,aux_node);
+				if($3->child != NULL){
+					insert_brother($$,$3);
+					change_type($$,$3);
+				}
 };
 
 SubVarDecl: COMMA ID SubVarDecl {
-				$3 = create_node(NODE_VarDecl);
+				$$ = create_node(NODE_VarDecl);
+				aux_node2 = create_node(NODE_Comp);
+				insert_child($$,aux_node2);
 				aux_node = create_node(NODE_Id);
 				aux_node->value = $2;
-				insert_brother($3->child,aux_node);
-				$$ = $3;
+				insert_brother($$->child,aux_node);
+				if($3->child != NULL){
+					insert_brother($$,$3);
+				}
 }
 			| Empty {
 				$$ = create_node(NODE_VarDecl);
