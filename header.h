@@ -102,8 +102,8 @@ typedef enum {
 	NODE_Declit,
 	NODE_Id,
 	NODE_Int,
-	NODE_RealLit,
-	NODE_StrLit,
+	NODE_Reallit,
+	NODE_Strlit,
 	NODE_Void,
 	NODE_StringArray,
 	NODE_Comp

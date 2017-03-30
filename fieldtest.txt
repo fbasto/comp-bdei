@@ -1,0 +1,4 @@
+class gds{
+	public static int a,b,c,d;
+
+}
