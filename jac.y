@@ -121,9 +121,8 @@ Program: CLASS ID OBRACE SubProgram CBRACE  {$$=tree=create_node(NODE_Program);
 		aux_node->value = $2; 
 		insert_child($$,aux_node);
 		if($4 != NULL){
-	   		insert_brother(aux_node,$4);
-	   	}
-	   //	   printf("GFEEFEF\n");
+			insert_brother(aux_node,$4);
+		}
 }
 	   ; 
    										
@@ -471,6 +470,5 @@ void yyerror (const char *s){
 	syn_error++;
 	printf ("Line %d, col %d: %s: %s\n",num_line, (int)(num_col- strlen(yytext)), s, yytext);
 }
-
 
 
