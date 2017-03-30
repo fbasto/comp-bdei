@@ -133,11 +133,11 @@ SubProgram: Empty {$$= NULL;}
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {$$ = $5;
 		printf("$$ nulo fielddecl\n");
 		
-		insert_child($$,$3);
+		insert_child($$,create_node(NODE_FieldDecl));
 		printf("$$ nulo fielddecl\n");
 		aux_node = create_node(NODE_Id);
 		aux_node->value = $4;
-		insert_brother($3,aux_node);
+		insert_brother($$->child,aux_node);
 		printf("FieldDecl b4 type\n");
 		change_type($$,$5);
 		printf("FieldDecl fim\n");
@@ -151,7 +151,7 @@ SubFieldDecl: SubFieldDecl COMMA ID {
 			aux_node2 = create_node(NODE_Id);
 			aux_node2->value = $3;
 			insert_brother($1->child,aux_node2);
-			insert_brother($$,$1);
+			$$ = $1;
 }
 			
 
