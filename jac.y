@@ -342,7 +342,7 @@ MultipleStatements: Empty {$$=NULL;}
 
 
 ExprStrlit: Expr {$$=$1;}
-		  | STRLIT {$$=create_node(NODE_StrLit);}
+		  | STRLIT {$$=create_node(NODE_Strlit);}
 		  ;
 
 OptAMIPA: Assignment {$$=$1;}
