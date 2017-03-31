@@ -488,10 +488,16 @@ MethodInvocation: ID OCURV OptExprCommaExprs CCURV {if(buildingTree==1){
 
 MultipleCommaExpr: Empty {if(buildingTree==1){$$=NULL;}}
 				| MultipleCommaExpr COMMA Expr {if(buildingTree==1){
-					$$ = $3;
 					if($1 != NULL){
+						$$ = $3;
 						insert_brother($$,$1);
 					}
+					if($1 == NULL){
+						$$ = $3;
+					}
+					// $$ = $3;
+					// if($1 != NULL){
+					// 	insert_brother($$,$1);
 }};
 
 OptExprCommaExprs: Expr MultipleCommaExpr {if(buildingTree==1){
