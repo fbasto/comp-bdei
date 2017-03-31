@@ -143,7 +143,7 @@ SubProgram: Empty {if(buildingTree==1){$$=NULL;}}
 				insert_brother($$,$2);
 			}
 }}
-		  | SEMI SubProgram {if(buildingTree==1){$$=NULL;}}
+		  | SEMI SubProgram {if(buildingTree==1){$$=$2;}}
 		  ;
 
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {if(buildingTree==1){
@@ -361,28 +361,45 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
 }
     | IF OCURV Expr CCURV Statement ELSE Statement {if(buildingTree==1){
     	$$=create_node(NODE_If);
-    	insert_child($$,$3);
-    	insert_brother($3,$5);
-    	insert_brother($3,$7);
+    	if($5==NULL){
+    		insert_child($$,$3);
+    	}
+    	if($5!=NULL){
+    		insert_child($$,$3);
+    		insert_brother($3,$5);
+    	}
+    	if($7!=NULL){
+    		insert_brother($3,$7);
+    	}
     }
 }
     | IF OCURV Expr CCURV Statement %prec ELSE {if(buildingTree==1){
     	$$=create_node(NODE_If);
-    	insert_child($$,$3);
-    	insert_brother($3,$5);
+    	if($5==NULL){
+    		insert_child($$,$3);
+    	}
+    	if($5!=NULL){
+    		insert_child($$,$3);
+    		insert_brother($3,$5);
+    	}
     }
 
 }
     | WHILE OCURV Expr CCURV Statement {if(buildingTree==1){
     	$$=create_node(NODE_While);
-    	insert_child($$,$3);
-    	insert_brother($3,$5);
+    	if($5==NULL){
+    		insert_child($$,$3);
+    	}
+    	if($5!=NULL){
+    		insert_child($$,$3);
+    		insert_brother($3,$5);
+    	}
     }
 }
     | DO Statement WHILE OCURV Expr CCURV SEMI {if(buildingTree==1){
     	$$=create_node(NODE_DoWhile);
     	if($2==NULL){
-    		insert_brother($$->child,$5);
+    		insert_child($$,$5);
     	}
     	if($2!=NULL){
     		insert_child($$,$2);
@@ -414,6 +431,7 @@ MultipleStatements: Empty {if(buildingTree==1){$$=NULL;}}
 				  		$$=$1;
 				  	}
 				  	if($2 != NULL){
+				  		$$=$1;
 				  		insert_brother($$,$2);
 				  	}
 }}
