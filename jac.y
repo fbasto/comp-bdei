@@ -285,14 +285,14 @@ FormalParams:  Type ID SubFormalParams {if(buildingTree==1){
 	
 
 
-SubFormalParams:  SubFormalParams COMMA Type ID {if(buildingTree==1){
+SubFormalParams:   COMMA Type ID SubFormalParams{if(buildingTree==1){
 			$$ = create_node(NODE_ParamDecl);
-			insert_child($$,$3);
+			insert_child($$,$2);
 			aux_node = create_node(NODE_Id);
-			aux_node->value = $4;
+			aux_node->value = $3;
 			insert_brother($$->child,aux_node);
-			if($1 != NULL){
-				insert_brother($$,$1);
+			if($4 != NULL){
+				insert_brother($$,$4);
 			}
 			 //   	if($1 != NULL){
 				// 	$1 = create_node(NODE_ParamDecl);

@@ -1,4 +1,10 @@
 class gcd{
-  public static int cenas(int a){
+  public static boolean first(int a){
+}
+public static void secon(int a){
+}
+public static int thi(int a,int b,double c,boolean g){
+}
+public static double olaf(int a){
 }
 }
