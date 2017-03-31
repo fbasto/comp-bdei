@@ -330,9 +330,7 @@ Type: BOOL {if(buildingTree==1){$$=create_node(NODE_Bool);}}
 	;
 
 Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
-		if($2!=NULL){
-			insert_brother($$,$2);
-		}
+		$$ = $2;
 	}
 }
     | IF OCURV Expr CCURV Statement ELSE Statement {if(buildingTree==1){
