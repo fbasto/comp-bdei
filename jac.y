@@ -130,15 +130,22 @@ Program: CLASS ID OBRACE SubProgram CBRACE  {
 	   ; 
    										
 SubProgram: Empty {if(buildingTree==1){$$=NULL;}}
-		  |	FieldDecl  SubProgram {if(buildingTree==1){$$ = $1;
-			if($$ != NULL){
+		  |	FieldDecl  SubProgram {if(buildingTree==1){
+		  	$$ = $1;
+			if($2 != NULL){
 				insert_brother($$,$2);
 			}
 		}
 }
-		  | MethodDecl SubProgram {if(buildingTree==1){$$ = $1;}}
+		  | MethodDecl SubProgram {if(buildingTree==1){
+		  	$$ = $1;
+			if($2 != NULL){
+				insert_brother($$,$2);
+			}
+}}
 		  | SEMI SubProgram {if(buildingTree==1){$$=NULL;}}
 		  ;
+
 FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {if(buildingTree==1){
 		$$= create_node(NODE_FieldDecl); 
 		insert_child($$,$3);
@@ -194,7 +201,7 @@ MethodHeader: Type ID OCURV FormalParams CCURV {if(buildingTree==1){$$ = create_
 			insert_brother($$->child,aux_node);			
 			aux_node3 = create_node(NODE_MethodParams);		
 			insert_brother($$->child->brother,aux_node3);
-			if($4->child != NULL){
+			if($4 != NULL){
 				insert_child($$->child->brother->brother,$4);
 			}
 		}
@@ -209,7 +216,7 @@ MethodHeader: Type ID OCURV FormalParams CCURV {if(buildingTree==1){$$ = create_
 			insert_brother($$->child,aux_node2);
 			aux_node3 = create_node(NODE_MethodParams);
 			insert_brother($$->child->brother,aux_node3);
-			if($4->child != NULL){
+			if($4 != NULL){
 				insert_child($$->child->brother->brother,$4);
 			}
 		}
@@ -247,19 +254,24 @@ SubMethodBody: SubMethodBody VarDecl {if(buildingTree==1){
 
 FormalParams:  Type ID SubFormalParams {if(buildingTree==1){
 			//$$ = create_node(NODE_ParamDecl);
-
-			$$ = $3;
-			if ($3 != NULL){	
-				insert_child($$,$1);
-				aux_node = create_node(NODE_Id);
-				aux_node->value = $2;
-				insert_brother($$->child,aux_node);
+			$$ = create_node(NODE_ParamDecl);
+			insert_child($$,$1);
+			aux_node = create_node(NODE_Id);
+			aux_node->value = $2;
+			insert_brother($$->child,aux_node);
+			if ($3 != NULL){
+				insert_brother($$,$3);
+				// insert_child($$,$1);
+				// aux_node = create_node(NODE_Id);
+				// aux_node->value = $2;
+				// insert_brother($$->child,aux_node);
 			//insert_brother($$,$3);
 			}
 		}
 
 }
-    | STRING OSQUARE CSQUARE ID {if(buildingTree==1){$$ = create_node(NODE_ParamDecl);
+    | STRING OSQUARE CSQUARE ID {if(buildingTree==1){
+    			$$ = create_node(NODE_ParamDecl);
 				aux_node = create_node(NODE_StringArray);
 				insert_child($$,aux_node);
 				aux_node2 = create_node(NODE_Id);
@@ -274,14 +286,22 @@ FormalParams:  Type ID SubFormalParams {if(buildingTree==1){
 
 
 SubFormalParams:  SubFormalParams COMMA Type ID {if(buildingTree==1){
-			   	if($1 != NULL){
-					$1 = create_node(NODE_ParamDecl);
-					insert_child($1,$3);
-					aux_node = create_node(NODE_Id);
-					aux_node->value = $4;
-					insert_brother($1->child,aux_node);
-			   		insert_brother($$,$1);
-				}
+			$$ = create_node(NODE_ParamDecl);
+			insert_child($$,$3);
+			aux_node = create_node(NODE_Id);
+			aux_node->value = $4;
+			insert_brother($$->child,aux_node);
+			if($1 != NULL){
+				insert_brother($$,$1);
+			}
+			 //   	if($1 != NULL){
+				// 	$1 = create_node(NODE_ParamDecl);
+				// 	insert_child($1,$3);
+				// 	aux_node = create_node(NODE_Id);
+				// 	aux_node->value = $4;
+				// 	insert_brother($1->child,aux_node);
+			 //   		insert_brother($$,$1);
+				// }
 			}
 }
 
