@@ -5,7 +5,7 @@
 void print_tree(Node *node,int level){
 	print_points(level);
 	if(node != NULL){
-		if (node->type == NODE_Id || node->type == NODE_Reallit || node->type == NODE_Declit || node->type == NODE_Strlit){
+		if (node->type == NODE_Id || node->type == NODE_Reallit || node->type == NODE_Declit || node->type == NODE_Strlit || node->type == NODE_Boolit){
 			print_leaf(node);
 		}
 		else{

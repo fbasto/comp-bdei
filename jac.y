@@ -363,10 +363,14 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
     	$$=create_node(NODE_If);
     	if($5==NULL){
     		insert_child($$,$3);
+    		insert_brother($3,create_node(NODE_Block));
     	}
     	if($5!=NULL){
     		insert_child($$,$3);
     		insert_brother($3,$5);
+    	}
+    	if($7==NULL){
+    		insert_brother($3,create_node(NODE_Block));
     	}
     	if($7!=NULL){
     		insert_brother($3,$7);
@@ -377,6 +381,7 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
     	$$=create_node(NODE_If);
     	if($5==NULL){
     		insert_child($$,$3);
+    		insert_brother($3,create_node(NODE_Block));
     	}
     	if($5!=NULL){
     		insert_child($$,$3);
@@ -389,6 +394,7 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
     	$$=create_node(NODE_While);
     	if($5==NULL){
     		insert_child($$,$3);
+    		insert_brother($3,create_node(NODE_Block));
     	}
     	if($5!=NULL){
     		insert_child($$,$3);
@@ -400,6 +406,7 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
     	$$=create_node(NODE_DoWhile);
     	if($2==NULL){
     		insert_child($$,$5);
+    		insert_brother($5,create_node(NODE_Block));
     	}
     	if($2!=NULL){
     		insert_child($$,$2);
