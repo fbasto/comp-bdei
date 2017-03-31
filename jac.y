@@ -412,8 +412,8 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
     | DO Statement WHILE OCURV Expr CCURV SEMI {if(buildingTree==1){
     	$$=create_node(NODE_DoWhile);
     	if($2==NULL){
-    		insert_child($$,$5);
-    		insert_brother($5,create_node(NODE_Block));
+    		insert_child($$,create_node(NODE_Block));
+    		insert_brother($$->child,$5);
     	}
     	if($2!=NULL){
     		insert_child($$,$2);
@@ -441,10 +441,10 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
 
 MultipleStatements: Empty {if(buildingTree==1){$$=NULL;}}
 				  | Statement MultipleStatements {if(buildingTree==1){
-				  	if($2 == NULL){
-				  		$$=$1;
+				  	if($1 == NULL){
+				  		$$=$2;
 				  	}
-				  	if($2 != NULL){
+				  	if($1 != NULL){
 				  		$$=$1;
 				  		insert_brother($$,$2);
 				  	}
@@ -635,14 +635,15 @@ Expre: MethodInvocation {if(buildingTree==1){$$=$1;}}
     }
 }
     | ID OptDotLength {if(buildingTree==1){
-    	if($2== NULL){
+    	if($2==NULL){
     		$$ = create_node(NODE_Id);
     		$$->value = $1;
     	}
     	if($2 != NULL){
-    		$$ = create_node(NODE_Id);
-    		$$->value = $1;
-    		insert_child($2,$$);
+    		$$ = $2;
+    		aux_node = create_node(NODE_Id);
+    		aux_node->value = $1;
+    		insert_child($$,aux_node);
     	}
     }
 } 
