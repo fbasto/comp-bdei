@@ -382,7 +382,6 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
     | DO Statement WHILE OCURV Expr CCURV SEMI {if(buildingTree==1){
     	$$=create_node(NODE_DoWhile);
     	if($2==NULL){
-    		insert_child($$,create_node(NODE_Block));
     		insert_brother($$->child,$5);
     	}
     	if($2!=NULL){
@@ -399,7 +398,11 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
     | OptAMIPA SEMI {if(buildingTree==1){//$$=$1;
     	$$=$1;}}
     | RETURN OptExpr SEMI {if(buildingTree==1){//$$=$2;
-    	$$=$2;}}
+    	$$=create_node(NODE_Return);
+    	if($2 != NULL){
+    		insert_child($$,$2);
+    	}
+    }}
     | error SEMI {if(buildingTree==1){//$$=NULL;
     	buildingTree=0;syn_error=1;$$=create_node(NODE_Error);}}
 	;
@@ -490,9 +493,7 @@ ParseArgs: PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV {if(buildingTree==1){ //
 
 OptDotLength: DOTLENGTH {if(buildingTree==1){
 			$$ = create_node(NODE_Length);
-		}
-
-;}
+		}}
 			| Empty {if(buildingTree==1){$$=NULL;}}
 			;	
 
@@ -557,7 +558,7 @@ Expre: MethodInvocation {if(buildingTree==1){$$=$1;}}
     }
 }
     | Expre PLUS Expre {if(buildingTree==1){//$$=NULL;
-    	$$ = create_node(NODE_Plus);
+    	$$ = create_node(NODE_Add);
     	insert_child($$,$1);
     	insert_brother($$->child,$3);
     }
@@ -584,25 +585,29 @@ Expre: MethodInvocation {if(buildingTree==1){$$=$1;}}
     	$$ = create_node(NODE_Plus);
     	insert_child($$,$2);
     }
-;}
+}
     | MINUS Expre %prec NOT {if(buildingTree==1){
     	$$ = create_node(NODE_Minus);
     	insert_child($$,$2);
     }
-;}
+}
     | NOT Expre %prec NOT{if(buildingTree==1){
     	$$ = create_node(NODE_Not);
     	insert_child($$,$2);
     }
-;}
+}
     | ID OptDotLength {if(buildingTree==1){
-    	$$ = create_node(NODE_Id);
-    	$$->value = $1;
+    	if($2== NULL){
+    		$$ = create_node(NODE_Id);
+    		$$->value = $1;
+    	}
     	if($2 != NULL){
-    		insert_child($$,$2);
+    		$$ = create_node(NODE_Id);
+    		$$->value = $1;
+    		insert_child($2,$$);
     	}
     }
-;} 
+} 
     | OCURV Expr CCURV {if(buildingTree==1){$$=$2;}}
     | OCURV error CCURV {if(buildingTree==1){buildingTree=0;syn_error=1;$$=create_node(NODE_Error);}}
     | BOOLLIT {if(buildingTree==1){//$$=NULL;
