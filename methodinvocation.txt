@@ -1,0 +1,6 @@
+class gcd{
+public static void main(String[] args) {
+a(d,c,10,0.5,true);
+a(0.5,f,g);
+}
+}
