@@ -361,19 +361,25 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
 }
     | IF OCURV Expr CCURV Statement ELSE Statement {if(buildingTree==1){
     	$$=create_node(NODE_If);
+		insert_child($$,$3);
     	if($5==NULL){
-    		insert_child($$,$3);
     		insert_brother($3,create_node(NODE_Block));
     	}
-    	if($5!=NULL){
-    		insert_child($$,$3);
+    	else{
     		insert_brother($3,$5);
     	}
     	if($7==NULL){
     		insert_brother($3,create_node(NODE_Block));
     	}
     	if($7!=NULL){
-    		insert_brother($3,$7);
+    		if($7->brother != NULL){
+    			aux_node = create_node(NODE_Block);
+    			insert_brother($3,aux_node);
+    			insert_child(aux_node,$7);
+    		}
+    		else{
+	    		insert_brother($3,$7);			
+    		}
     	}
     }
 }
@@ -387,6 +393,7 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
     		insert_child($$,$3);
     		insert_brother($3,$5);
     	}
+    	insert_brother($3,create_node(NODE_Block));
     }
 
 }
