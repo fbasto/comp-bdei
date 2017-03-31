@@ -147,8 +147,8 @@ FieldDecl: PUBLIC STATIC Type ID SubFieldDecl SEMI {if(buildingTree==1){
 		insert_brother($$->child,aux_node2);
 		if($5 != NULL){
 			insert_brother($$,$5);
+			change_type($$,$5);
 		}
-		change_type($$,$5);
 	}
 }
 	| error SEMI {if(buildingTree==1){buildingTree=0;syn_error=1;}}
