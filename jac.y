@@ -331,6 +331,12 @@ Type: BOOL {if(buildingTree==1){$$=create_node(NODE_Bool);}}
 
 Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
 		$$ = $2;
+		if($2 != NULL){
+			if($2->brother != NULL){
+				$$ = create_node(NODE_Block);
+				insert_child($$,$2);
+			}
+		}
 	}
 }
     | IF OCURV Expr CCURV Statement ELSE Statement {if(buildingTree==1){
@@ -355,8 +361,14 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
 }
     | DO Statement WHILE OCURV Expr CCURV SEMI {if(buildingTree==1){
     	$$=create_node(NODE_DoWhile);
-    	insert_child($$,$2);
-    	insert_brother($2,$5);
+    	if($2==NULL){
+    		insert_child($$,create_node(NODE_Block));
+    		insert_brother($$->child,$5);
+    	}
+    	if($2!=NULL){
+    		insert_child($$,$2);
+    		insert_brother($2,$5);
+    	}
     }
 }
     | PRINT OCURV ExprStrlit CCURV SEMI {if(buildingTree==1){
@@ -375,7 +387,9 @@ Statement: OBRACE MultipleStatements CBRACE {if(buildingTree==1){
 
 MultipleStatements: Empty {if(buildingTree==1){$$=NULL;}}
 				  | Statement MultipleStatements {if(buildingTree==1){
-				  	$$=$1;
+				  	if($2 == NULL){
+				  		$$=$1;
+				  	}
 				  	if($2 != NULL){
 				  		insert_brother($$,$2);
 				  	}
@@ -517,7 +531,7 @@ Expre: MethodInvocation {if(buildingTree==1){$$=$1;}}
     }
 }
     | Expre MINUS Expre {if(buildingTree==1){//$$=NULL;
-    	$$ = create_node(NODE_Minus);
+    	$$ = create_node(NODE_Sub);
     	insert_child($$,$1);
     	insert_brother($$->child,$3);
     }
