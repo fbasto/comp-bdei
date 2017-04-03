@@ -122,7 +122,7 @@ int main(int argc, char* argv[])
 			}
 			yylex();
 		}
-		if(strcmp(argv[1],"-t") == 0){
+		else if(strcmp(argv[1],"-t") == 0){
 			// if && syntax_errors == 0
 			output = 0;
 			yyparse();
@@ -130,6 +130,10 @@ int main(int argc, char* argv[])
 				print_tree(tree,0);
 			}
 			
+		}
+		else if(strcmp(argv[1],"-2") == 0){
+			output = 0;
+			yyparse();
 		}
 		
 	}
