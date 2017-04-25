@@ -123,7 +123,6 @@ int main(int argc, char* argv[])
 			yylex();
 		}
 		else if(strcmp(argv[1],"-t") == 0){
-			// if && syntax_errors == 0
 			output = 0;
 			yyparse();
 			if(syn_error== 0){

@@ -131,3 +131,19 @@ Node *create_node(Node_type type);
 void insert_child(Node *father,Node *child);
 void insert_brother(Node *brother,Node *self);
 void change_type(Node *typo ,Node *nodes);
+
+
+// Symbol table
+typedef struct table{
+	char *name;
+	int type; // 0=class ou 1=method
+	struct Symbol *child;
+	struct Table *brother;
+} Table;
+
+typedef struct symbol{
+	char *name;
+	char *type;
+	int param; // 0=false ou 1=true
+	struct Symbol *brother;
+} Symbol;
