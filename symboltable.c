@@ -79,12 +79,12 @@ Table *search_table(char* tbl_name){
 void print_Table(Table t){
 	Symbol * sym = NULL;
 	if (t->type == 0){
-		printf("===== Class %s Symbol Table", t->name);	
+		printf("===== Class %s Symbol Table =====", t->name);	
 	}
 	else{
 		printf("=== Method");
 		print_params(t->child);
-		printf(" Symbol Table")
+		printf(" Symbol Table =====")
 	} 
 
 }
