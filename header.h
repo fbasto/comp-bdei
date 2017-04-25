@@ -121,18 +121,6 @@ typedef struct node{
 	char *value;
 }Node;
 
-//falta um array com o nome dos nos
-void print_tree(Node *node,int level);
-void print_points(int n);
-void print_leaf(Node *node);
-
-Node *create_node(Node_type type);
-//Node *insert_leaf_node(Node_type type,char *value);
-void insert_child(Node *father,Node *child);
-void insert_brother(Node *brother,Node *self);
-void change_type(Node *typo ,Node *nodes);
-
-
 // Symbol table
 typedef struct table{
 	char *name;
@@ -147,6 +135,19 @@ typedef struct symbol{
 	int param; // 0=false ou 1=true
 	struct Symbol *brother;
 } Symbol;
+
+
+
+//falta um array com o nome dos nos
+void print_tree(Node *node,int level);
+void print_points(int n);
+void print_leaf(Node *node);
+Node *create_node(Node_type type);
+//Node *insert_leaf_node(Node_type type,char *value);
+void insert_child(Node *father,Node *child);
+void insert_brother(Node *brother,Node *self);
+void change_type(Node *typo ,Node *nodes);
+
 
 Table *insert_table(char *name, int type);
 void insert_symbol(Table *tbl, Symbol *sbl);
