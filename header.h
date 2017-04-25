@@ -147,3 +147,9 @@ typedef struct symbol{
 	int param; // 0=false ou 1=true
 	struct Symbol *brother;
 } Symbol;
+
+Table *insert_table(char *name, int type);
+void insert_symbol(Table *tbl, Symbol *sbl);
+Symbol *create_symbol(char *name, char *type, int param);
+Symbol *search_symbol(Table *tbl, char* sbl_name);
+Table *search_table(char* tbl_name);
