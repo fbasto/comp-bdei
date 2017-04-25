@@ -25,3 +25,35 @@ Table *insert_table(char* name, int type){
 }
 
 Symbol *create_symbol()
+
+
+void print_Table(Table t){
+	Symbol * sym = NULL;
+	if (t->type == 0){
+		printf("===== Class %s Symbol Table", t->name);	
+	}
+	else{
+		printf("=== Method");
+		print_params(t->child);
+		printf(" Symbol Table")
+	} 
+
+}
+
+
+void print_params(Symbol *s){
+	Symbol *aux = s
+	printf("( ")
+	while(aux->brother != NULL){
+		if (aux->brother != NULL){
+			if (aux->param == 1)
+				printf("%s, ", aux->type);
+		}
+		else if(aux->brother == NULL){
+			if (aux->param == 1)
+				printf("%s", aux->type);
+		}
+		aux= aux->brother;
+	}
+	printf(")");
+}
