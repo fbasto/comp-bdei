@@ -15,7 +15,12 @@ extern Table *symbol_table;
 Table *aux_table;
 
 void create_symboltable(Node *node){
-	Node* aux = node->child;
+	char *aux_name = Node_names[aux_node->type];
+	if(strcmp("Program",aux_name)==0){
+		add_program(node);
+	}
+	
+	Node *aux = node->child;
 	while(aux != NULL){
 		analyze_node(aux);
 		aux = aux->brother;
@@ -24,9 +29,6 @@ void create_symboltable(Node *node){
 
 void analyze_node(Node* aux_node){
 	char *aux_name = Node_names[aux_node->type];
-	if(strcmp("Program",aux_name)==0){
-		add_program(aux_node);
-	}
 	if(strcmp("FieldDecl",aux_name)==0){
 		add_fielddecl(aux_node);
 	}
