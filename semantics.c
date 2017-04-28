@@ -23,7 +23,7 @@ void create_symboltable(Node *node){
 }
 
 void analyze_node(Node* aux_node){
-	char `*aux_name = Node_names[aux_node->type];
+	char *aux_name = Node_names[aux_node->type];
 	if(strcmp("Program",aux_name)==0){
 		add_program(aux_node);
 	}
