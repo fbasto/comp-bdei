@@ -12,15 +12,16 @@ static char *semantic_errors[] = {"Cannot find symbol %s>",
 "Symbol %s already defined"};
 
 extern Table *symbol_table;
-Table *aux_table;
+Table *aux_table = NULL;
 
 void create_symboltable(Node *node){
-	char *aux_name = Node_names[aux_node->type];
+	Node *aux = node->child;
+	char *aux_name = Node_names[aux->type];
 	if(strcmp("Program",aux_name)==0){
 		add_program(node);
 	}
 	
-	Node *aux = node->child;
+	
 	while(aux != NULL){
 		analyze_node(aux);
 		aux = aux->brother;
