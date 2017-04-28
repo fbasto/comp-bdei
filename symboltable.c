@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "printer.h"
+#include "header.h"
 
-extern table *symbol_table;
+extern Table *symbol_table;
 
 Table *insert_table(char *name, int type){
 	Table *table_aux = (Table*) malloc(sizeof(Table));
@@ -11,7 +11,7 @@ Table *insert_table(char *name, int type){
 	table_aux->type = type;
 	table_aux->brother = NULL;
 	table_aux->child = NULL;
-
+	Table *i;
 	if(symbol_table == NULL){
 		symbol_table = table_aux;
 	}
@@ -20,12 +20,13 @@ Table *insert_table(char *name, int type){
 		while(i->brother != NULL){
 			i=symbol_table->brother;
 		}
-		i->brother = table;
+		i->brother = table_aux;
 	}
 	return table_aux;
 }
 
 void insert_symbol(Table *tbl, Symbol *sbl){
+	Symbol *i;
 	if(tbl->child == NULL){
 		tbl->child = sbl;
 	}
@@ -38,17 +39,18 @@ void insert_symbol(Table *tbl, Symbol *sbl){
 	}
 }
 
-Symbol *create_symbol(char *name, char *type, int param){
+Symbol *create_symbol(char *name, char *type, int param, int vm){
 	Symbol *symbol = (Symbol*) malloc(sizeof(Symbol));
 	symbol->name = name;
 	symbol->type = type;
 	symbol->param = param;
 	symbol->brother = NULL;
+	symbol->varmethod = vm;
 	return symbol;
 }
 
 Symbol *search_symbol(Table *tbl, char* sbl_name){
-	sbl_aux = tbl->child;
+	Symbol *sbl_aux = tbl->child;
 	while(sbl_aux != NULL){
 		if(strcmp(sbl_aux->name,sbl_name)==0){
 			return sbl_aux;
@@ -61,7 +63,7 @@ Symbol *search_symbol(Table *tbl, char* sbl_name){
 }
 
 Table *search_table(char* tbl_name){
-	tbl_aux = symbol_table;
+	Table *tbl_aux = symbol_table;
 	while(tbl_aux != NULL){
 		if(strcmp(tbl_aux->name,tbl_name)==0){
 			return tbl_aux;
@@ -88,8 +90,8 @@ void print_Table(Table t){
 
 
 void print_params(Symbol *s){
-	Symbol *aux = s
-	printf("( ")
+	Symbol *aux = s;
+	printf("( ");
 	while(aux->brother != NULL){
 		if (aux->brother != NULL){
 			if (aux->param == 1)

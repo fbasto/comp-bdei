@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "printer.h"
+#include "header.h"
 
-static const char *semantic_errors[] = {"Cannot find symbol %s>",
+static char *semantic_errors[] = {"Cannot find symbol %s>",
 "Incompatible type %s in <token> statement",
 "Number %s out of bounds",
 "Operator %s cannot be applied to type <type>",
@@ -23,7 +23,7 @@ void create_symboltable(Node *node){
 }
 
 void analyze_node(Node* aux_node){
-	aux_name = Node_name[aux_node->type];
+	char *aux_name = Node_names[aux_node->type];
 	if(strcmp("Program",aux_name)==0){
 		add_program(aux_node);
 	}
@@ -64,17 +64,17 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 	// }
 
 	Symbol *new_symbol;
-	node_type = Node_names[aux_child->type];
-	node_name = aux_child->brother->value;
-	new_symbol = create_symbol(node_name,node_type,0);
+	char *node_type = Node_names[aux_child->type];
+	char *node_name = aux_child->brother->value;
+	new_symbol = create_symbol(node_name,node_type,0,0);
 	insert_symbol(aux_table,new_symbol);
 }
 
 void add_vardecl(Node* aux_node){ // int a, b;
-	char* node_name = tree->name; // se houver problemas verificar este print
+	char* node_name = aux_node->name; // se houver problemas verificar este print
 	printf("VarDecl node name = %s\n",node_name);
-	char* node_type = tree->type;
-	Symbol *new_symbol = create_symbol(node_name,node_type,0);
+	char* node_type = Node_names[aux_node->type];
+	Symbol *new_symbol = create_symbol(node_name,node_type,0,0);
 	if(aux_table != NULL){
 		if(search_symbol(aux_table,node_name)==NULL){
 			insert_symbol(aux_table,new_symbol);
@@ -98,16 +98,17 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	// 	}
 	// }
 
-	char* node_type = Node_names[aux_node->child->child];
-	char* node_name = aux_node->child->child->brother->value;
-	method_tbl = insert_table(node_name,1);
+	char *node_type = Node_names[aux_node->child->child->type];
+	char *node_name = aux_node->child->child->brother->value;
+	Table *method_tbl = insert_table(node_name,1);
 
-	Symbol *new_symbol = create_symbol("return",node_type,0);
+	Symbol *new_symbol = create_symbol("return",node_type,0,1);
 	insert_symbol(method_tbl,new_symbol);
 
 	paramdecl = aux_node->child->child->brother->brother->child;
 	if(paramdecl != NULL){ // if ParamDecl != null
-		Symbol *new_symbol = create_symbol(paramdecl->child->brother->value,paramdecl->child,1);
+		char *paramtype = Node_names[paramdecl->child->type];
+		Symbol *new_symbol = create_symbol(paramdecl->child->brother->value,paramtype,1,0);
 		insert_symbol(method_tbl,new_symbol);
 		paramdecl=paramdecl->brother;
 	}
