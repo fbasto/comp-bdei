@@ -39,7 +39,7 @@ void insert_symbol(Table *tbl, Symbol *sbl){
 			i->brother = sbl;
 		}
 	}
-}
+
 
 Symbol *create_symbol(char *name, char *type, int param, int vm){
 	Symbol *symbol = (Symbol*) malloc(sizeof(Symbol));
@@ -79,14 +79,20 @@ Table *search_table(char* tbl_name){
 
 void print_Table(Table *t){
 	Symbol * sym = NULL;
-	if (t->type == 0){
-		printf("===== Class %s Symbol Table =====", t->name);	
+	Table * aux;
+	aux = t;
+	while(aux->brother != NULL){
+		if (t->type == 0){
+			printf("===== Class %s Symbol Table =====", t->name);	
+		}
+		else{
+			printf("=== Method");
+			print_params(t->child);
+			printf(" Symbol Table =====");
+		}
+		aux = aux->brother;
 	}
-	else{
-		printf("=== Method");
-		print_params(t->child);
-		printf(" Symbol Table =====");
-	} 
+	 
 
 }
 
@@ -94,6 +100,7 @@ void print_Table(Table *t){
 void print_params(Symbol *s){
 	Symbol *aux = s;
 	printf("( ");
+	printf("%s\n",s->name);
 	while(aux->brother != NULL){
 		if (aux->brother != NULL){
 			if (aux->param == 1)

@@ -26,6 +26,8 @@ void create_symboltable(Node *node){
 		analyze_node(aux);
 		aux = aux->brother;
 	}
+	
+	print_Table(symbol_table);
 }
 
 void analyze_node(Node* aux_node){
