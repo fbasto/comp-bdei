@@ -27,15 +27,17 @@ Table *insert_table(char *name, int type){
 
 void insert_symbol(Table *tbl, Symbol *sbl){
 	Symbol *i;
-	if(tbl->child == NULL){
-		tbl->child = sbl;
-	}
-	else{
-		i = tbl->child;
-		while(i->brother != NULL){
-			i=i->brother;
+	if(tbl != NULL)
+		if(tbl->child == NULL){
+			tbl->child = sbl;
 		}
-		i->brother = sbl;
+		else{
+			i = tbl->child;
+			while(i->brother != NULL){
+				i=i->brother;
+			}
+			i->brother = sbl;
+		}
 	}
 }
 
