@@ -71,7 +71,7 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 }
 
 void add_vardecl(Node* aux_node){ // int a, b;
-	char* node_name = aux_node->name; // se houver problemas verificar este print
+	char* node_name = Node_names[aux_node->type]; // se houver problemas verificar este print
 	printf("VarDecl node name = %s\n",node_name);
 	char* node_type = Node_names[aux_node->type];
 	Symbol *new_symbol = create_symbol(node_name,node_type,0,0);

@@ -18,7 +18,7 @@ Table *insert_table(char *name, int type){
 	else{
 		i = symbol_table;
 		while(i->brother != NULL){
-			i=symbol_table->brother;
+			i=i->brother;
 		}
 		i->brother = table_aux;
 	}
@@ -33,7 +33,7 @@ void insert_symbol(Table *tbl, Symbol *sbl){
 	else{
 		i = tbl->child;
 		while(i->brother != NULL){
-			i=tbl->brother;
+			i=i->brother;
 		}
 		i->brother = sbl;
 	}
