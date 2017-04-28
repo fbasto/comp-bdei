@@ -15,14 +15,19 @@ extern Table *symbol_table;
 Table *aux_table = NULL;
 
 void create_symboltable(Node *node){
-	Node *aux = node->child;
-	char *aux_name = Node_names[aux->type];
-	if(strcmp("Program",aux_name)==0){
+	Node *aux = node;
+	char *aux_type= Node_names[aux->child->type];
+	char* aux_name = aux->child->value;
+	printf("Name: %s\nType: %s\n",aux_name,aux_type);
+	printf("AUX: %s\n",Node_names[aux->type]);
+	if(strcmp("Program",Node_names[aux->type])==0){
+		printf("OIOIOIOIOIOI\n");
 		add_program(node);
 	}
 	
 	
 	while(aux != NULL){
+		printf("HEy\n");
 		analyze_node(aux);
 		aux = aux->brother;
 	}
@@ -45,11 +50,9 @@ void analyze_node(Node* aux_node){
 
 void add_program(Node* aux_node){ // class gcd2{
 	//char* node_type = Node_names[aux_node->child->];
-	char* node_name = aux_node;
+	char* node_name = Node_names[aux_node->type];
 	Node* aux = aux_node->child;
-	Table* class_tbl = NULL;
-	Node* aux2 = NULL;//ajuda para ir  buscar o tipo dos metodos e o id
-	Symbol * new_symbol	= NULL;
+	Table* class_tbl;
 	class_tbl = insert_table(node_name,0);
 
 	

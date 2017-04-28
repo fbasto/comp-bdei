@@ -19,7 +19,7 @@
 	int aux_line;
 	int aux_col;
 
-	Table *symbol_table = NULL;
+	Table *symbol_table;
 %}
 
 ID 		([a-z]|[A-Z]|"_"|"$")+([a-z]|[A-Z]|"_"|"$"|[0-9])*
