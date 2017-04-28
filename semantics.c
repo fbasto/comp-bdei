@@ -39,7 +39,15 @@ void analyze_node(Node* aux_node){
 }
 
 void add_program(Node* aux_node){ // class gcd2{
+	//char* node_type = Node_names[aux_node->child->];
+	char* node_name = aux_node;
+	Node* aux = aux_node->child;
+	Table* class_tbl = NULL;
+	Node* aux2 = NULL;//ajuda para ir  buscar o tipo dos metodos e o id
+	Symbol * new_symbol	= NULL;
+	class_tbl = insert_table(node_name,0);
 
+	
 }
 
 void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd 
