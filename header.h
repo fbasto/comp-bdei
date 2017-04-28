@@ -152,8 +152,8 @@ void change_type(Node *typo ,Node *nodes);
 
 Table *insert_table(char *name, int type);
 void insert_symbol(Table *tbl, Symbol *sbl);
-Symbol *create_symbol(char *name, char *type, int param);
+Symbol *create_symbol(char *name, char *type, int param,int vm);
 Symbol *search_symbol(Table *tbl, char* sbl_name);
 Table *search_table(char* tbl_name);
-void print_Table(Table t);
+void print_Table(Table *t);
 void print_params(Symbol *s);

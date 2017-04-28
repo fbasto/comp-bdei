@@ -12,7 +12,7 @@ static char *semantic_errors[] = {"Cannot find symbol %s>",
 "Symbol %s already defined"};
 
 extern Table *symbol_table;
-Table aux_table = NULL;
+Table *aux_table;
 
 void create_symboltable(Node *node){
 	Node* aux = node->child;
@@ -64,8 +64,8 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 	// }
 
 	Symbol *new_symbol;
-	char *node_type = Node_names[aux_child->type];
-	char *node_name = aux_child->brother->value;
+	char *node_type = Node_names[aux_node->child->type];
+	char *node_name = aux_node->child->brother->value;
 	new_symbol = create_symbol(node_name,node_type,0,0);
 	insert_symbol(aux_table,new_symbol);
 }
@@ -105,6 +105,7 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	Symbol *new_symbol = create_symbol("return",node_type,0,1);
 	insert_symbol(method_tbl,new_symbol);
 
+	Node* paramdecl;
 	paramdecl = aux_node->child->child->brother->brother->child;
 	if(paramdecl != NULL){ // if ParamDecl != null
 		char *paramtype = Node_names[paramdecl->child->type];
