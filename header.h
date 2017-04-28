@@ -133,6 +133,7 @@ typedef struct symbol{
 	char *name;
 	char *type;
 	int param; // 0=false ou 1=true
+	int varmethod; // 0=var ou 1=method
 	struct Symbol *brother;
 } Symbol;
 
