@@ -138,7 +138,7 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 				paramtype ="String []";
 			}
 
-			printf("<<>><<>> TIPO: %s\n",insideparam->brother->);
+			printf("<<>><<>> TIPO: %s\n",insideparam->brother->value);
 			Symbol *new_symbol = create_symbol(insideparam->brother->value,paramtype,1,0);
 			insert_symbol(method_tbl,new_symbol);
 			insert_symbol(class_table,new_symbol);
