@@ -133,12 +133,11 @@ int main(int argc, char* argv[])
 		}
 		else if(strcmp(argv[1],"-s") == 0){
 			output = 0;
-			printf("HEY\n");
 			yyparse();
 			
 			if(syn_error== 0){
 				create_symboltable(tree);
-				print_tree(tree,0);
+			//	print_tree(tree,0);
 			}
 		}
 		else if(strcmp(argv[1],"-2") == 0){
@@ -149,9 +148,8 @@ int main(int argc, char* argv[])
 	}
 	else if(argc==1){
 		output = 0;
-		printf("HEY\n");
 		yyparse();
-		//create_symboltable(tree);
+		create_symboltable(tree);
 	}
 	return 0;
 }

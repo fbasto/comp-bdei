@@ -27,6 +27,7 @@ Table *insert_table(char *name, int type){
 
 void insert_symbol(Table *tbl, Symbol *sbl){
 	Symbol *i;
+	printf("INserir simbolo(name): %s\n",sbl->name);
 	if(tbl != NULL)
 		if(tbl->child == NULL){
 			tbl->child = sbl;
@@ -81,14 +82,19 @@ void print_Table(Table *t){
 	Symbol * sym = NULL;
 	Table * aux;
 	aux = t;
-	while(aux->brother != NULL){
-		if (t->type == 0){
-			printf("===== Class %s Symbol Table =====", t->name);	
+	printf("Tabele name: %s\n", aux->name);
+	printf("antes de imprimir\n");
+	while(aux != NULL){
+		if (aux->type == 0){
+			printf("===== Class %s Symbol Table =====\n", aux->name);	
+			print_params(aux->child);
 		}
 		else{
-			printf("=== Method");
-			print_params(t->child);
-			printf(" Symbol Table =====");
+			printf("=== Method %s",aux->name);
+			printf("(");
+			printf(")");
+			printf(" Symbol Table =====\n");
+			print_params(aux->child);
 		}
 		aux = aux->brother;
 	}
@@ -99,18 +105,13 @@ void print_Table(Table *t){
 
 void print_params(Symbol *s){
 	Symbol *aux = s;
-	printf("( ");
-	printf("%s\n",s->name);
+//	printf("IMprimir params: %s\n",aux->type);
 	while(aux->brother != NULL){
-		if (aux->brother != NULL){
-			if (aux->param == 1)
-				printf("%s, ", aux->type);
-		}
-		else if(aux->brother == NULL){
-			if (aux->param == 1)
-				printf("%s", aux->type);
-		}
+		if (aux->param == 1)
+			printf("%s\t%s\tParams\n", aux->name, aux->type);
+		else
+			printf("%s\t%s\n", aux->name, aux->type);
+
 		aux= aux->brother;
 	}
-	printf(")");
 }
