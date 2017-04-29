@@ -91,6 +91,7 @@ void print_Table(Table *t){
 		else{
 			printf("=== Method %s",aux->name);
 			printf("(");
+			printf("%s",get_params(t));
 			printf(")");
 			printf(" Symbol Table =====\n");
 			print_params(aux->child);
@@ -101,11 +102,24 @@ void print_Table(Table *t){
 
 }
 
-/*char * get_types(){
-TODO: criar uma funcao que devolva uma string com todos os tipos dos params de maneira a que de para por dentro dos () das tabelas dos metodos
+char * get_params(Table *t){
+//TODO: criar uma funcao que devolva uma string com todos os tipos dos params de maneira a que de para por dentro dos () das tabelas dos metodos
+	Symbol* son = t->child;
+	char* retstring = "";
+	while(son != NULL){
+		if(son->param == 1){
+			if(strcmp(retstring,"")==0){
+				strcat(retstring,son->type);
+			}
+			else{
+				strcat(retstring,",");
+				strcat(retstring,son->type);			
+			}
+		}
+		son=son->brother;
+	}
 
-
-}*/
+}
 
 void print_params(Symbol *s){
 	Symbol *aux = s;
