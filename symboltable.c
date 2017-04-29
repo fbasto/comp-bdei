@@ -27,7 +27,6 @@ Table *insert_table(char *name, int type){
 
 void insert_symbol(Table *tbl, Symbol *sbl){
 	Symbol *i;
-	printf("INserir simbolo(name): %s\n",sbl->name);
 	if(tbl != NULL)
 		if(tbl->child == NULL){
 			tbl->child = sbl;
@@ -102,16 +101,21 @@ void print_Table(Table *t){
 
 }
 
+/*char * get_types(){
+TODO: criar uma funcao que devolva uma string com todos os tipos dos params de maneira a que de para por dentro dos () das tabelas dos metodos
+
+
+}*/
 
 void print_params(Symbol *s){
 	Symbol *aux = s;
 //	printf("IMprimir params: %s\n",aux->type);
-	while(aux->brother != NULL){
+	while(aux != NULL){
 		if (aux->param == 1)
-			printf("%s\t%s\tParams\n", aux->name, aux->type);
+			printf("%s\t%s\tparams\n", aux->name, aux->type);
 		else
 			printf("%s\t%s\n", aux->name, aux->type);
-
+//falta o caso para ter mais que um argumento de um funcao
 		aux= aux->brother;
 	}
 }

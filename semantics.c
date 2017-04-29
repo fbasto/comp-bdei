@@ -116,9 +116,10 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	Node* paramdecl;
 	Node* insideparam;
 	char *paramtype;
+	Symbol *new_symbol;
 
 	printf(">>>>>>>>Method Decl Name: %s\n",node_name);
-	Symbol *new_symbol = create_symbol("return",node_type,0,1);
+	new_symbol = create_symbol("return",node_type,0,1);
 	insert_symbol(method_tbl,new_symbol);
 		
 	//criar simbolo para adicionar a tabela da classe
@@ -130,7 +131,7 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	
 	paramdecl = aux_node->child->child->brother->brother->child;
 	printf(">>> Paramdecl: %s\n",Node_names[paramdecl->type]);
-	if(paramdecl != NULL){ // if ParamDecl != null
+	while(paramdecl != NULL){ // if ParamDecl != null
 		insideparam = paramdecl->child;
 		while(insideparam->brother != NULL){
 			paramtype = Node_names[insideparam->type];
@@ -139,9 +140,10 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 			}
 
 			printf("<<>><<>> TIPO: %s\n",insideparam->brother->value);
-			Symbol *new_symbol = create_symbol(insideparam->brother->value,paramtype,1,0);
+			new_symbol = create_symbol(insideparam->brother->value,paramtype,1,0);
+			printf("METHOD TABLE : %s", method_tbl->name);
 			insert_symbol(method_tbl,new_symbol);
-			insert_symbol(class_table,new_symbol);
+			//insert_symbol(class_table,new_symbol);
 			insideparam= insideparam->brother;	
 		}
 		paramdecl=paramdecl->brother;
