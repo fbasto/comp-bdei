@@ -157,3 +157,12 @@ Symbol *search_symbol(Table *tbl, char* sbl_name);
 Table *search_table(char* tbl_name);
 void print_Table(Table *t);
 void print_params(Symbol *s);
+char * get_params(Table *t);
+
+
+void create_symboltable(Node *node);
+void analyze_node(Node* aux_node);
+void add_program(Node* aux_node);
+void add_methoddecl(Node* aux_node);
+void add_vardecl(Node* aux_node);
+void add_fielddecl(Node* aux_node);

@@ -81,19 +81,16 @@ void print_Table(Table *t){
 	Symbol * sym = NULL;
 	Table * aux;
 	aux = t;
-	printf("Tabele name: %s\n", aux->name);
-	printf("antes de imprimir\n");
+	printf("Table name: %s\n", aux->name);
+	printf("Antes de imprimir tabela\n");
 	while(aux != NULL){
 		if (aux->type == 0){
 			printf("===== Class %s Symbol Table =====\n", aux->name);	
 			print_params(aux->child);
 		}
 		else{
-			printf("=== Method %s",aux->name);
-			printf("(");
-			printf("%s",get_params(t));
-			printf(")");
-			printf(" Symbol Table =====\n");
+			char *params = get_params(aux);
+			printf("=== Method %s(%s) Symbol Table =====\n",aux->name,params);
 			print_params(aux->child);
 		}
 		aux = aux->brother;
@@ -107,6 +104,7 @@ char * get_params(Table *t){
 	Symbol* son = t->child;
 	char* retstring = "";
 	while(son != NULL){
+		printf("yo\n");
 		if(son->param == 1){
 			if(strcmp(retstring,"")==0){
 				strcat(retstring,son->type);
@@ -116,8 +114,13 @@ char * get_params(Table *t){
 				strcat(retstring,son->type);			
 			}
 		}
-		son=son->brother;
+		if(son->brother != NULL){
+			son=son->brother;
+		}
 	}
+	printf("retstr=%s\n",retstring);
+	//printf("Params colecionados\n");
+	return retstring;
 
 }
 
@@ -126,7 +129,7 @@ void print_params(Symbol *s){
 //	printf("IMprimir params: %s\n",aux->type);
 	while(aux != NULL){
 		if (aux->param == 1)
-			printf("%s\t%s\tparams\n", aux->name, aux->type);
+			printf("%s\t%s\tparam\n", aux->name, aux->type);
 		else
 			printf("%s\t%s\n", aux->name, aux->type);
 //falta o caso para ter mais que um argumento de um funcao
