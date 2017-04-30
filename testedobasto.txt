@@ -1,0 +1,11 @@
+class gcd2 {
+  public static int gcd;
+  public static boolean gcd;
+  public static double gcd;
+  public static boolean gcd(int a,double b,boolean c) {
+  }
+  public static boolean gcd(double gcd,double b,boolean c) {
+  }
+  public static boolean gcd(double gcd,int b,boolean c) {
+  }
+}
