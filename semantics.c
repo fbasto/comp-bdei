@@ -41,9 +41,6 @@ void analyze_node(Node* aux_node){
 	if(strcmp("FieldDecl",aux_name)==0){
 		add_fielddecl(aux_node);
 	}
-	if(strcmp("VarDecl",aux_name)==0){
-		add_vardecl(aux_node);
-	}
 	if(strcmp("MethodDecl",aux_name)==0){
 		add_methoddecl(aux_node);
 	}
@@ -82,14 +79,14 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 	insert_symbol(class_table,new_symbol);
 }
 
-void add_vardecl(Node* aux_node){ // int a, b;
-	char* node_name = Node_names[aux_node->type]; // se houver problemas verificar este print
-	printf("VarDecl node name = %s\n",node_name);
-	char* node_type = Node_names[aux_node->type];
+void add_vardecl(Table* tbl, Node* aux_node){ // int a, b;
+	char* node_name = aux_node->child->brother->value; // se houver problemas verificar este print
+	char* node_type = Node_names[aux_node->child->type];
+	printf("VarDecl node_name = %s | node_type = %s\n",node_name,node_type);
 	Symbol *new_symbol = create_symbol(node_name,node_type,0,0);
-	if(aux_table != NULL){
-		if(search_symbol(aux_table,node_name)==NULL){
-			insert_symbol(aux_table,new_symbol);
+	if(tbl != NULL){
+		if(search_symbol(tbl,node_name)==NULL){
+			insert_symbol(tbl,new_symbol);
 		}
 		else{
 			printf(semantic_errors[6], node_name);
@@ -113,7 +110,6 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	char *node_type = Node_names[aux_node->child->child->type];
 	char *node_name = aux_node->child->child->brother->value;
 	Table *method_tbl = insert_table(node_name,1);
-	Node* paramdecl;
 	Node* insideparam;
 	char *paramtype;
 	Symbol *new_symbol;
@@ -129,6 +125,7 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 
 	//TODO: ver todos os ParamDecl e criar simbolos para por na tabela, isto ainda nao esta a funcionar bem
 	
+	Node* paramdecl;
 	paramdecl = aux_node->child->child->brother->brother->child;
 	printf(">>> Paramdecl: %s\n",Node_names[paramdecl->type]);
 	while(paramdecl != NULL){ // if ParamDecl != null
@@ -149,6 +146,15 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 		paramdecl=paramdecl->brother;
 
 	}
-
+	
+	Node* mbchild; // Ponteiro do MethodBody's Child
+	mbchild = aux_node->child->brother->child;
+	while(mbchild != NULL){
+		printf("Comparing node type %s with VarDecl\n",mbchild->type);
+		if(strcmp(mbchild->type,"VarDecl")==0){
+			add_vardecl(method_tbl,mbchild);
+		}
+		mbchild = mbchild->brother;
+	}
 
 }

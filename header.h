@@ -164,5 +164,5 @@ void create_symboltable(Node *node);
 void analyze_node(Node* aux_node);
 void add_program(Node* aux_node);
 void add_methoddecl(Node* aux_node);
-void add_vardecl(Node* aux_node);
+void add_vardecl(Table *method_tbl, Node* aux_node);
 void add_fielddecl(Node* aux_node);
