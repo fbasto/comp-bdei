@@ -114,7 +114,7 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	char *paramtype;
 	Symbol *new_symbol;
 
-	printf(">>>>>>>>Method Decl Name: %s\n",node_name);
+	//printf(">>>>>>>>Method Decl Name: %s\n",node_name);
 	new_symbol = create_symbol("return",node_type,0,1);
 	insert_symbol(method_tbl,new_symbol);
 		
@@ -127,7 +127,7 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	
 	Node* paramdecl;
 	paramdecl = aux_node->child->child->brother->brother->child;
-	printf(">>> Paramdecl: %s\n",Node_names[paramdecl->type]);
+	//printf(">>> Paramdecl: %s\n",Node_names[paramdecl->type]);
 	while(paramdecl != NULL){ // if ParamDecl != null
 		insideparam = paramdecl->child;
 		while(insideparam->brother != NULL){
@@ -136,9 +136,9 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 				paramtype ="String []";
 			}
 
-			printf("<<>><<>> TIPO: %s\n",insideparam->brother->value);
+			//printf("<<>><<>> TIPO: %s\n",insideparam->brother->value);
 			new_symbol = create_symbol(insideparam->brother->value,paramtype,1,0);
-			printf("METHOD TABLE : %s", method_tbl->name);
+			//printf("METHOD TABLE : %s\n", method_tbl->name);
 			insert_symbol(method_tbl,new_symbol);
 			//insert_symbol(class_table,new_symbol);
 			insideparam= insideparam->brother;	
@@ -150,8 +150,8 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	Node* mbchild; // Ponteiro do MethodBody's Child
 	mbchild = aux_node->child->brother->child;
 	while(mbchild != NULL){
-		printf("Comparing node type %s with VarDecl\n",mbchild->type);
-		if(strcmp(mbchild->type,"VarDecl")==0){
+		//printf("Comparing node type %s with VarDecl\n",Node_names[mbchild->type]);
+		if(strcmp(Node_names[mbchild->type],"VarDecl")==0){
 			add_vardecl(method_tbl,mbchild);
 		}
 		mbchild = mbchild->brother;

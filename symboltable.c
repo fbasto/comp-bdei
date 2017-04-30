@@ -89,8 +89,7 @@ void print_Table(Table *t){
 			print_params(aux->child);
 		}
 		else{
-//			char *params = get_params(aux);
-			char *params = "aa";
+			char *params = get_params(aux);
 			printf("=== Method %s(%s) Symbol Table =====\n",aux->name,params);
 			print_params(aux->child);
 		}
@@ -100,29 +99,28 @@ void print_Table(Table *t){
 
 }
 
-char * get_params(Table *t){
+char *get_params(Table *t){
 //TODO: criar uma funcao que devolva uma string com todos os tipos dos params de maneira a que de para por dentro dos () das tabelas dos metodos
 	Symbol* son = t->child;
-	char* retstring = "";
+	char retstring[500] = "";
 	while(son != NULL){
-		printf("at %s: checking param to add 	%s\n",son->name,son->type);
+		//printf("Checking if [ %s - %s ] is a param\n",son->name,son->type);
 		if(son->param == 1){
-			printf("param confirmed: adding\n");
+			//printf("param confirmed: adding\n");
 			if(strcmp(retstring,"")==0){
-				strcat(retstring,son->type);
+				strcpy(retstring,son->type);
 			}
 			else{
 				strcat(retstring,",");
 				strcat(retstring,son->type);			
 			}
 		}
-		if(son->brother != NULL){
-			son=son->brother;
-		}
+		son=son->brother;
 	}
-	printf("retstr=%s\n",retstring);
+	//printf("retstr=%s\n",retstring);
 	//printf("Params colecionados\n");
-	return retstring;
+	char *ret = retstring;
+	return ret;
 
 }
 
