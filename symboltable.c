@@ -90,7 +90,7 @@ void print_Table(Table *t){
 		}
 		else{
 			char *params = get_params(aux);
-			printf("=== Method %s(%s) Symbol Table =====\n",aux->name,params);
+			printf("===== Method %s(%s) Symbol Table =====\n",aux->name,params);
 			print_params(aux->child);
 		}
 		aux = aux->brother;

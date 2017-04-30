@@ -75,6 +75,18 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 	Symbol *new_symbol;
 	char *node_type = Node_names[aux_node->child->type];
 	char *node_name = aux_node->child->brother->value;
+	if (strcmp("StringArray",node_type)==0){
+		node_type="String[]";
+	}
+	if (strcmp("Int",node_type)==0){
+		node_type="int";
+	}
+	if (strcmp("Double",node_type)==0){
+		node_type="double";
+	}
+	if (strcmp("Void",node_type)==0){
+		node_type="void";
+	}
 	new_symbol = create_symbol(node_name,node_type,0,0);
 	insert_symbol(class_table,new_symbol);
 }
