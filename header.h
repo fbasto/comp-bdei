@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-static const char *Node_names[] = {
+static char *Node_names[] = {
 	"Program",
 	"FieldDecl",
 	"VarDecl",
@@ -125,8 +125,8 @@ typedef struct node{
 typedef struct table{
 	char *name;
 	int type; // 0=class ou 1=method
-	struct Symbol *child;
-	struct Table *brother;
+	struct symbol *child;
+	struct table *brother;
 } Table;
 
 typedef struct symbol{
@@ -134,7 +134,7 @@ typedef struct symbol{
 	char *type;
 	int param; // 0=false ou 1=true
 	int varmethod; // 0=var ou 1=method
-	struct Symbol *brother;
+	struct symbol *brother;
 } Symbol;
 
 

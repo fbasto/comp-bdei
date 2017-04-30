@@ -89,7 +89,8 @@ void print_Table(Table *t){
 			print_params(aux->child);
 		}
 		else{
-			char *params = get_params(aux);
+//			char *params = get_params(aux);
+			char *params = "aa";
 			printf("=== Method %s(%s) Symbol Table =====\n",aux->name,params);
 			print_params(aux->child);
 		}
@@ -104,8 +105,9 @@ char * get_params(Table *t){
 	Symbol* son = t->child;
 	char* retstring = "";
 	while(son != NULL){
-		printf("yo\n");
+		printf("at %s: checking param to add 	%s\n",son->name,son->type);
 		if(son->param == 1){
+			printf("param confirmed: adding\n");
 			if(strcmp(retstring,"")==0){
 				strcat(retstring,son->type);
 			}
