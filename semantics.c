@@ -17,17 +17,17 @@ Table *class_table;
 
 void create_symboltable(Node *node){
 	Node *aux = node;
-	char *aux_type= Node_names[aux->child->type];
-	char* aux_name = aux->child->value;
-	printf("Name: %s\nType: %s\n",aux_name,aux_type);
-	printf("AUX: %s\n",Node_names[aux->type]);
+	//char *aux_type= Node_names[aux->child->type];
+	//char* aux_name = aux->child->value;
+	//printf("Name: %s\nType: %s\n",aux_name,aux_type);
+	//printf("AUX: %s\n",Node_names[aux->type]);
 	if(strcmp("Program",Node_names[aux->type])==0){
 		add_program(aux);
 	}
 	
 	
 	aux = aux->child;
-	printf("AUX: %s\n", Node_names[aux->type]);
+	//printf("AUX: %s\n", Node_names[aux->type]);
 	while(aux != NULL){
 		analyze_node(aux);
 		aux = aux->brother;
@@ -49,7 +49,7 @@ void analyze_node(Node* aux_node){
 void add_program(Node* aux_node){ // class gcd2{
 	//char* node_type = Node_names[aux_node->child->];
 	char* node_name = aux_node->child->value;
-	Node* aux = aux_node->child;
+	//Node* aux = aux_node->child;
 	Table* class_tbl;
 	//printf("Nome para a tabela: %s\n",node_name);
 	class_tbl = insert_table(node_name,0);
@@ -87,6 +87,9 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 	if (strcmp("Void",node_type)==0){
 		node_type="void";
 	}
+	if (strcmp("Bool",node_type)==0){
+		node_type="boolean";
+	}
 	new_symbol = create_symbol(node_name,node_type,0,0);
 	insert_symbol(class_table,new_symbol);
 }
@@ -94,7 +97,7 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 void add_vardecl(Table* tbl, Node* aux_node){ // int a, b;
 	char* node_name = aux_node->child->brother->value; // se houver problemas verificar este print
 	char* node_type = Node_names[aux_node->child->type];
-	printf("VarDecl node_name = %s | node_type = %s\n",node_name,node_type);
+//	printf("VarDecl node_name = %s | node_type = %s\n",node_name,node_type);
 	if (strcmp("StringArray",node_type)==0){
 		node_type="String[]";
 	}
@@ -106,6 +109,9 @@ void add_vardecl(Table* tbl, Node* aux_node){ // int a, b;
 	}
 	if (strcmp("Void",node_type)==0){
 		node_type="void";
+	}
+	if (strcmp("Bool",node_type)==0){
+		node_type="boolean";
 	}
 	Symbol *new_symbol = create_symbol(node_name,node_type,0,0);
 	if(tbl != NULL){
@@ -151,6 +157,9 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	if (strcmp("Void",node_type)==0){
 		node_type="void";
 	}
+	if (strcmp("Bool",node_type)==0){
+		node_type="boolean";
+	}
 	new_symbol = create_symbol("return",node_type,0,1);
 	insert_symbol(method_tbl,new_symbol);
 		
@@ -180,6 +189,9 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 			}
 			if (strcmp("Void",paramtype)==0){
 				paramtype ="void";
+			}
+			if (strcmp("Bool",paramtype)==0){
+				paramtype="boolean";
 			}
 
 			//printf("<<>><<>> TIPO: %s\n",insideparam->brother->value);
