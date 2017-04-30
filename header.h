@@ -134,6 +134,7 @@ typedef struct symbol{
 	char *type;
 	int param; // 0=false ou 1=true
 	int varmethod; // 0=var ou 1=method
+	struct table table_pointer; // só usado se for um MethodDecl
 	struct symbol *brother;
 } Symbol;
 
@@ -156,7 +157,7 @@ Symbol *create_symbol(char *name, char *type, int param,int vm);
 Symbol *search_symbol(Table *tbl, char* sbl_name);
 Table *search_table(char* tbl_name);
 void print_Table(Table *t);
-void print_params(Symbol *s);
+void print_symbols(Symbol *s);
 char * get_params(Table *t);
 
 

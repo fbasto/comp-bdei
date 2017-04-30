@@ -157,6 +157,7 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	//criar simbolo para adicionar a tabela da classe
 	
 	new_symbol = create_symbol(node_name,node_type,0,1);
+	new_symbol->table_pointer = method_tbl;
 	insert_symbol(class_table,new_symbol);
 
 	//TODO: ver todos os ParamDecl e criar simbolos para por na tabela, isto ainda nao esta a funcionar bem

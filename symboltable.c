@@ -86,12 +86,12 @@ void print_Table(Table *t){
 	while(aux != NULL){
 		if (aux->type == 0){
 			printf("===== Class %s Symbol Table =====\n", aux->name);	
-			print_params(aux->child);
+			print_symbols(aux->child);
 		}
 		else{
 			char *params = get_params(aux);
 			printf("===== Method %s(%s) Symbol Table =====\n",aux->name,params);
-			print_params(aux->child);
+			print_symbols(aux->child);
 		}
 		aux = aux->brother;
 	}
@@ -124,14 +124,22 @@ char *get_params(Table *t){
 
 }
 
-void print_params(Symbol *s){
+void print_symbols(Symbol *s){
 	Symbol *aux = s;
 //	printf("IMprimir params: %s\n",aux->type);
 	while(aux != NULL){
 		if (aux->param == 1)
 			printf("%s\t%s\tparam\n", aux->name, aux->type);
-		else
-			printf("%s\t%s\n", aux->name, aux->type);
+		else{
+			if(aux->varmethod == 1){
+				char* method_params = get_params(aux->table_pointer);
+				printf("%s\t(%s)\t%s\n",aux->name,method_params,aux_type);
+			}
+			else{
+				printf("%s\t%s\n",aux->name,aux->type);
+			}
+		}
+
 //falta o caso para ter mais que um argumento de um funcao
 		aux= aux->brother;
 	}
