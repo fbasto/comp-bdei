@@ -126,14 +126,15 @@ char *get_params(Table *t){
 
 void print_symbols(Symbol *s){
 	Symbol *aux = s;
+	char* method_params;
 //	printf("IMprimir params: %s\n",aux->type);
 	while(aux != NULL){
 		if (aux->param == 1)
 			printf("%s\t%s\tparam\n", aux->name, aux->type);
 		else{
 			if(aux->varmethod == 1){
-				char* method_params = get_params(aux->table_pointer);
-				printf("%s\t(%s)\t%s\n",aux->name,method_params,aux_type);
+				method_params = get_params(aux->table_pointer);
+				printf("%s\t(%s)\t%s\n",aux->name,method_params,aux->type);
 			}
 			else{
 				printf("%s\t%s\n",aux->name,aux->type);

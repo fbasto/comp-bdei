@@ -134,7 +134,7 @@ typedef struct symbol{
 	char *type;
 	int param; // 0=false ou 1=true
 	int varmethod; // 0=var ou 1=method
-	struct table table_pointer; // só usado se for um MethodDecl
+	struct table *table_pointer; // só usado se for um MethodDecl
 	struct symbol *brother;
 } Symbol;
 
