@@ -48,6 +48,7 @@ Symbol *create_symbol(char *name, char *type, int param, int vm){
 	symbol->param = param;
 	symbol->brother = NULL;
 	symbol->varmethod = vm;
+	symbol->table_pointer = NULL;
 	return symbol;
 }
 
@@ -130,14 +131,14 @@ void print_symbols(Symbol *s){
 //	printf("IMprimir params: %s\n",aux->type);
 	while(aux != NULL){
 		if (aux->param == 1)
-			printf("%s\t%s\tparam\n", aux->name, aux->type);
+			printf("%s\t\t%s\tparam\n", aux->name, aux->type);
 		else{
-			if(aux->varmethod == 1){
+			if(aux->varmethod == 1 && aux->table_pointer != NULL){
 				method_params = get_params(aux->table_pointer);
 				printf("%s\t(%s)\t%s\n",aux->name,method_params,aux->type);
 			}
 			else{
-				printf("%s\t%s\n",aux->name,aux->type);
+				printf("%s\t\t%s\n",aux->name,aux->type);
 			}
 		}
 
@@ -145,3 +146,4 @@ void print_symbols(Symbol *s){
 		aux= aux->brother;
 	}
 }
+
