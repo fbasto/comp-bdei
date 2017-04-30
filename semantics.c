@@ -83,6 +83,18 @@ void add_vardecl(Table* tbl, Node* aux_node){ // int a, b;
 	char* node_name = aux_node->child->brother->value; // se houver problemas verificar este print
 	char* node_type = Node_names[aux_node->child->type];
 	printf("VarDecl node_name = %s | node_type = %s\n",node_name,node_type);
+	if (strcmp("StringArray",node_type)==0){
+		node_type="String[]";
+	}
+	if (strcmp("Int",node_type)==0){
+		node_type="int";
+	}
+	if (strcmp("Double",node_type)==0){
+		node_type="double";
+	}
+	if (strcmp("Void",node_type)==0){
+		node_type="void";
+	}
 	Symbol *new_symbol = create_symbol(node_name,node_type,0,0);
 	if(tbl != NULL){
 		if(search_symbol(tbl,node_name)==NULL){
@@ -115,6 +127,18 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	Symbol *new_symbol;
 
 	//printf(">>>>>>>>Method Decl Name: %s\n",node_name);
+	if (strcmp("StringArray",node_type)==0){
+		node_type="String[]";
+	}
+	if (strcmp("Int",node_type)==0){
+		node_type="int";
+	}
+	if (strcmp("Double",node_type)==0){
+		node_type="double";
+	}
+	if (strcmp("Void",node_type)==0){
+		node_type="void";
+	}
 	new_symbol = create_symbol("return",node_type,0,1);
 	insert_symbol(method_tbl,new_symbol);
 		
@@ -133,7 +157,16 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 		while(insideparam->brother != NULL){
 			paramtype = Node_names[insideparam->type];
 			if (strcmp("StringArray",paramtype)==0){
-				paramtype ="String []";
+				paramtype ="String[]";
+			}
+			if (strcmp("Int",paramtype)==0){
+				paramtype ="int";
+			}
+			if (strcmp("Double",paramtype)==0){
+				paramtype ="double";
+			}
+			if (strcmp("Void",paramtype)==0){
+				paramtype ="void";
 			}
 
 			//printf("<<>><<>> TIPO: %s\n",insideparam->brother->value);
