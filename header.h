@@ -67,9 +67,9 @@ static char *Node_notes[] = {
 	"NULL",
 	"NULL",
 	"NULL",
-	"NULL",
-	"NULL",
-	"NULL",
+	"int",
+	"int",
+	"int",
 	"bool",
 	"bool",
 	"bool",
@@ -218,3 +218,4 @@ void add_program(Node* aux_node);
 void add_methoddecl(Node* aux_node);
 void add_vardecl(Table *method_tbl, Node* aux_node);
 void add_fielddecl(Node* aux_node);
+
