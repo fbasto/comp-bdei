@@ -128,7 +128,7 @@ int main(int argc, char* argv[])
 			output = 0;
 			yyparse();
 			if(syn_error== 0){
-				print_tree(tree,0);
+				print_tree(tree,0,0,0);
 			}
 		}
 		else if(strcmp(argv[1],"-s") == 0){
@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
 			if(syn_error== 0){
 				create_symboltable(tree);
 				printf("\n");
-				print_tree(tree,0);
+				print_tree(tree,0,0,0); //anoted
 			}
 		}
 		else if(strcmp(argv[1],"-2") == 0){

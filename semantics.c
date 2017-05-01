@@ -91,27 +91,37 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 		node_type="boolean";
 	}
 	new_symbol = create_symbol(node_name,node_type,0,0);
-	insert_symbol(class_table,new_symbol);
+	if(search_symbol(class_table,node_name)==NULL){
+		insert_symbol(class_table,new_symbol);
+	}
+	else{
+		printf(semantic_errors[6],node_name);
+	}
 }
 
 void add_vardecl(Table* tbl, Node* aux_node){ // int a, b;
-	char* node_name = aux_node->child->brother->value; // se houver problemas verificar este print
+	char* node_name = aux_node->child->brother->value;
 	char* node_type = Node_names[aux_node->child->type];
 //	printf("VarDecl node_name = %s | node_type = %s\n",node_name,node_type);
 	if (strcmp("StringArray",node_type)==0){
 		node_type="String[]";
+		aux_node->child->brother->leaf_type="String[]"; 
 	}
 	if (strcmp("Int",node_type)==0){
 		node_type="int";
+		aux_node->child->brother->leaf_type="int";
 	}
 	if (strcmp("Double",node_type)==0){
 		node_type="double";
+		aux_node->child->brother->leaf_type="double";
 	}
 	if (strcmp("Void",node_type)==0){
 		node_type="void";
+		aux_node->child->brother->leaf_type="void";
 	}
 	if (strcmp("Bool",node_type)==0){
 		node_type="boolean";
+		aux_node->child->brother->leaf_type="boolean";
 	}
 	Symbol *new_symbol = create_symbol(node_name,node_type,0,0);
 	if(tbl != NULL){
@@ -147,18 +157,23 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	//printf(">>>>>>>>Method Decl Name: %s\n",node_name);
 	if (strcmp("StringArray",node_type)==0){
 		node_type="String[]";
+		aux_node->child->child->brother->leaf_type = "String[]";
 	}
 	if (strcmp("Int",node_type)==0){
 		node_type="int";
+		aux_node->child->child->brother->leaf_type = "int";
 	}
 	if (strcmp("Double",node_type)==0){
 		node_type="double";
+		aux_node->child->child->brother->leaf_type = "double";
 	}
 	if (strcmp("Void",node_type)==0){
 		node_type="void";
+		aux_node->child->child->brother->leaf_type = "void";
 	}
 	if (strcmp("Bool",node_type)==0){
 		node_type="boolean";
+		aux_node->child->child->brother->leaf_type = "boolean";
 	}
 	new_symbol = create_symbol("return",node_type,0,1);
 	insert_symbol(method_tbl,new_symbol);
@@ -180,18 +195,23 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 			paramtype = Node_names[insideparam->type];
 			if (strcmp("StringArray",paramtype)==0){
 				paramtype ="String[]";
+				insideparam->brother->leaf_type = "String[]";
 			}
 			if (strcmp("Int",paramtype)==0){
 				paramtype ="int";
+				insideparam->brother->leaf_type = "int";
 			}
 			if (strcmp("Double",paramtype)==0){
 				paramtype ="double";
+				insideparam->brother->leaf_type = "double";
 			}
 			if (strcmp("Void",paramtype)==0){
 				paramtype ="void";
+				insideparam->brother->leaf_type = "void";
 			}
 			if (strcmp("Bool",paramtype)==0){
 				paramtype="boolean";
+				insideparam->brother->leaf_type = "boolean";
 			}
 
 			//printf("<<>><<>> TIPO: %s\n",insideparam->brother->value);

@@ -9,6 +9,7 @@ Node *create_node(Node_type type){
 		node->child = NULL;
 		node->brother= NULL;
 		node->value = NULL;
+		node->leaf_type = NULL;
 	}
 	return node;
 }
