@@ -46,11 +46,11 @@ void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
 	if(anoted==1 && authorization==1){
 		if(node->type == NODE_Id){
 			//if(tbl->name != NULL){
-				//printf("CRRT TBL = %s\n",tbl->name);
+			//	printf("CRRT TBL = %s\n",tbl->name);
 			//}
 			saux = search_symbol(tbl,node->value);
 			if(saux == NULL){
-				search_symbol(symbol_table,node->value);
+				saux = search_symbol(symbol_table,node->value);
 			}
 			printf("%s(%s) - %s\n",Node_names[node->type],node->value,saux->type);
 		}
