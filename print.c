@@ -1,11 +1,12 @@
 #include "header.h"
 
+extern Table *symbol_table;
 
-void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization){ //anoted_tree=0 normal || anoted_tree=1 anotada
+void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization, Table *tbl){ //anoted_tree=0 normal || anoted_tree=1 anotada
 	print_points(level);
 	if(node != NULL){
 		if (node->type == NODE_Id || node->type == NODE_Reallit || node->type == NODE_Declit || node->type == NODE_Strlit || node->type == NODE_Boolit){
-			print_leaf(node,anoted_tree,anoted_authorization);
+			print_leaf(node,anoted_tree,anoted_authorization,tbl);
 		}
 		else{
 			print_nodetype(node->type,anoted_tree);
@@ -17,11 +18,15 @@ void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization){ 
 		else{
 			anoted_authorization = 0;
 		}
+		if(node->type==NODE_MethodDecl){
+			tbl = search_table(node->child->child->brother->value);
+			printf("Switching to table %s\n",tbl->name);
+		}
 		if (child != NULL){
-			print_tree(child,level+1,anoted_tree,anoted_authorization);
+			print_tree(child,level+1,anoted_tree,anoted_authorization,tbl);
 			while(child->brother != NULL){
 				child = child->brother;
-				print_tree(child,level+1,anoted_tree,anoted_authorization);
+				print_tree(child,level+1,anoted_tree,anoted_authorization,tbl);
 			}
 		}
 	}
@@ -35,9 +40,23 @@ void print_points(int n){
 	}
 }
 
-void print_leaf(Node *node,int anoted,int authorization){
+void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
+	//printf("TBL = %s\n",tbl->name);
+	Symbol *saux;
 	if(anoted==1 && authorization==1){
-		printf("%s(%s) - %s\n",Node_names[node->type],node->value,node->leaf_type);
+		if(node->type == NODE_Id){
+			//if(tbl->name != NULL){
+				//printf("CRRT TBL = %s\n",tbl->name);
+			//}
+			saux = search_symbol(tbl,node->value);
+			if(saux == NULL){
+				search_symbol(symbol_table,node->value);
+			}
+			printf("%s(%s) - %s\n",Node_names[node->type],node->value,saux->type);
+		}
+		else{
+			printf("%s(%s) - %s\n",Node_names[node->type],node->value,Node_notes[node->type]);
+		}
 	}
 	else{
 		printf("%s(%s)\n",Node_names[node->type],node->value);

@@ -191,9 +191,9 @@ typedef struct symbol{
 
 
 //falta um array com o nome dos nos
-void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization);
+void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization,Table *tbl);
 void print_points(int n);
-void print_leaf(Node *node,int anoted,int authorization);
+void print_leaf(Node *node,int anoted,int authorization,Table *tbl);
 void print_nodetype(Node_type type,int anoted);
 Node *create_node(Node_type type);
 //Node *insert_leaf_node(Node_type type,char *value);
