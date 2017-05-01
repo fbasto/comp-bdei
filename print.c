@@ -11,13 +11,13 @@ void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization){ 
 			print_nodetype(node->type,anoted_tree);
 		}
 		Node *child = node->child;
+		if(node->type!=NODE_Program && node->type!=NODE_FieldDecl && node->type!=NODE_VarDecl && node->type!=NODE_MethodDecl && node->type!=NODE_MethodHeader && node->type!=NODE_MethodParams && node->type!=NODE_ParamDecl && node->type!=NODE_MethodBody){
+			anoted_authorization = 1;
+		}
+		else{
+			anoted_authorization = 0;
+		}
 		if (child != NULL){
-			if(node->type!=NODE_Program || node->type!=NODE_FieldDecl || node->type!=NODE_VarDecl || node->type!=NODE_MethodDecl || node->type!=NODE_MethodHeader || node->type!=NODE_MethodParams || node->type!=NODE_ParamDecl || node->type!=NODE_MethodBody){
-				anoted_authorization = 1;
-			}
-			else{
-				anoted_authorization = 0;
-			}
 			print_tree(child,level+1,anoted_tree,anoted_authorization);
 			while(child->brother != NULL){
 				child = child->brother;

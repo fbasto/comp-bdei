@@ -123,6 +123,7 @@ void add_vardecl(Table* tbl, Node* aux_node){ // int a, b;
 		node_type="boolean";
 		aux_node->child->brother->leaf_type="boolean";
 	}
+	printf("VarDecl added:%s\n",aux_node->child->brother->value);
 	Symbol *new_symbol = create_symbol(node_name,node_type,0,0);
 	if(tbl != NULL){
 		if(search_symbol(tbl,node_name)==NULL){
@@ -236,3 +237,4 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	}
 
 }
+
