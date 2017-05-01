@@ -12,7 +12,7 @@ void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization){ 
 		}
 		Node *child = node->child;
 		if (child != NULL){
-			if(node->type!=Node_Program || node->type!=Node_FieldDecl || node->type!=VarDecl || node->type!=MethodDecl || node->type!=MethodHeader || node->type!=MethodParams || node->type!=ParamDecl || node->type!=MethodBody){
+			if(node->type!=NODE_Program || node->type!=NODE_FieldDecl || node->type!=NODE_VarDecl || node->type!=NODE_MethodDecl || node->type!=NODE_MethodHeader || node->type!=NODE_MethodParams || node->type!=NODE_ParamDecl || node->type!=NODE_MethodBody){
 				anoted_authorization = 1;
 			}
 			else{
