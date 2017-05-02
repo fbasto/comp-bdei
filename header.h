@@ -67,7 +67,8 @@ static char *Node_notes[] = {
 	"NULL",
 	"NULL",
 	"NULL",
-	"int",
+
+	"DYN",
 	"int",
 	"int",
 	"boolean",
@@ -98,7 +99,7 @@ static char *Node_notes[] = {
 	"NULL",
 	"NULL",
 	"NULL",
-	"NULL",
+	"NULL"
 };
 
 typedef enum {
@@ -194,7 +195,7 @@ typedef struct symbol{
 void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization,Table *tbl);
 void print_points(int n);
 void print_leaf(Node *node,int anoted,int authorization,Table *tbl);
-void print_nodetype(Node_type type,int anoted);
+void print_nodetype(Node *node,int anoted,Table *tbl);
 Node *create_node(Node_type type);
 //Node *insert_leaf_node(Node_type type,char *value);
 void insert_child(Node *father,Node *child);

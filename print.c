@@ -9,7 +9,7 @@ void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization, T
 			print_leaf(node,anoted_tree,anoted_authorization,tbl);
 		}
 		else{
-			print_nodetype(node->type,anoted_tree);
+			print_nodetype(node,anoted_tree,tbl);
 		}
 		Node *child = node->child;
 		if(node->type!=NODE_Program && node->type!=NODE_FieldDecl && node->type!=NODE_VarDecl && node->type!=NODE_MethodDecl && node->type!=NODE_MethodHeader && node->type!=NODE_MethodParams && node->type!=NODE_ParamDecl && node->type!=NODE_MethodBody){
@@ -63,11 +63,33 @@ void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
 	}
 }
 
-void print_nodetype(Node_type type,int anoted){
-	if(anoted==1 && Node_notes[type] != "NULL"){
-		printf("%s - %s\n",Node_names[type],Node_notes[type]);
+void print_nodetype(Node *node,int anoted, Table *tbl){
+	Symbol *saux;
+	if(anoted==1 && Node_notes[node->type] != "NULL" && Node_notes[node->type] != "DYN"){
+		printf("%s - %s\n",Node_names[node->type],Node_notes[node->type]);
+	}
+	else if(anoted==1 && Node_notes[node->type] == "DYN"){
+		if(node->type == NODE_Assign){
+			saux = search_symbol(tbl,node->child->value);
+			if(saux == NULL){
+				saux = search_symbol(symbol_table,node->child->value);
+			}
+			printf("%s - %s\n",Node_names[node->type],saux->type);
+		}/*
+		if(node->type == NODE_Add){
+		
+		}
+		if(node->type == NODE_Sub){
+		
+		}
+		if(node->type == NODE_Mul){
+		
+		}
+		if(node->type == NODE_Div){
+		
+		}*/	
 	}
 	else{
-		printf("%s\n",Node_names[type]);	
+		printf("%s\n",Node_names[node->type]);	
 	}
 }
