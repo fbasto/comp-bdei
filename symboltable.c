@@ -49,6 +49,7 @@ Symbol *create_symbol(char *name, char *type, int param, int vm){
 	symbol->brother = NULL;
 	symbol->varmethod = vm;
 	symbol->table_pointer = NULL;
+	symbol->declared = 0;
 	return symbol;
 }
 

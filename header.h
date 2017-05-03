@@ -187,6 +187,7 @@ typedef struct symbol{
 	int varmethod; // 0=var ou 1=method
 	struct table *table_pointer; // só usado se for um MethodDecl
 	struct symbol *brother;
+	int declared; //0=false ou 1=true
 } Symbol;
 
 
