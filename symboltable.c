@@ -26,7 +26,7 @@ Table *insert_table(char *name, int type){
 }
 
 void insert_symbol(Table *tbl, Symbol *sbl){
-	Symbol *i;
+	Symbol *i=NULL;
 	if(tbl != NULL){
 		if(tbl->child == NULL){
 			tbl->child = sbl;

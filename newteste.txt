@@ -1,0 +1,13 @@
+class gcg{
+	public static void a(int c, int d)
+	{
+		print(b0);
+		boolean b0;
+		print (b0);
+	}
+	public static int b0;
+
+
+
+
+}

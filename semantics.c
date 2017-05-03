@@ -50,7 +50,7 @@ void add_program(Node* aux_node){ // class gcd2{
 	//char* node_type = Node_names[aux_node->child->];
 	char* node_name = aux_node->child->value;
 	//Node* aux = aux_node->child;
-	Table* class_tbl;
+	Table* class_tbl=NULL;
 	//printf("Nome para a tabela: %s\n",node_name);
 	class_tbl = insert_table(node_name,0);
 	class_table = class_tbl;
