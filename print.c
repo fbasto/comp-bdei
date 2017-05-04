@@ -8,6 +8,9 @@ void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization, T
 	if(node != NULL){
 		if(node->type==NODE_VarDecl || node->type==NODE_ParamDecl){
 			sauxiliar = search_symbol(tbl,node->child->brother->value);
+			if(sauxiliar == NULL){
+				sauxiliar = search_symbol(symbol_table, node->child->brother->value);
+			}
 			sauxiliar->declared = 1;
 		}
 		if (node->type == NODE_Id || node->type == NODE_Reallit || node->type == NODE_Declit || node->type == NODE_Strlit || node->type == NODE_Boolit){
@@ -82,8 +85,7 @@ void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
 		}
 	}
 	else{
-		
-			printf("HEY\n");
+		//printf("HEY\n");
 		printf("%s(%s)\n",Node_names[node->type],node->value);
 	}
 }
