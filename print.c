@@ -96,10 +96,10 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 	char caux2[500] = "";
 	char type1[500] = "";
 	char type2[500] = "";
-	if(anoted==1 && Node_notes[node->type] != "NULL" && Node_notes[node->type] != "DYN"){
+	if(anoted==1 && strcmp(Node_notes[node->type],"NULL") != 0 && strcmp(Node_notes[node->type],"DYN") != 0){
 		printf("%s - %s\n",Node_names[node->type],Node_notes[node->type]);
 	}
-	else if(anoted==1 && Node_notes[node->type] == "DYN"){
+	else if(anoted==1 && strcmp(Node_notes[node->type],"DYN")==0){
 		if(node->type == NODE_Assign){
 			saux = get_symbolID(tbl,node->child);
 			if(saux == NULL){
@@ -129,7 +129,7 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 			node->child->method_params = caux2;
 			//printf("METHODPARAMS: %s\n",caux2);			taux=symbol_table;
 			taux=symbol_table;
-			/*while(taux != NULL){
+			while(taux != NULL){
 				//printf("taux->method_params=%s | cmp=%s\n",get_params(taux),node->child->method_params);
 				if((strcmp(taux->name,node->child->value)== 0 && strcmp(get_params(taux),node->child->method_params)==0)){
 					break;
@@ -144,8 +144,8 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 			}				
 			else{
 				printf("%s - undef\n",Node_names[node->type]);
-			}*/
-			printf("%s - porfazer\n",Node_names[node->type]);
+			}
+			//printf("%s - porfazer\n",Node_names[node->type]);
 			
 				
 		}
@@ -184,9 +184,9 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 					strcpy(caux,"double");
 				}
 			}
-			if(caux != NULL){
+			//if(caux != NULL){
 				printf("%s - %s\n",Node_names[node->type],caux);
-			}			
+			//}			
 		}
 	}
 	else{
