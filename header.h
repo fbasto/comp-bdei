@@ -178,6 +178,7 @@ typedef struct table{
 	int type; // 0=class ou 1=method
 	struct symbol *child;
 	struct table *brother;
+	char *method_params;
 } Table;
 
 typedef struct symbol{

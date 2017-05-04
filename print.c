@@ -70,6 +70,7 @@ void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
 void print_nodetype(Node *node, int anoted, Table *tbl){
 	Symbol *saux = NULL;
 	Symbol *saux2 = NULL;
+	Table *taux = NULL;
 	char caux[500] = "";
 	char type1[500] = "";
 	char type2[500] = "";
@@ -104,12 +105,13 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 				strcpy(type2,Node_names[node->child->brother->type]);
 			}
 			if(strcmp("double",type1)==0){
-				if(strcmp("double",type2)==0){
+				strcpy(caux,"double");
+				/*if(strcmp("double",type2)==0){
 					strcpy(caux,"double");
 				}
 				else if(strcmp("int",type2)==0){
 					strcpy(caux,"double");
-				}
+				}*/
 			}
 			else if(strcmp("int",type1)==0){
 				if(strcmp("int",type2)==0){
@@ -137,3 +139,5 @@ Symbol* get_symbolID(Table *tbl, Node *node){
 	}
 	return saux;
 }
+
+
