@@ -82,6 +82,8 @@ void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
 		}
 	}
 	else{
+		
+			printf("HEY\n");
 		printf("%s(%s)\n",Node_names[node->type],node->value);
 	}
 }
