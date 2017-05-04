@@ -79,10 +79,10 @@ static char *Node_notes[] = {
 	"boolean",
 	"boolean",
 	"boolean",
-	"Add",
-	"Sub",
-	"Mul",
-	"Div",
+	"DYN",
+	"DYN",
+	"DYN",
+	"DYN",
 	"int",
 	"Not",
 	"Minus",
@@ -95,7 +95,7 @@ static char *Node_notes[] = {
 	"NULL",
 	"NULL",
 	"double",
-	"String[]",
+	"String",
 	"NULL",
 	"NULL",
 	"NULL",
@@ -194,6 +194,7 @@ typedef struct symbol{
 
 //falta um array com o nome dos nos
 void print_tree(Node *node,int level,int anoted_tree,int anoted_authorization,Table *tbl);
+Symbol* get_symbolID(Table *tbl, Node *node);
 void print_points(int n);
 void print_leaf(Node *node,int anoted,int authorization,Table *tbl);
 void print_nodetype(Node *node,int anoted,Table *tbl);
