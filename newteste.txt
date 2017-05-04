@@ -1,5 +1,5 @@
 class gcg{
-	public static void a(int c, int d)
+	public static void a(int a, int d)
 	{
 		System.out.println(b0);
 		boolean b0;

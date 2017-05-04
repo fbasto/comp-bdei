@@ -48,14 +48,26 @@ void print_points(int n){
 void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
 	//printf("TBL = %s\n",tbl->name);
 	Symbol *saux;
+	Table *taux;
 	if(anoted==1 && authorization==1){
+		taux = symbol_table;
 		if(node->type == NODE_Id){
-			saux = get_symbolID(tbl, node);
-			if(saux == NULL){
-				printf("Erro ID nao declarado\n");
+			if (node->varmethod == 0){
+				saux = get_symbolID(tbl, node);
+				if(saux == NULL){
+					printf("Erro ID nao declarado\n");
+				}
+				else if(saux != NULL){
+					printf("%s(%s) - %s\n",Node_names[node->type],node->value,saux->type);
+				}
 			}
-			else if(saux != NULL){
-				printf("%s(%s) - %s\n",Node_names[node->type],node->value,saux->type);
+			else{
+				while(strcmp(taux->name,node->value)!= 0 && strcmp(taux->method_params,node->method_params)!=0 && taux != NULL){
+					taux = taux->brother;	
+				}
+				if (taux != NULL){
+					printf("%s(%s) - %s\n",Node_names[node->type],node->value,taux->method_params);
+				}
 			}
 		}
 		else{
@@ -69,9 +81,12 @@ void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
 
 void print_nodetype(Node *node, int anoted, Table *tbl){
 	Symbol *saux = NULL;
+	Symbol *saux3 = NULL;
 	Symbol *saux2 = NULL;
+	Node *node_aux=NULL;
 	Table *taux = NULL;
 	char caux[500] = "";
+	char caux2[500] = "";
 	char type1[500] = "";
 	char type2[500] = "";
 	if(anoted==1 && Node_notes[node->type] != "NULL" && Node_notes[node->type] != "DYN"){
@@ -87,6 +102,30 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 				printf("%s - %s\n",Node_names[node->type],saux->type);
 			}
 		}
+		if (node->type == NODE_Call){
+			saux = get_symbolID(tbl,node->child);
+			node->child->varmethod = 1;
+			node_aux = node->child->brother;
+
+			printf("109\n");
+			while(node_aux != NULL){
+				saux3 = get_symbolID(tbl,node_aux);
+				printf("NODE NAME: %s\nNODE TYPE: %s\n",node_aux->value,Node_names[node_aux->type]);
+				if(strcmp(caux2,"")==0){
+					strcpy(caux2,saux3->type);
+				}
+				else{
+					strcat(caux2,",");
+					strcat(caux2,saux3->type);			
+				}
+				node_aux = node->brother;
+			}			
+			node->child->method_params = caux2;
+			printf("METHODPARAMS: %s\n",caux2);
+
+				
+		}
+
 		if(node->type == NODE_Add || node->type == NODE_Sub || node->type == NODE_Mul || node->type == NODE_Div){
 			//printf("Op. Aritmetica - type of 1st: %s\n",Node_names[node->child->type]);
 			if(strcmp(Node_names[node->child->type],"Id")== 0){

@@ -1,0 +1,6 @@
+class gcd2 {
+public static int ola(int h){
+	int a,b,c;
+ 	b= a+ ola;
+}
+}

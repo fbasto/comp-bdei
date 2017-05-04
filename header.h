@@ -69,7 +69,7 @@ static char *Node_notes[] = {
 	"NULL",
 
 	"DYN",
-	"int",
+	"DYN",
 	"int",
 	"boolean",
 	"boolean",
@@ -170,6 +170,8 @@ typedef struct node{
 	struct node *child;
 	char *value;
 	char *leaf_type;
+	int varmethod; // igual ao symbol
+	char *method_params;
 }Node;
 
 // Symbol table
