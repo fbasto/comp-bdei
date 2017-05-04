@@ -11,7 +11,7 @@ Table *insert_table(char *name, int type){
 	table_aux->type = type;
 	table_aux->brother = NULL;
 	table_aux->child = NULL;
-	table_aux->method_params = NULL;
+	table_aux->method_params = "";
 	Table *i;
 	if(symbol_table == NULL){
 		symbol_table = table_aux;
@@ -141,7 +141,6 @@ void print_symbols(Symbol *s){
 			if(aux->varmethod == 1 && aux->table_pointer != NULL){
 				method_params = get_params(aux->table_pointer);
 				printf("%s\t(%s)\t%s\n",aux->name,method_params,aux->type);
-				aux->table_pointer->method_params = method_params;
 			}
 			else{
 				printf("%s\t\t%s\n",aux->name,aux->type);

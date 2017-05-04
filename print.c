@@ -62,11 +62,18 @@ void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
 				}
 			}
 			else{
-				while(strcmp(taux->name,node->value)!= 0 && strcmp(taux->method_params,node->method_params)!=0 && taux != NULL){
-					taux = taux->brother;	
+				while(taux != NULL){
+					//printf("taux->method_params=%s | cmp=%s\n",get_params(taux),node->method_params);
+					if((strcmp(taux->name,node->value)== 0 && strcmp(get_params(taux),node->method_params)==0)){
+						break;
+					}
+					taux = taux->brother;
+					if(taux == NULL){
+						printf("Tabela null a procurar por parametros de metodo\n");
+					}
 				}
 				if (taux != NULL){
-					printf("%s(%s) - %s\n",Node_names[node->type],node->value,taux->method_params);
+					printf("%s(%s) - (%s)\n",Node_names[node->type],node->value,node->method_params);
 				}
 			}
 		}
@@ -107,10 +114,9 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 			node->child->varmethod = 1;
 			node_aux = node->child->brother;
 
-			printf("109\n");
 			while(node_aux != NULL){
 				saux3 = get_symbolID(tbl,node_aux);
-				printf("NODE NAME: %s\nNODE TYPE: %s\n",node_aux->value,Node_names[node_aux->type]);
+				//printf("NODE NAME: %s\nNODE TYPE: %s\n",node_aux->value,Node_names[node_aux->type]);
 				if(strcmp(caux2,"")==0){
 					strcpy(caux2,saux3->type);
 				}
@@ -118,11 +124,29 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 					strcat(caux2,",");
 					strcat(caux2,saux3->type);			
 				}
-				node_aux = node->brother;
+				node_aux = node_aux->brother;
 			}			
 			node->child->method_params = caux2;
-			printf("METHODPARAMS: %s\n",caux2);
-
+			//printf("METHODPARAMS: %s\n",caux2);			taux=symbol_table;
+			taux=symbol_table;
+			/*while(taux != NULL){
+				//printf("taux->method_params=%s | cmp=%s\n",get_params(taux),node->child->method_params);
+				if((strcmp(taux->name,node->child->value)== 0 && strcmp(get_params(taux),node->child->method_params)==0)){
+					break;
+				}
+				taux = taux->brother;
+				if(taux == NULL){
+					printf("Tabela null a procurar por parametros de metodo\n");
+				}
+			}
+			if(strcmp(taux->child->name,"return")==0){
+				printf("%s - %s\n",Node_names[node->type],taux->child->type);
+			}				
+			else{
+				printf("%s - undef\n",Node_names[node->type]);
+			}*/
+			printf("%s - porfazer\n",Node_names[node->type]);
+			
 				
 		}
 
