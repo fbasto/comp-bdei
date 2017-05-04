@@ -1,0 +1,14 @@
+class gcd2 {
+public static int gcd;
+public static void main(String[] args) {
+int a, b;
+a = 1;
+b = 2;
+gcd = addab(a, b);
+System.out.println(gcd);
+public static int addab(int a, int b) {
+int c;
+c = a + b;
+return c;
+}
+}
