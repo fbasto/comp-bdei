@@ -1,13 +1,11 @@
 class gcd2 {
 public static int a(){
+	double c;
 	c = 10;
 	b(c);
-  int a;
-  boolean b;
-
 }
 public static void b(double s){
-  a=true;
+  s = 1;
 }
-public static int c;
+public static double c;
 }

@@ -66,7 +66,7 @@ void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
 			}
 			else{
 				while(taux != NULL){
-					//printf("taux->method_params=%s | cmp=%s\n",get_params(taux),node->method_params);
+					printf("taux->method_params=%s | cmp=%s\n",get_params(taux),node->method_params);
 					if((strcmp(taux->name,node->value)== 0 && strcmp(get_params(taux),node->method_params)==0)){
 						break;
 					}
