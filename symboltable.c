@@ -45,8 +45,7 @@ void insert_symbol(Table *tbl, Symbol *sbl){
 
 Symbol *create_symbol(char *name, char *type, int param, int vm){
 	Symbol *symbol = (Symbol*) malloc(sizeof(Symbol));
-	symbol->name = (char*)malloc(sizeof(name));
-	strcpy(symbol->name,name);
+	symbol->name = name;
 	symbol->type = type;
 	symbol->param = param;
 	symbol->brother = NULL;

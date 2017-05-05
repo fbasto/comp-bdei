@@ -1,0 +1,25 @@
+class gcd2 {
+public static int cccccccccccccccccccccccccccccccccccccccccccccccc;
+public static void bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb(String[] args) {
+int aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, b;
+if (args.length >= 2) {
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = Integer.parseInt(args[0]);
+b = Integer.parseInt(args[1]);
+cccccccccccccccccccccccccccccccccccccccccccccccc = cccccccccccccccccccccccccccccccccccccccccccccccc(aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, b);
+System.out.println(cccccccccccccccccccccccccccccccccccccccccccccccc);
+} else
+System.out.println("Error: two parameters required.");
+}
+public static int cccccccccccccccccccccccccccccccccccccccccccccccc(int aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, int b) {
+if (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa == 0)
+return b;
+else {
+while (b > 0)
+if (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa > b)
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-b;
+else
+b = b-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
+return aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
+}
+}
+}
