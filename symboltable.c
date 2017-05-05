@@ -96,6 +96,8 @@ void print_Table(Table *t){
 		}
 		else{
 			char *params = get_params(aux);
+			//char *params = (char*)malloc(sizeof(get_params(aux)));
+			//strcpy(params,get_params(aux));
 			printf("===== Method %s(%s) Symbol Table =====\n",aux->name,params);
 			print_symbols(aux->child);
 		}
@@ -108,7 +110,6 @@ void print_Table(Table *t){
 }
 
 char *get_params(Table *t){
-//TODO: criar uma funcao que devolva uma string com todos os tipos dos params de maneira a que de para por dentro dos () das tabelas dos metodos
 	Symbol* son = t->child;
 	char *retstring = (char*)malloc(sizeof(""));
 	strcpy(retstring,"");
@@ -118,12 +119,12 @@ char *get_params(Table *t){
 			//printf("param confirmed: adding\n");
 			if(strcmp(retstring,"")==0){
 				retstring = (char*)malloc(sizeof(son->type));
-				strcpy(retstring,son->type);
+				retstring = strdup(son->type);
 			}
 			else{
 				char *temp = (char*)malloc(sizeof(retstring));
 				strcpy(temp,retstring);
-				retstring = (char*)malloc(sizeof(retstring)+sizeof(son->type)+sizeof(","));
+				retstring = (char*)malloc(sizeof(retstring)+sizeof(son->type)+sizeof(",")+1);
 				retstring = strcat(temp,",");
 				strcat(retstring,son->type);		
 			}
@@ -146,7 +147,7 @@ void print_symbols(Symbol *s){
 		else{
 			if(aux->varmethod == 1 && aux->table_pointer != NULL){
 				method_params = (char*) malloc(sizeof(get_params(aux->table_pointer)));
-				strcpy(method_params,get_params(aux->table_pointer));
+				method_params = strdup(get_params(aux->table_pointer));
 				printf("%s\t(%s)\t%s\n",aux->name,method_params,aux->type);
 			}
 			else{
