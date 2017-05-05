@@ -107,7 +107,10 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 }
 
 void add_vardecl(Table* tbl, Node* aux_node){ // int a, b;
-	char* node_name = aux_node->child->brother->value;
+
+	char* node_name;
+	node_name = (char*)malloc(sizeof(aux_node->child->brother->value));
+	node_name = aux_node->child->brother->value;
 	char* node_type = Node_names[aux_node->child->type];
 //	printf("VarDecl node_name = %s | node_type = %s\n",node_name,node_type);
 	if (strcmp("StringArray",node_type)==0){
@@ -135,7 +138,7 @@ void add_vardecl(Table* tbl, Node* aux_node){ // int a, b;
 		node_type="boolean";
 		//aux_node->child->brother->leaf_type="boolean";
 	}
-	printf("VarDecl added: %s\n",aux_node->child->brother->value);
+	//printf("VarDecl added: %s\n",aux_node->child->brother->value);
 	Symbol *new_symbol = create_symbol(node_name,node_type,0,0);
 	if(tbl != NULL){
 		if(search_symbol(tbl,node_name)==NULL){
