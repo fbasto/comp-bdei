@@ -86,7 +86,6 @@ Table *search_table(char* tbl_name){
 void print_Table(Table *t){
 	Table * aux;
 	aux = t;
-	char *params;
 	//printf("Table name: %s\n", aux->name);
 	//printf("Antes de imprimir tabela\n");
 	while(aux != NULL){
@@ -95,7 +94,7 @@ void print_Table(Table *t){
 			print_symbols(aux->child);
 		}
 		else{
-			params = strdup(get_params(aux));
+			char *params = get_params(aux);
 			//char *params = (char*)malloc(sizeof(get_params(aux)));
 			//strcpy(params,get_params(aux));
 			printf("===== Method %s(%s) Symbol Table =====\n",aux->name,params);
@@ -113,24 +112,20 @@ char *get_params(Table *t){
 	Symbol* son = t->child;
 	char *retstring = (char*)malloc(sizeof(""));
 	strcpy(retstring,"");
-	char *temp = (char*)malloc(sizeof(""));
-	strcpy(temp,"");
 	while(son != NULL){
 		//printf("Checking if [ %s - %s ] is a param\n",son->name,son->type);
 		if(son->param == 1){
-			printf("param confirmed: adding %s\n",son->type);
+			//printf("param confirmed: adding\n");
 			if(strcmp(retstring,"")==0){
-				//retstring = (char*)malloc(sizeof(son->type));
+				retstring = (char*)malloc(sizeof(son->type));
 				retstring = strdup(son->type);
 			}
 			else{
-				temp = (char*)malloc(sizeof(retstring));
+				char *temp = (char*)malloc(sizeof(retstring));
 				strcpy(temp,retstring);
-				retstring = (char*)malloc(sizeof(retstring)+sizeof(son->type)+sizeof(","));
-				strcat(temp,",");
-				strcat(temp,son->type);	
-				retstring = strdup(temp);
-				printf("added\n");
+				retstring = (char*)malloc(sizeof(retstring)+sizeof(son->type)+sizeof(",")+1);
+				retstring = strcat(temp,",");
+				strcat(retstring,son->type);		
 			}
 		}
 		son=son->brother;
@@ -150,6 +145,7 @@ void print_symbols(Symbol *s){
 			printf("%s\t\t%s\tparam\n", aux->name, aux->type);
 		else{
 			if(aux->varmethod == 1 && aux->table_pointer != NULL){
+				method_params = (char*) malloc(sizeof(get_params(aux->table_pointer)));
 				method_params = strdup(get_params(aux->table_pointer));
 				printf("%s\t(%s)\t%s\n",aux->name,method_params,aux->type);
 			}
