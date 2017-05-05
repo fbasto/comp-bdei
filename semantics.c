@@ -37,8 +37,7 @@ void create_symboltable(Node *node){
 }
 
 void analyze_node(Node* aux_node){
-	char *aux_name = (char*)malloc(sizeof(Node_names[aux_node->type]));
-	aux_name = Node_names[aux_node->type];
+	char *aux_name = Node_names[aux_node->type];
 	if(strcmp("FieldDecl",aux_name)==0){
 		add_fielddecl(aux_node);
 	}
@@ -170,6 +169,8 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	char *paramtype;
 	Symbol *new_symbol;
 
+	Node* paramdecl;
+
 	//printf(">>>>>>>>Method Decl Name: %s\n",node_name);
 	if (strcmp("StringArray",node_type)==0){
 		node_type = (char*)malloc(sizeof("String[]"));
@@ -205,16 +206,14 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	new_symbol->table_pointer = method_tbl;
 	insert_symbol(class_table,new_symbol);
 
-	//TODO: ver todos os ParamDecl e criar simbolos para por na tabela, isto ainda nao esta a funcionar bem
-	
-	Node* paramdecl;
+
 	paramdecl = aux_node->child->child->brother->brother->child;
 	//printf(">>> Paramdecl: %s\n",Node_names[paramdecl->type]);
 	while(paramdecl != NULL){ 
 		insideparam = paramdecl->child;
 		while(insideparam->brother != NULL){
 			paramtype = (char*)malloc(sizeof(Node_names[insideparam->type]));
-			paramtype = Node_names[insideparam->type];
+			strcpy(paramtype,Node_names[insideparam->type]);
 			if (strcmp("StringArray",paramtype)==0){
 				paramtype = (char*)malloc(sizeof("String[]"));
 				strcpy(paramtype,"String[]");
@@ -246,10 +245,9 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 			//printf("METHOD TABLE : %s\n", method_tbl->name);
 			insert_symbol(method_tbl,new_symbol);
 			//insert_symbol(class_table,new_symbol);
-			insideparam= insideparam->brother;	
+			insideparam=insideparam->brother;	
 		}
 		paramdecl=paramdecl->brother;
-
 	}
 	
 	Node* mbchild; // Ponteiro do MethodBody's Child
