@@ -110,7 +110,7 @@ void print_Table(Table *t){
 
 char *get_params(Table *t){
 	Symbol* son = t->child;
-	char *retstring = (char*)malloc(sizeof(""));
+	char *retstring = (char*)malloc(sizeof("")+sizeof(char));
 	strcpy(retstring,"");
 	while(son != NULL){
 		//printf("Checking if [ %s - %s ] is a param\n",son->name,son->type);
@@ -123,7 +123,7 @@ char *get_params(Table *t){
 			else{
 				//char *temp = (char*)malloc(sizeof(retstring));
 				//strcpy(temp,retstring);
-				retstring = (char*)realloc(retstring,sizeof(char)*(strlen(retstring)+strlen(son->type)+1));
+				retstring = (char*)realloc(retstring,sizeof(char)*(strlen(retstring)+strlen(son->type)+sizeof(char)+1));
 				strcat(retstring,",");
 				strcat(retstring,son->type);			
 			}
