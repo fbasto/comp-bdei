@@ -37,7 +37,8 @@ void create_symboltable(Node *node){
 }
 
 void analyze_node(Node* aux_node){
-	char *aux_name = Node_names[aux_node->type];
+	char *aux_name = (char*)malloc(sizeof(Node_names[aux_node->type]));
+	aux_name = Node_names[aux_node->type];
 	if(strcmp("FieldDecl",aux_name)==0){
 		add_fielddecl(aux_node);
 	}
@@ -76,7 +77,7 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 	char *node_type = (char*)malloc(sizeof(Node_names[aux_node->child->type]));
 	strcpy(node_type,Node_names[aux_node->child->type]);
 	char *node_name = (char*)malloc(sizeof(aux_node->child->brother->value));
-	strcpy(node_name,aux_node->child->brother->value);
+	node_name = strdup(aux_node->child->brother->value);
 	if (strcmp("StringArray",node_type)==0){
 		node_type = (char*)malloc(sizeof("String[]"));
 		node_type="String[]";
