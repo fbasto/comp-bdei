@@ -8,8 +8,12 @@ Node *create_node(Node_type type){
 		node->type = type;
 		node->child = NULL;
 		node->brother= NULL;
+		node->father = NULL;
 		node->value = NULL;
 		node->leaf_type = NULL;
+		node->varmethod = 0;
+		node->method_params = (char*)malloc(sizeof(""));
+		strcpy(node->method_params,"");
 	}
 	return node;
 }

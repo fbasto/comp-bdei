@@ -73,21 +73,28 @@ void add_fielddecl(Node* aux_node){ // class gcd2{ public static int gcd; -- gcd
 	// }
 
 	Symbol *new_symbol;
-	char *node_type = Node_names[aux_node->child->type];
-	char *node_name = aux_node->child->brother->value;
+	char *node_type = (char*)malloc(sizeof(Node_names[aux_node->child->type]));
+	strcpy(node_type,Node_names[aux_node->child->type]);
+	char *node_name = (char*)malloc(sizeof(aux_node->child->brother->value));
+	strcpy(node_name,aux_node->child->brother->value);
 	if (strcmp("StringArray",node_type)==0){
+		node_type = (char*)malloc(sizeof("String[]"));
 		node_type="String[]";
 	}
 	if (strcmp("Int",node_type)==0){
+		node_type = (char*)malloc(sizeof("int"));
 		node_type="int";
 	}
 	if (strcmp("Double",node_type)==0){
+		node_type = (char*)malloc(sizeof("double"));
 		node_type="double";
 	}
 	if (strcmp("Void",node_type)==0){
+		node_type = (char*)malloc(sizeof("void"));
 		node_type="void";
 	}
 	if (strcmp("Bool",node_type)==0){
+		node_type = (char*)malloc(sizeof("boolean"));
 		node_type="boolean";
 	}
 	new_symbol = create_symbol(node_name,node_type,0,0);
@@ -104,26 +111,31 @@ void add_vardecl(Table* tbl, Node* aux_node){ // int a, b;
 	char* node_type = Node_names[aux_node->child->type];
 //	printf("VarDecl node_name = %s | node_type = %s\n",node_name,node_type);
 	if (strcmp("StringArray",node_type)==0){
+		node_type = (char*)malloc(sizeof("String[]"));
 		node_type="String[]";
-		aux_node->child->brother->leaf_type="String[]"; 
+		//aux_node->child->brother->leaf_type="String[]"; 
 	}
 	if (strcmp("Int",node_type)==0){
+		node_type = (char*)malloc(sizeof("int"));
 		node_type="int";
-		aux_node->child->brother->leaf_type="int";
+		//aux_node->child->brother->leaf_type="int";
 	}
 	if (strcmp("Double",node_type)==0){
+		node_type = (char*)malloc(sizeof("double"));
 		node_type="double";
-		aux_node->child->brother->leaf_type="double";
+		//aux_node->child->brother->leaf_type="double";
 	}
 	if (strcmp("Void",node_type)==0){
+		node_type = (char*)malloc(sizeof("void"));
 		node_type="void";
-		aux_node->child->brother->leaf_type="void";
+		//aux_node->child->brother->leaf_type="void";
 	}
 	if (strcmp("Bool",node_type)==0){
+		node_type = (char*)malloc(sizeof("boolean"));
 		node_type="boolean";
-		aux_node->child->brother->leaf_type="boolean";
+		//aux_node->child->brother->leaf_type="boolean";
 	}
-	printf("VarDecl added:%s\n",aux_node->child->brother->value);
+	printf("VarDecl added: %s\n",aux_node->child->brother->value);
 	Symbol *new_symbol = create_symbol(node_name,node_type,0,0);
 	if(tbl != NULL){
 		if(search_symbol(tbl,node_name)==NULL){
@@ -148,8 +160,10 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	// 	}
 	// }
 
-	char *node_type = Node_names[aux_node->child->child->type];
-	char *node_name = aux_node->child->child->brother->value;
+	char *node_type = (char*)malloc(sizeof(Node_names[aux_node->child->child->type]));
+	node_type = Node_names[aux_node->child->child->type];
+	char *node_name = (char*)malloc(sizeof(aux_node->child->child->brother->value));
+	node_name = aux_node->child->child->brother->value;
 	Table *method_tbl = insert_table(node_name,1);
 	Node* insideparam;
 	char *paramtype;
@@ -157,24 +171,29 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 
 	//printf(">>>>>>>>Method Decl Name: %s\n",node_name);
 	if (strcmp("StringArray",node_type)==0){
+		node_type = (char*)malloc(sizeof("String[]"));
 		node_type="String[]";
-		aux_node->child->child->brother->leaf_type = "String[]";
+		//aux_node->child->child->brother->leaf_type = "String[]";
 	}
 	if (strcmp("Int",node_type)==0){
+		node_type = (char*)malloc(sizeof("int"));
 		node_type="int";
-		aux_node->child->child->brother->leaf_type = "int";
+		//aux_node->child->child->brother->leaf_type = "int";
 	}
 	if (strcmp("Double",node_type)==0){
+		node_type = (char*)malloc(sizeof("double"));
 		node_type="double";
-		aux_node->child->child->brother->leaf_type = "double";
+		//aux_node->child->child->brother->leaf_type = "double";
 	}
 	if (strcmp("Void",node_type)==0){
+		node_type = (char*)malloc(sizeof("void"));
 		node_type="void";
-		aux_node->child->child->brother->leaf_type = "void";
+		//aux_node->child->child->brother->leaf_type = "void";
 	}
 	if (strcmp("Bool",node_type)==0){
+		node_type = (char*)malloc(sizeof("boolean"));
 		node_type="boolean";
-		aux_node->child->child->brother->leaf_type = "boolean";
+		//aux_node->child->child->brother->leaf_type = "boolean";
 	}
 	new_symbol = create_symbol("return",node_type,0,1);
 	insert_symbol(method_tbl,new_symbol);
@@ -190,29 +209,35 @@ void add_methoddecl(Node* aux_node){ // public static int gcd(int a, int b)
 	Node* paramdecl;
 	paramdecl = aux_node->child->child->brother->brother->child;
 	//printf(">>> Paramdecl: %s\n",Node_names[paramdecl->type]);
-	while(paramdecl != NULL){ // if ParamDecl != null
+	while(paramdecl != NULL){ 
 		insideparam = paramdecl->child;
 		while(insideparam->brother != NULL){
+			paramtype = (char*)malloc(sizeof(Node_names[insideparam->type]));
 			paramtype = Node_names[insideparam->type];
 			if (strcmp("StringArray",paramtype)==0){
-				paramtype ="String[]";
-				insideparam->brother->leaf_type = "String[]";
+				paramtype = (char*)malloc(sizeof("String[]"));
+				strcpy(paramtype,"String[]");
+				//insideparam->brother->leaf_type = "String[]";
 			}
 			if (strcmp("Int",paramtype)==0){
-				paramtype ="int";
-				insideparam->brother->leaf_type = "int";
+				paramtype = (char*)malloc(sizeof("int"));
+				strcpy(paramtype,"int");
+				//insideparam->brother->leaf_type = "int";
 			}
 			if (strcmp("Double",paramtype)==0){
-				paramtype ="double";
-				insideparam->brother->leaf_type = "double";
+				paramtype = (char*)malloc(sizeof("double"));
+				strcpy(paramtype,"double");
+				//insideparam->brother->leaf_type = "double";
 			}
 			if (strcmp("Void",paramtype)==0){
-				paramtype ="void";
-				insideparam->brother->leaf_type = "void";
+				paramtype = (char*)malloc(sizeof("void"));
+				strcpy(paramtype,"void");
+				//insideparam->brother->leaf_type = "void";
 			}
 			if (strcmp("Bool",paramtype)==0){
-				paramtype="boolean";
-				insideparam->brother->leaf_type = "boolean";
+				paramtype = (char*)malloc(sizeof("boolean"));
+				strcpy(paramtype,"boolean");
+				//insideparam->brother->leaf_type = "boolean";
 			}
 
 			//printf("<<>><<>> TIPO: %s\n",insideparam->brother->value);

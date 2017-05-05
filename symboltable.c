@@ -11,7 +11,8 @@ Table *insert_table(char *name, int type){
 	table_aux->type = type;
 	table_aux->brother = NULL;
 	table_aux->child = NULL;
-	table_aux->method_params = "";
+	table_aux->method_params = (char*)malloc(sizeof(""));
+	strcpy(table_aux->method_params,"");
 	Table *i;
 	if(symbol_table == NULL){
 		symbol_table = table_aux;
@@ -44,7 +45,8 @@ void insert_symbol(Table *tbl, Symbol *sbl){
 
 Symbol *create_symbol(char *name, char *type, int param, int vm){
 	Symbol *symbol = (Symbol*) malloc(sizeof(Symbol));
-	symbol->name = name;
+	symbol->name = (char*)malloc(sizeof(name));
+	strcpy(symbol->name,name);
 	symbol->type = type;
 	symbol->param = param;
 	symbol->brother = NULL;
@@ -108,25 +110,29 @@ void print_Table(Table *t){
 char *get_params(Table *t){
 //TODO: criar uma funcao que devolva uma string com todos os tipos dos params de maneira a que de para por dentro dos () das tabelas dos metodos
 	Symbol* son = t->child;
-	char retstring[500] = "";
+	char *retstring = (char*)malloc(sizeof(""));
+	strcpy(retstring,"");
 	while(son != NULL){
 		//printf("Checking if [ %s - %s ] is a param\n",son->name,son->type);
 		if(son->param == 1){
 			//printf("param confirmed: adding\n");
 			if(strcmp(retstring,"")==0){
+				retstring = (char*)malloc(sizeof(son->type));
 				strcpy(retstring,son->type);
 			}
 			else{
-				strcat(retstring,",");
-				strcat(retstring,son->type);			
+				char *temp = (char*)malloc(sizeof(retstring));
+				strcpy(temp,retstring);
+				retstring = (char*)malloc(sizeof(retstring)+sizeof(son->type)+sizeof(","));
+				retstring = strcat(temp,",");
+				strcat(retstring,son->type);		
 			}
 		}
 		son=son->brother;
 	}
 	//printf("retstr=%s\n",retstring);
 	//printf("Params colecionados\n");
-	char *ret = retstring;
-	return ret;
+	return retstring;
 
 }
 
@@ -139,7 +145,8 @@ void print_symbols(Symbol *s){
 			printf("%s\t\t%s\tparam\n", aux->name, aux->type);
 		else{
 			if(aux->varmethod == 1 && aux->table_pointer != NULL){
-				method_params = get_params(aux->table_pointer);
+				method_params = (char*) malloc(sizeof(get_params(aux->table_pointer)));
+				strcpy(method_params,get_params(aux->table_pointer));
 				printf("%s\t(%s)\t%s\n",aux->name,method_params,aux->type);
 			}
 			else{

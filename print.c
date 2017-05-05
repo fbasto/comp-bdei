@@ -66,7 +66,7 @@ void print_leaf(Node *node,int anoted,int authorization,Table *tbl){
 			}
 			else{
 				while(taux != NULL){
-					printf("taux->method_params=%s | cmp=%s\n",get_params(taux),node->method_params);
+					//printf("taux->method_params=%s | cmp=%s\n",get_params(taux),node->method_params);
 					if((strcmp(taux->name,node->value)== 0 && strcmp(get_params(taux),node->method_params)==0)){
 						break;
 					}
@@ -96,10 +96,12 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 	Symbol *saux2 = NULL;
 	Node *node_aux=NULL;
 	Table *taux = NULL;
-	char caux[500] = "";
-	char caux2[500] = "";
-	char type1[500] = "";
-	char type2[500] = "";
+	char *caux = (char*)malloc(sizeof(""));
+	strcpy(caux,"");
+	char *caux2 = (char*)malloc(sizeof(""));
+	strcpy(caux2,"");
+	char *type1;
+	char *type2;
 	if(anoted==1 && strcmp(Node_notes[node->type],"NULL") != 0 && strcmp(Node_notes[node->type],"DYN") != 0){
 		printf("%s - %s\n",Node_names[node->type],Node_notes[node->type]);
 	}
@@ -117,20 +119,30 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 			saux = get_symbolID(tbl,node->child);
 			node->child->varmethod = 1;
 			node_aux = node->child->brother;
-
+			//printf("b4while\n");
 			while(node_aux != NULL){
 				saux3 = get_symbolID(tbl,node_aux);
 				//printf("NODE NAME: %s\nNODE TYPE: %s\n",node_aux->value,Node_names[node_aux->type]);
 				if(strcmp(caux2,"")==0){
+					//printf("v1 caux2=%s\n",caux2);
+					caux2 = (char*)malloc(sizeof(saux3->type));
 					strcpy(caux2,saux3->type);
+					//printf("v1 caux2 v2=%s\n",caux2);
 				}
 				else{
-					strcat(caux2,",");
-					strcat(caux2,saux3->type);			
+					//printf("v2 caux2=%s\n",caux2);
+					char *temp = (char*)malloc(sizeof(caux2));
+					strcpy(temp,caux2);
+					caux2 = (char*)malloc(sizeof(caux2)+sizeof(",")+sizeof(saux3->type));
+					caux2 = strcat(temp,",");
+					strcat(caux2,saux3->type);
+					//printf("v2 caux2 v2=%s\n",caux2);			
 				}
 				node_aux = node_aux->brother;
-			}			
-			node->child->method_params = caux2;
+			}
+			//printf("afterwhile\n");
+			node->child->method_params = (char*)malloc(sizeof(caux2));
+			strcpy(node->child->method_params,caux2);
 			//printf("METHODPARAMS: %s\n",caux2);			taux=symbol_table;
 			taux=symbol_table;
 			while(taux != NULL){
@@ -158,20 +170,25 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 			//printf("Op. Aritmetica - type of 1st: %s\n",Node_names[node->child->type]);
 			if(strcmp(Node_names[node->child->type],"Id")== 0){
 				saux = get_symbolID(tbl,node->child);
+				type1 = (char*)malloc(sizeof(saux->type));
 				strcpy(type1,saux->type);
 				//printf("type1=%s\n",type1);
 			}
 			else{
+				type1 = (char*)malloc(sizeof(Node_names[node->child->type]));
 				strcpy(type1,Node_names[node->child->type]);
 			}
 			if(strcmp(Node_names[node->child->brother->type],"Id")== 0){
 				saux2 = get_symbolID(tbl,node->child->brother);
+				type2 = (char*)malloc(sizeof(saux2->type));
 				strcpy(type2,saux2->type);
 			}
 			else{
+				type2 = (char*)malloc(sizeof(Node_names[node->child->brother->type]));
 				strcpy(type2,Node_names[node->child->brother->type]);
 			}
 			if(strcmp("double",type1)==0){
+				caux = (char*)malloc(sizeof("double"));
 				strcpy(caux,"double");
 				/*if(strcmp("double",type2)==0){
 					strcpy(caux,"double");
@@ -182,9 +199,11 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 			}
 			else if(strcmp("int",type1)==0){
 				if(strcmp("int",type2)==0){
+					caux = (char*)malloc(sizeof("int"));
 					strcpy(caux,"int");
 				}
 				else if(strcmp("double",type2)==0){
+					caux = (char*)malloc(sizeof("double"));
 					strcpy(caux,"double");
 				}
 			}
