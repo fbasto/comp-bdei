@@ -143,6 +143,7 @@ void print_nodetype(Node *node, int anoted, Table *tbl){
 			//printf("afterwhile\n");
 			node->child->method_params = (char*)malloc(sizeof(caux2));
 			strcpy(node->child->method_params,caux2);
+			//node->child->method_params = strdup(caux2);
 			//printf("METHODPARAMS: %s\n",caux2);			taux=symbol_table;
 			taux=symbol_table;
 			while(taux != NULL){

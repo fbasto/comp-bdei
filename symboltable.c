@@ -117,15 +117,15 @@ char *get_params(Table *t){
 		if(son->param == 1){
 			//printf("param confirmed: adding\n");
 			if(strcmp(retstring,"")==0){
-				retstring = (char*)malloc(sizeof(son->type));
+				//retstring = (char*)malloc(sizeof(son->type));
 				retstring = strdup(son->type);
 			}
 			else{
-				char *temp = (char*)malloc(sizeof(retstring));
-				strcpy(temp,retstring);
-				retstring = (char*)malloc(sizeof(retstring)+sizeof(son->type)+sizeof(",")+1);
-				retstring = strcat(temp,",");
-				strcat(retstring,son->type);		
+				//char *temp = (char*)malloc(sizeof(retstring));
+				//strcpy(temp,retstring);
+				retstring = (char*)realloc(retstring,sizeof(char)*(strlen(retstring)+strlen(son->type)+1));
+				strcat(retstring,",");
+				strcat(retstring,son->type);			
 			}
 		}
 		son=son->brother;
@@ -145,8 +145,8 @@ void print_symbols(Symbol *s){
 			printf("%s\t\t%s\tparam\n", aux->name, aux->type);
 		else{
 			if(aux->varmethod == 1 && aux->table_pointer != NULL){
-				method_params = (char*) malloc(sizeof(get_params(aux->table_pointer)));
-				method_params = strdup(get_params(aux->table_pointer));
+				//method_params = (char*) malloc(sizeof(get_params(aux->table_pointer)));
+				method_params = get_params(aux->table_pointer);
 				printf("%s\t(%s)\t%s\n",aux->name,method_params,aux->type);
 			}
 			else{

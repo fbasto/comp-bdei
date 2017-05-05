@@ -1,5 +1,5 @@
 class gcd2 {
   public static int gcd;
-  public static void main(int a,double b,boolean c) {
+  public static void main(int a,double b) {
   }
 }
